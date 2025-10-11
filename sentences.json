@@ -984,6 +984,26 @@
             "past": { "parts": ["김치를", "먹어", "봤어요"], "meaning": "I tried eating kimchi" },
             "present": { "parts": ["김치를", "먹어", "봐요"], "meaning": "I try eating kimchi" },
             "future": { "parts": ["김치를", "먹어", "볼", "거예요"], "meaning": "I will try eating kimchi" }
+          },
+          {
+            "past": { "parts": ["해", "봤어요"], "meaning": "I tried doing it" },
+            "present": { "parts": ["해", "봐요"], "meaning": "I try doing it" },
+            "future": { "parts": ["해", "볼", "거예요"], "meaning": "I will try doing it" }
+          },
+          {
+            "past": { "parts": ["입어", "봤어요"], "meaning": "I tried wearing it" },
+            "present": { "parts": ["입어", "봐요"], "meaning": "I try wearing it" },
+            "future": { "parts": ["입어", "볼", "거예요"], "meaning": "I will try wearing it" }
+          },
+          {
+            "past": { "parts": ["마셔", "봤어요"], "meaning": "I tried drinking it" },
+            "present": { "parts": ["마셔", "봐요"], "meaning": "I try drinking it" },
+            "future": { "parts": ["마셔", "볼", "거예요"], "meaning": "I will try drinking it" }
+          },
+          {
+            "past": { "parts": ["가", "봤어요"], "meaning": "I tried going" },
+            "present": { "parts": ["가", "봐요"], "meaning": "I try going" },
+            "future": { "parts": ["가", "볼", "거예요"], "meaning": "I will try going" }
           }
         ],
         "intermediate": [
@@ -991,6 +1011,26 @@
             "past": { "parts": ["한복을", "입어", "봤어요"], "meaning": "I tried wearing hanbok" },
             "present": { "parts": ["한복을", "입어", "봐요"], "meaning": "I try wearing hanbok" },
             "future": { "parts": ["한복을", "입어", "볼", "거예요"], "meaning": "I will try wearing hanbok" }
+          },
+          {
+            "past": { "parts": ["한국", "음식을", "만들어", "봤어요"], "meaning": "I tried making Korean food" },
+            "present": { "parts": ["한국", "음식을", "만들어", "봐요"], "meaning": "I try making Korean food" },
+            "future": { "parts": ["한국", "음식을", "만들어", "볼", "거예요"], "meaning": "I will try making Korean food" }
+          },
+          {
+            "past": { "parts": ["한국어로", "말해", "봤어요"], "meaning": "I tried speaking in Korean" },
+            "present": { "parts": ["한국어로", "말해", "봐요"], "meaning": "I try speaking in Korean" },
+            "future": { "parts": ["한국어로", "말해", "볼", "거예요"], "meaning": "I will try speaking in Korean" }
+          },
+          {
+            "past": { "parts": ["새로운", "운동을", "해", "봤어요"], "meaning": "I tried new exercises" },
+            "present": { "parts": ["새로운", "운동을", "해", "봐요"], "meaning": "I try new exercises" },
+            "future": { "parts": ["새로운", "운동을", "해", "볼", "거예요"], "meaning": "I will try new exercises" }
+          },
+          {
+            "past": { "parts": ["그", "식당에", "가", "봤어요"], "meaning": "I tried going to that restaurant" },
+            "present": { "parts": ["그", "식당에", "가", "봐요"], "meaning": "I try going to that restaurant" },
+            "future": { "parts": ["그", "식당에", "가", "볼", "거예요"], "meaning": "I will try going to that restaurant" }
           }
         ],
         "advanced": [
@@ -998,6 +1038,26 @@
             "past": { "parts": ["그", "방법을", "한번", "해", "봤어요"], "meaning": "I tried that method once" },
             "present": { "parts": ["새로운", "것을", "자주", "해", "봐요"], "meaning": "I often try new things" },
             "future": { "parts": ["내일", "다시", "한번", "해", "볼", "거예요"], "meaning": "I will try again tomorrow" }
+          },
+          {
+            "past": { "parts": ["번지점프를", "해", "봤어요"], "meaning": "I tried bungee jumping" },
+            "present": { "parts": ["새로운", "운동을", "해", "봐요"], "meaning": "I try new exercises" },
+            "future": { "parts": ["스카이다이빙을", "해", "볼", "거예요"], "meaning": "I will try skydiving" }
+          },
+          {
+            "past": { "parts": ["그", "책을", "읽어", "봤어요"], "meaning": "I tried reading that book" },
+            "present": { "parts": ["다양한", "장르를", "읽어", "봐요"], "meaning": "I try reading various genres" },
+            "future": { "parts": ["추천받은", "책을", "읽어", "볼", "거예요"], "meaning": "I will try reading the recommended book" }
+          },
+          {
+            "past": { "parts": ["새로운", "취미를", "시작해", "봤어요"], "meaning": "I tried starting a new hobby" },
+            "present": { "parts": ["다양한", "활동을", "해", "봐요"], "meaning": "I try various activities" },
+            "future": { "parts": ["요가를", "배워", "볼", "거예요"], "meaning": "I will try learning yoga" }
+          },
+          {
+            "past": { "parts": ["혼자", "여행해", "봤어요"], "meaning": "I tried traveling alone" },
+            "present": { "parts": ["새로운", "장소를", "방문해", "봐요"], "meaning": "I try visiting new places" },
+            "future": { "parts": ["해외", "여행을", "해", "볼", "거예요"], "meaning": "I will try traveling overseas" }
           }
         ]
       }
@@ -1014,6 +1074,26 @@
             "past": { "parts": ["친구가", "되게", "됐어요"], "meaning": "We became friends" },
             "present": { "parts": ["친구가", "되게", "돼요"], "meaning": "We become friends" },
             "future": { "parts": ["친구가", "되게", "될", "거예요"], "meaning": "We will become friends" }
+          },
+          {
+            "past": { "parts": ["알게", "됐어요"], "meaning": "I came to know" },
+            "present": { "parts": ["알게", "돼요"], "meaning": "I come to know" },
+            "future": { "parts": ["알게", "될", "거예요"], "meaning": "I will come to know" }
+          },
+          {
+            "past": { "parts": ["가게", "됐어요"], "meaning": "I ended up going" },
+            "present": { "parts": ["가게", "돼요"], "meaning": "I come to go" },
+            "future": { "parts": ["가게", "될", "거예요"], "meaning": "I will come to go" }
+          },
+          {
+            "past": { "parts": ["하게", "됐어요"], "meaning": "I came to do" },
+            "present": { "parts": ["하게", "돼요"], "meaning": "I come to do" },
+            "future": { "parts": ["하게", "될", "거예요"], "meaning": "I will come to do" }
+          },
+          {
+            "past": { "parts": ["만나게", "됐어요"], "meaning": "I came to meet" },
+            "present": { "parts": ["만나게", "돼요"], "meaning": "I come to meet" },
+            "future": { "parts": ["만나게", "될", "거예요"], "meaning": "I will come to meet" }
           }
         ],
         "intermediate": [
@@ -1021,6 +1101,26 @@
             "past": { "parts": ["한국어를", "배우게", "됐어요"], "meaning": "I came to learn Korean" },
             "present": { "parts": ["한국어를", "배우게", "돼요"], "meaning": "I come to learn Korean" },
             "future": { "parts": ["한국어를", "배우게", "될", "거예요"], "meaning": "I will come to learn Korean" }
+          },
+          {
+            "past": { "parts": ["회사에", "다니게", "됐어요"], "meaning": "I came to work at a company" },
+            "present": { "parts": ["회사에", "다니게", "돼요"], "meaning": "I come to work at a company" },
+            "future": { "parts": ["회사에", "다니게", "될", "거예요"], "meaning": "I will come to work at a company" }
+          },
+          {
+            "past": { "parts": ["운전을", "하게", "됐어요"], "meaning": "I came to drive" },
+            "present": { "parts": ["운전을", "하게", "돼요"], "meaning": "I come to drive" },
+            "future": { "parts": ["운전을", "하게", "될", "거예요"], "meaning": "I will come to drive" }
+          },
+          {
+            "past": { "parts": ["요리를", "배우게", "됐어요"], "meaning": "I came to learn cooking" },
+            "present": { "parts": ["요리를", "배우게", "돼요"], "meaning": "I come to learn cooking" },
+            "future": { "parts": ["요리를", "배우게", "될", "거예요"], "meaning": "I will come to learn cooking" }
+          },
+          {
+            "past": { "parts": ["친해지게", "됐어요"], "meaning": "We became close" },
+            "present": { "parts": ["친해지게", "돼요"], "meaning": "We become close" },
+            "future": { "parts": ["친해지게", "될", "거예요"], "meaning": "We will become close" }
           }
         ],
         "advanced": [
@@ -1028,6 +1128,26 @@
             "past": { "parts": ["한국에서", "살게", "됐어요"], "meaning": "I ended up living in Korea" },
             "present": { "parts": ["매일", "운동하게", "돼요"], "meaning": "I come to exercise every day" },
             "future": { "parts": ["내년에", "졸업하게", "될", "거예요"], "meaning": "I will come to graduate next year" }
+          },
+          {
+            "past": { "parts": ["좋은", "사람을", "만나게", "됐어요"], "meaning": "I came to meet a good person" },
+            "present": { "parts": ["자주", "여행하게", "돼요"], "meaning": "I come to travel often" },
+            "future": { "parts": ["곧", "승진하게", "될", "거예요"], "meaning": "I will come to be promoted soon" }
+          },
+          {
+            "past": { "parts": ["그", "일을", "맡게", "됐어요"], "meaning": "I ended up taking on that work" },
+            "present": { "parts": ["책임을", "지게", "돼요"], "meaning": "I come to take responsibility" },
+            "future": { "parts": ["팀장이", "되게", "될", "거예요"], "meaning": "I will come to be a team leader" }
+          },
+          {
+            "past": { "parts": ["한국에", "관심을", "갖게", "됐어요"], "meaning": "I came to be interested in Korea" },
+            "present": { "parts": ["새로운", "것을", "배우게", "돼요"], "meaning": "I come to learn new things" },
+            "future": { "parts": ["전문가가", "되게", "될", "거예요"], "meaning": "I will come to be an expert" }
+          },
+          {
+            "past": { "parts": ["그", "사실을", "알게", "됐어요"], "meaning": "I came to know that fact" },
+            "present": { "parts": ["많은", "사람을", "만나게", "돼요"], "meaning": "I come to meet many people" },
+            "future": { "parts": ["성공하게", "될", "거예요"], "meaning": "I will come to succeed" }
           }
         ]
       }
@@ -1044,6 +1164,26 @@
             "past": { "parts": ["밥을", "먹고", "나서", "잤어요"], "meaning": "I slept after eating" },
             "present": { "parts": ["밥을", "먹고", "나서", "자요"], "meaning": "I sleep after eating" },
             "future": { "parts": ["밥을", "먹고", "나서", "잘", "거예요"], "meaning": "I will sleep after eating" }
+          },
+          {
+            "past": { "parts": ["숙제하고", "나서", "놀았어요"], "meaning": "I played after doing homework" },
+            "present": { "parts": ["숙제하고", "나서", "놀아요"], "meaning": "I play after doing homework" },
+            "future": { "parts": ["숙제하고", "나서", "놀", "거예요"], "meaning": "I will play after doing homework" }
+          },
+          {
+            "past": { "parts": ["씻고", "나서", "잤어요"], "meaning": "I slept after washing" },
+            "present": { "parts": ["씻고", "나서", "자요"], "meaning": "I sleep after washing" },
+            "future": { "parts": ["씻고", "나서", "잘", "거예요"], "meaning": "I will sleep after washing" }
+          },
+          {
+            "past": { "parts": ["먹고", "나서", "갔어요"], "meaning": "I went after eating" },
+            "present": { "parts": ["먹고", "나서", "가요"], "meaning": "I go after eating" },
+            "future": { "parts": ["먹고", "나서", "갈", "거예요"], "meaning": "I will go after eating" }
+          },
+          {
+            "past": { "parts": ["보고", "나서", "잤어요"], "meaning": "I slept after watching" },
+            "present": { "parts": ["보고", "나서", "자요"], "meaning": "I sleep after watching" },
+            "future": { "parts": ["보고", "나서", "잘", "거예요"], "meaning": "I will sleep after watching" }
           }
         ],
         "intermediate": [
@@ -1051,6 +1191,26 @@
             "past": { "parts": ["샤워하고", "나서", "잤어요"], "meaning": "I slept after showering" },
             "present": { "parts": ["샤워하고", "나서", "자요"], "meaning": "I sleep after showering" },
             "future": { "parts": ["샤워하고", "나서", "잘", "거예요"], "meaning": "I will sleep after showering" }
+          },
+          {
+            "past": { "parts": ["영화를", "보고", "나서", "집에", "갔어요"], "meaning": "I went home after watching the movie" },
+            "present": { "parts": ["영화를", "보고", "나서", "집에", "가요"], "meaning": "I go home after watching the movie" },
+            "future": { "parts": ["영화를", "보고", "나서", "집에", "갈", "거예요"], "meaning": "I will go home after watching the movie" }
+          },
+          {
+            "past": { "parts": ["운동하고", "나서", "샤워했어요"], "meaning": "I showered after exercising" },
+            "present": { "parts": ["운동하고", "나서", "샤워해요"], "meaning": "I shower after exercising" },
+            "future": { "parts": ["운동하고", "나서", "샤워할", "거예요"], "meaning": "I will shower after exercising" }
+          },
+          {
+            "past": { "parts": ["공부하고", "나서", "쉬었어요"], "meaning": "I rested after studying" },
+            "present": { "parts": ["공부하고", "나서", "쉬어요"], "meaning": "I rest after studying" },
+            "future": { "parts": ["공부하고", "나서", "쉴", "거예요"], "meaning": "I will rest after studying" }
+          },
+          {
+            "past": { "parts": ["청소하고", "나서", "나갔어요"], "meaning": "I went out after cleaning" },
+            "present": { "parts": ["청소하고", "나서", "나가요"], "meaning": "I go out after cleaning" },
+            "future": { "parts": ["청소하고", "나서", "나갈", "거예요"], "meaning": "I will go out after cleaning" }
           }
         ],
         "advanced": [
@@ -1058,6 +1218,26 @@
             "past": { "parts": ["회의가", "끝나고", "나서", "점심을", "먹었어요"], "meaning": "I ate lunch after the meeting ended" },
             "present": { "parts": ["일을", "하고", "나서", "쉬어요"], "meaning": "I rest after working" },
             "future": { "parts": ["일을", "다", "하고", "나서", "연락할", "거예요"], "meaning": "I will contact you after finishing all the work" }
+          },
+          {
+            "past": { "parts": ["졸업하고", "나서", "취직했어요"], "meaning": "I got a job after graduating" },
+            "present": { "parts": ["일을", "끝내고", "나서", "집에", "가요"], "meaning": "I go home after finishing work" },
+            "future": { "parts": ["프로젝트", "끝내고", "나서", "휴가", "갈", "거예요"], "meaning": "I will go on vacation after finishing the project" }
+          },
+          {
+            "past": { "parts": ["식사하고", "나서", "산책했어요"], "meaning": "I took a walk after eating" },
+            "present": { "parts": ["식사하고", "나서", "산책해요"], "meaning": "I take a walk after eating" },
+            "future": { "parts": ["식사하고", "나서", "산책할", "거예요"], "meaning": "I will take a walk after eating" }
+          },
+          {
+            "past": { "parts": ["준비하고", "나서", "출발했어요"], "meaning": "I departed after preparing" },
+            "present": { "parts": ["준비하고", "나서", "출발해요"], "meaning": "I depart after preparing" },
+            "future": { "parts": ["준비하고", "나서", "출발할", "거예요"], "meaning": "I will depart after preparing" }
+          },
+          {
+            "past": { "parts": ["생각하고", "나서", "결정했어요"], "meaning": "I decided after thinking" },
+            "present": { "parts": ["생각하고", "나서", "결정해요"], "meaning": "I decide after thinking" },
+            "future": { "parts": ["생각하고", "나서", "결정할", "거예요"], "meaning": "I will decide after thinking" }
           }
         ]
       }
@@ -1074,6 +1254,26 @@
             "past": { "parts": ["집에", "오자마자", "잤어요"], "meaning": "I slept as soon as I got home" },
             "present": { "parts": ["집에", "오자마자", "자요"], "meaning": "I sleep as soon as I get home" },
             "future": { "parts": ["집에", "오자마자", "잘", "거예요"], "meaning": "I will sleep as soon as I get home" }
+          },
+          {
+            "past": { "parts": ["보자마자", "웃었어요"], "meaning": "I smiled as soon as I saw" },
+            "present": { "parts": ["보자마자", "웃어요"], "meaning": "I smile as soon as I see" },
+            "future": { "parts": ["보자마자", "웃을", "거예요"], "meaning": "I will smile as soon as I see" }
+          },
+          {
+            "past": { "parts": ["듣자마자", "갔어요"], "meaning": "I went as soon as I heard" },
+            "present": { "parts": ["듣자마자", "가요"], "meaning": "I go as soon as I hear" },
+            "future": { "parts": ["듣자마자", "갈", "거예요"], "meaning": "I will go as soon as I hear" }
+          },
+          {
+            "past": { "parts": ["먹자마자", "나갔어요"], "meaning": "I left as soon as I ate" },
+            "present": { "parts": ["먹자마자", "나가요"], "meaning": "I leave as soon as I eat" },
+            "future": { "parts": ["먹자마자", "나갈", "거예요"], "meaning": "I will leave as soon as I eat" }
+          },
+          {
+            "past": { "parts": ["알자마자", "말했어요"], "meaning": "I spoke as soon as I knew" },
+            "present": { "parts": ["알자마자", "말해요"], "meaning": "I speak as soon as I know" },
+            "future": { "parts": ["알자마자", "말할", "거예요"], "meaning": "I will speak as soon as I know" }
           }
         ],
         "intermediate": [
@@ -1081,6 +1281,26 @@
             "past": { "parts": ["학교에", "도착하자마자", "수업이", "시작했어요"], "meaning": "Class started as soon as I arrived at school" },
             "present": { "parts": ["일어나자마자", "샤워해요"], "meaning": "I shower as soon as I wake up" },
             "future": { "parts": ["일어나자마자", "샤워할", "거예요"], "meaning": "I will shower as soon as I wake up" }
+          },
+          {
+            "past": { "parts": ["문을", "열자마자", "고양이가", "나갔어요"], "meaning": "The cat went out as soon as I opened the door" },
+            "present": { "parts": ["문을", "열자마자", "고양이가", "나가요"], "meaning": "The cat goes out as soon as I open the door" },
+            "future": { "parts": ["문을", "열자마자", "고양이가", "나갈", "거예요"], "meaning": "The cat will go out as soon as I open the door" }
+          },
+          {
+            "past": { "parts": ["일어나자마자", "샤워했어요"], "meaning": "I showered as soon as I woke up" },
+            "present": { "parts": ["일어나자마자", "샤워해요"], "meaning": "I shower as soon as I wake up" },
+            "future": { "parts": ["일어나자마자", "샤워할", "거예요"], "meaning": "I will shower as soon as I wake up" }
+          },
+          {
+            "past": { "parts": ["끝나자마자", "집에", "갔어요"], "meaning": "I went home as soon as it ended" },
+            "present": { "parts": ["끝나자마자", "집에", "가요"], "meaning": "I go home as soon as it ends" },
+            "future": { "parts": ["끝나자마자", "집에", "갈", "거예요"], "meaning": "I will go home as soon as it ends" }
+          },
+          {
+            "past": { "parts": ["도착하자마자", "전화했어요"], "meaning": "I called as soon as I arrived" },
+            "present": { "parts": ["도착하자마자", "전화해요"], "meaning": "I call as soon as I arrive" },
+            "future": { "parts": ["도착하자마자", "전화할", "거예요"], "meaning": "I will call as soon as I arrive" }
           }
         ],
         "advanced": [
@@ -1088,6 +1308,26 @@
             "past": { "parts": ["소식을", "듣자마자", "바로", "전화했어요"], "meaning": "I called right away as soon as I heard the news" },
             "present": { "parts": ["문을", "열자마자", "고양이가", "나가요"], "meaning": "The cat goes out as soon as I open the door" },
             "future": { "parts": ["졸업하자마자", "취직할", "거예요"], "meaning": "I will get a job as soon as I graduate" }
+          },
+          {
+            "past": { "parts": ["졸업하자마자", "취직했어요"], "meaning": "I got a job as soon as I graduated" },
+            "present": { "parts": ["문을", "열자마자", "고양이가", "나가요"], "meaning": "The cat goes out as soon as I open the door" },
+            "future": { "parts": ["졸업하자마자", "취직할", "거예요"], "meaning": "I will get a job as soon as I graduate" }
+          },
+          {
+            "past": { "parts": ["소식을", "듣자마자", "축하했어요"], "meaning": "I congratulated as soon as I heard the news" },
+            "present": { "parts": ["알자마자", "연락해요"], "meaning": "I contact as soon as I know" },
+            "future": { "parts": ["알게", "되자마자", "말할", "거예요"], "meaning": "I will tell as soon as I find out" }
+          },
+          {
+            "past": { "parts": ["끝나자마자", "다음", "일을", "시작했어요"], "meaning": "I started the next task as soon as I finished" },
+            "present": { "parts": ["하나", "끝나자마자", "다른", "것을", "시작해요"], "meaning": "I start another as soon as one ends" },
+            "future": { "parts": ["일이", "끝나자마자", "휴가", "갈", "거예요"], "meaning": "I will go on vacation as soon as work ends" }
+          },
+          {
+            "past": { "parts": ["받자마자", "읽었어요"], "meaning": "I read it as soon as I received it" },
+            "present": { "parts": ["받자마자", "읽어요"], "meaning": "I read as soon as I receive" },
+            "future": { "parts": ["받자마자", "읽을", "거예요"], "meaning": "I will read as soon as I receive" }
           }
         ]
       }
@@ -1100,13 +1340,23 @@
       "tenseVariations": false,
       "sentences": {
         "beginner": [
-          { "parts": ["들어가도", "돼요"], "meaning": "You may enter" }
+          { "parts": ["들어가도", "돼요"], "meaning": "You may enter" },
+          { "parts": ["먹어도", "돼요"], "meaning": "You may eat" },
+          { "parts": ["가도", "돼요"], "meaning": "You may go" },
+          { "parts": ["쉬어도", "돼요"], "meaning": "You may rest" },
+          { "parts": ["보도", "돼요"], "meaning": "You may watch" }
         ],
         "intermediate": [
-          { "parts": ["여기", "앉아도", "돼요"], "meaning": "You may sit here" }
+          { "parts": ["여기", "앉아도", "돼요"], "meaning": "You may sit here" },
+          { "parts": ["사진", "찍어도", "돼요"], "meaning": "You may take pictures" },
+          { "parts": ["질문해도", "돼요"], "meaning": "You may ask questions" },
+          { "parts": ["먼저", "가도", "돼요"], "meaning": "You may go first" }
         ],
         "advanced": [
-          { "parts": ["내일", "늦게", "와도", "돼요"], "meaning": "It is okay to come late tomorrow" }
+          { "parts": ["내일", "늦게", "와도", "돼요"], "meaning": "It is okay to come late tomorrow" },
+          { "parts": ["한국어로", "말해도", "돼요"], "meaning": "It is okay to speak in Korean" },
+          { "parts": ["이", "책을", "빌려도", "돼요"], "meaning": "It is okay to borrow this book" },
+          { "parts": ["창문을", "열어도", "돼요"], "meaning": "It is okay to open the window" }
         ]
       }
     }
