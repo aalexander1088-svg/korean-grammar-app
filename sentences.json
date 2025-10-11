@@ -614,6 +614,26 @@
             "past": { "parts": ["배고프니까", "밥을", "먹었어요"], "meaning": "I ate because I was hungry" },
             "present": { "parts": ["배고프니까", "밥을", "먹어요"], "meaning": "I eat because I am hungry" },
             "future": { "parts": ["배고프니까", "밥을", "먹을", "거예요"], "meaning": "I will eat because I am hungry" }
+          },
+          {
+            "past": { "parts": ["피곤하니까", "쉬었어요"], "meaning": "I rested because I was tired" },
+            "present": { "parts": ["피곤하니까", "쉬어요"], "meaning": "I rest because I am tired" },
+            "future": { "parts": ["피곤하니까", "쉴", "거예요"], "meaning": "I will rest because I am tired" }
+          },
+          {
+            "past": { "parts": ["춥니까", "문을", "닫았어요"], "meaning": "I closed the door because it was cold" },
+            "present": { "parts": ["춥니까", "문을", "닫아요"], "meaning": "I close the door because it is cold" },
+            "future": { "parts": ["춥니까", "문을", "닫을", "거예요"], "meaning": "I will close the door because it is cold" }
+          },
+          {
+            "past": { "parts": ["덥니까", "창문을", "열었어요"], "meaning": "I opened the window because it was hot" },
+            "present": { "parts": ["덥니까", "창문을", "열어요"], "meaning": "I open the window because it is hot" },
+            "future": { "parts": ["덥니까", "창문을", "열", "거예요"], "meaning": "I will open the window because it is hot" }
+          },
+          {
+            "past": { "parts": ["아프니까", "약을", "먹었어요"], "meaning": "I took medicine because I was sick" },
+            "present": { "parts": ["아프니까", "약을", "먹어요"], "meaning": "I take medicine because I am sick" },
+            "future": { "parts": ["아프니까", "약을", "먹을", "거예요"], "meaning": "I will take medicine because I am sick" }
           }
         ],
         "intermediate": [
@@ -621,6 +641,26 @@
             "past": { "parts": ["시간이", "없으니까", "택시를", "탔어요"], "meaning": "I took a taxi because I had no time" },
             "present": { "parts": ["시간이", "없으니까", "택시를", "타요"], "meaning": "I take a taxi because I have no time" },
             "future": { "parts": ["시간이", "없으니까", "택시를", "탈", "거예요"], "meaning": "I will take a taxi because I have no time" }
+          },
+          {
+            "past": { "parts": ["비가", "오니까", "우산을", "가져갔어요"], "meaning": "I took an umbrella because it was raining" },
+            "present": { "parts": ["비가", "오니까", "우산을", "가져가요"], "meaning": "I take an umbrella because it is raining" },
+            "future": { "parts": ["비가", "오니까", "우산을", "가져갈", "거예요"], "meaning": "I will take an umbrella because it is raining" }
+          },
+          {
+            "past": { "parts": ["늦었으니까", "빨리", "갔어요"], "meaning": "I went quickly because I was late" },
+            "present": { "parts": ["늦었으니까", "빨리", "가요"], "meaning": "I go quickly because I am late" },
+            "future": { "parts": ["늦었으니까", "빨리", "갈", "거예요"], "meaning": "I will go quickly because I am late" }
+          },
+          {
+            "past": { "parts": ["돈이", "없으니까", "못", "샀어요"], "meaning": "I could not buy it because I had no money" },
+            "present": { "parts": ["돈이", "없으니까", "못", "사요"], "meaning": "I cannot buy it because I have no money" },
+            "future": { "parts": ["돈이", "없으니까", "못", "살", "거예요"], "meaning": "I will not be able to buy it because I have no money" }
+          },
+          {
+            "past": { "parts": ["날씨가", "좋으니까", "산책했어요"], "meaning": "I took a walk because the weather was nice" },
+            "present": { "parts": ["날씨가", "좋으니까", "산책해요"], "meaning": "I take a walk because the weather is nice" },
+            "future": { "parts": ["날씨가", "좋으니까", "산책할", "거예요"], "meaning": "I will take a walk because the weather is nice" }
           }
         ],
         "advanced": [
@@ -628,6 +668,26 @@
             "past": { "parts": ["내일", "시험이", "있으니까", "어제", "공부했어요"], "meaning": "I studied yesterday because I have an exam tomorrow" },
             "present": { "parts": ["내일", "시험이", "있으니까", "오늘", "공부해요"], "meaning": "I study today because I have an exam tomorrow" },
             "future": { "parts": ["내일", "시험이", "있으니까", "오늘", "공부할", "거예요"], "meaning": "I will study today because I have an exam tomorrow" }
+          },
+          {
+            "past": { "parts": ["교통이", "복잡하니까", "일찍", "출발했어요"], "meaning": "I left early because traffic was heavy" },
+            "present": { "parts": ["교통이", "복잡하니까", "일찍", "출발해요"], "meaning": "I leave early because traffic is heavy" },
+            "future": { "parts": ["교통이", "복잡하니까", "일찍", "출발할", "거예요"], "meaning": "I will leave early because traffic is heavy" }
+          },
+          {
+            "past": { "parts": ["중요하니까", "신경", "썼어요"], "meaning": "I paid attention because it was important" },
+            "present": { "parts": ["중요하니까", "신경", "써요"], "meaning": "I pay attention because it is important" },
+            "future": { "parts": ["중요하니까", "신경", "쓸", "거예요"], "meaning": "I will pay attention because it is important" }
+          },
+          {
+            "past": { "parts": ["너무", "바쁘니까", "도와드렸어요"], "meaning": "I helped because they were too busy" },
+            "present": { "parts": ["너무", "바쁘니까", "도와드려요"], "meaning": "I help because they are too busy" },
+            "future": { "parts": ["너무", "바쁘니까", "도와드릴", "거예요"], "meaning": "I will help because they are too busy" }
+          },
+          {
+            "past": { "parts": ["약속이", "있으니까", "먼저", "갔어요"], "meaning": "I went first because I had an appointment" },
+            "present": { "parts": ["약속이", "있으니까", "먼저", "가요"], "meaning": "I go first because I have an appointment" },
+            "future": { "parts": ["약속이", "있으니까", "먼저", "갈", "거예요"], "meaning": "I will go first because I have an appointment" }
           }
         ]
       }
@@ -644,6 +704,26 @@
             "past": { "parts": ["운동하려고", "했어요"], "meaning": "I was planning to exercise" },
             "present": { "parts": ["운동하려고", "해요"], "meaning": "I am planning to exercise" },
             "future": { "parts": ["운동하려고", "할", "거예요"], "meaning": "I will plan to exercise" }
+          },
+          {
+            "past": { "parts": ["자려고", "했어요"], "meaning": "I was planning to sleep" },
+            "present": { "parts": ["자려고", "해요"], "meaning": "I am planning to sleep" },
+            "future": { "parts": ["자려고", "할", "거예요"], "meaning": "I will plan to sleep" }
+          },
+          {
+            "past": { "parts": ["먹으려고", "했어요"], "meaning": "I was planning to eat" },
+            "present": { "parts": ["먹으려고", "해요"], "meaning": "I am planning to eat" },
+            "future": { "parts": ["먹으려고", "할", "거예요"], "meaning": "I will plan to eat" }
+          },
+          {
+            "past": { "parts": ["사려고", "했어요"], "meaning": "I was planning to buy" },
+            "present": { "parts": ["사려고", "해요"], "meaning": "I am planning to buy" },
+            "future": { "parts": ["사려고", "할", "거예요"], "meaning": "I will plan to buy" }
+          },
+          {
+            "past": { "parts": ["보려고", "했어요"], "meaning": "I was planning to watch" },
+            "present": { "parts": ["보려고", "해요"], "meaning": "I am planning to watch" },
+            "future": { "parts": ["보려고", "할", "거예요"], "meaning": "I will plan to watch" }
           }
         ],
         "intermediate": [
@@ -651,6 +731,26 @@
             "past": { "parts": ["한국어를", "배우려고", "했어요"], "meaning": "I was planning to learn Korean" },
             "present": { "parts": ["한국어를", "배우려고", "해요"], "meaning": "I am planning to learn Korean" },
             "future": { "parts": ["한국어를", "배우려고", "할", "거예요"], "meaning": "I will plan to learn Korean" }
+          },
+          {
+            "past": { "parts": ["친구를", "만나려고", "했어요"], "meaning": "I was planning to meet a friend" },
+            "present": { "parts": ["친구를", "만나려고", "해요"], "meaning": "I am planning to meet a friend" },
+            "future": { "parts": ["친구를", "만나려고", "할", "거예요"], "meaning": "I will plan to meet a friend" }
+          },
+          {
+            "past": { "parts": ["여행을", "가려고", "했어요"], "meaning": "I was planning to travel" },
+            "present": { "parts": ["여행을", "가려고", "해요"], "meaning": "I am planning to travel" },
+            "future": { "parts": ["여행을", "가려고", "할", "거예요"], "meaning": "I will plan to travel" }
+          },
+          {
+            "past": { "parts": ["운동을", "시작하려고", "했어요"], "meaning": "I was planning to start exercising" },
+            "present": { "parts": ["운동을", "시작하려고", "해요"], "meaning": "I am planning to start exercising" },
+            "future": { "parts": ["운동을", "시작하려고", "할", "거예요"], "meaning": "I will plan to start exercising" }
+          },
+          {
+            "past": { "parts": ["영화를", "보려고", "했어요"], "meaning": "I was planning to watch a movie" },
+            "present": { "parts": ["영화를", "보려고", "해요"], "meaning": "I am planning to watch a movie" },
+            "future": { "parts": ["영화를", "보려고", "할", "거예요"], "meaning": "I will plan to watch a movie" }
           }
         ],
         "advanced": [
@@ -658,6 +758,26 @@
             "past": { "parts": ["내년에", "유학", "가려고", "했어요"], "meaning": "I was planning to study abroad next year" },
             "present": { "parts": ["내년에", "유학", "가려고", "해요"], "meaning": "I am planning to study abroad next year" },
             "future": { "parts": ["내년에", "유학", "가려고", "할", "거예요"], "meaning": "I will plan to study abroad next year" }
+          },
+          {
+            "past": { "parts": ["새로운", "취미를", "시작하려고", "했어요"], "meaning": "I was planning to start a new hobby" },
+            "present": { "parts": ["새로운", "취미를", "시작하려고", "해요"], "meaning": "I am planning to start a new hobby" },
+            "future": { "parts": ["새로운", "취미를", "시작하려고", "할", "거예요"], "meaning": "I will plan to start a new hobby" }
+          },
+          {
+            "past": { "parts": ["회사를", "옮기려고", "했어요"], "meaning": "I was planning to change companies" },
+            "present": { "parts": ["회사를", "옮기려고", "해요"], "meaning": "I am planning to change companies" },
+            "future": { "parts": ["회사를", "옮기려고", "할", "거예요"], "meaning": "I will plan to change companies" }
+          },
+          {
+            "past": { "parts": ["다이어트를", "시작하려고", "했어요"], "meaning": "I was planning to start a diet" },
+            "present": { "parts": ["다이어트를", "시작하려고", "해요"], "meaning": "I am planning to start a diet" },
+            "future": { "parts": ["다이어트를", "시작하려고", "할", "거예요"], "meaning": "I will plan to start a diet" }
+          },
+          {
+            "past": { "parts": ["이사하려고", "했어요"], "meaning": "I was planning to move" },
+            "present": { "parts": ["이사하려고", "해요"], "meaning": "I am planning to move" },
+            "future": { "parts": ["이사하려고", "할", "거예요"], "meaning": "I will plan to move" }
           }
         ]
       }
@@ -674,6 +794,26 @@
             "past": { "parts": ["시간이", "있었으면", "전화했을", "거예요"], "meaning": "I would have called if I had time" },
             "present": { "parts": ["시간이", "있으면", "전화해요"], "meaning": "I call if I have time" },
             "future": { "parts": ["시간이", "있으면", "전화할", "거예요"], "meaning": "I will call if I have time" }
+          },
+          {
+            "past": { "parts": ["돈이", "있었으면", "샀을", "거예요"], "meaning": "I would have bought if I had money" },
+            "present": { "parts": ["돈이", "있으면", "사요"], "meaning": "I buy if I have money" },
+            "future": { "parts": ["돈이", "있으면", "살", "거예요"], "meaning": "I will buy if I have money" }
+          },
+          {
+            "past": { "parts": ["배고팠으면", "먹었을", "거예요"], "meaning": "I would have eaten if I was hungry" },
+            "present": { "parts": ["배고프면", "먹어요"], "meaning": "I eat if I am hungry" },
+            "future": { "parts": ["배고프면", "먹을", "거예요"], "meaning": "I will eat if I am hungry" }
+          },
+          {
+            "past": { "parts": ["피곤했으면", "잤을", "거예요"], "meaning": "I would have slept if I was tired" },
+            "present": { "parts": ["피곤하면", "자요"], "meaning": "I sleep if I am tired" },
+            "future": { "parts": ["피곤하면", "잘", "거예요"], "meaning": "I will sleep if I am tired" }
+          },
+          {
+            "past": { "parts": ["추웠으면", "입었을", "거예요"], "meaning": "I would have worn it if I was cold" },
+            "present": { "parts": ["추우면", "입어요"], "meaning": "I wear it if I am cold" },
+            "future": { "parts": ["추우면", "입을", "거예요"], "meaning": "I will wear it if I am cold" }
           }
         ],
         "intermediate": [
@@ -681,6 +821,26 @@
             "past": { "parts": ["날씨가", "좋았으면", "산책했을", "거예요"], "meaning": "I would have walked if the weather was nice" },
             "present": { "parts": ["날씨가", "좋으면", "산책해요"], "meaning": "I walk if the weather is nice" },
             "future": { "parts": ["날씨가", "좋으면", "산책할", "거예요"], "meaning": "I will walk if the weather is nice" }
+          },
+          {
+            "past": { "parts": ["비가", "왔으면", "집에", "있었을", "거예요"], "meaning": "I would have stayed home if it rained" },
+            "present": { "parts": ["비가", "오면", "집에", "있어요"], "meaning": "I stay home if it rains" },
+            "future": { "parts": ["비가", "오면", "집에", "있을", "거예요"], "meaning": "I will stay home if it rains" }
+          },
+          {
+            "past": { "parts": ["주말이었으면", "쉬었을", "거예요"], "meaning": "I would have rested if it was the weekend" },
+            "present": { "parts": ["주말이면", "쉬어요"], "meaning": "I rest if it is the weekend" },
+            "future": { "parts": ["주말이면", "쉴", "거예요"], "meaning": "I will rest if it is the weekend" }
+          },
+          {
+            "past": { "parts": ["늦었으면", "택시를", "탔을", "거예요"], "meaning": "I would have taken a taxi if I was late" },
+            "present": { "parts": ["늦으면", "택시를", "타요"], "meaning": "I take a taxi if I am late" },
+            "future": { "parts": ["늦으면", "택시를", "탈", "거예요"], "meaning": "I will take a taxi if I am late" }
+          },
+          {
+            "past": { "parts": ["일찍", "일어났으면", "운동했을", "거예요"], "meaning": "I would have exercised if I woke up early" },
+            "present": { "parts": ["일찍", "일어나면", "운동해요"], "meaning": "I exercise if I wake up early" },
+            "future": { "parts": ["일찍", "일어나면", "운동할", "거예요"], "meaning": "I will exercise if I wake up early" }
           }
         ],
         "advanced": [
@@ -688,6 +848,26 @@
             "past": { "parts": ["한국에", "갔으면", "친구를", "만났을", "거예요"], "meaning": "I would have met my friend if I went to Korea" },
             "present": { "parts": ["한국에", "가면", "친구를", "만나요"], "meaning": "I meet my friend when I go to Korea" },
             "future": { "parts": ["한국에", "가면", "친구를", "만날", "거예요"], "meaning": "I will meet my friend when I go to Korea" }
+          },
+          {
+            "past": { "parts": ["돈이", "있었으면", "여행했을", "거예요"], "meaning": "I would have traveled if I had money" },
+            "present": { "parts": ["돈이", "있으면", "여행해요"], "meaning": "I travel if I have money" },
+            "future": { "parts": ["돈이", "있으면", "여행할", "거예요"], "meaning": "I will travel if I have money" }
+          },
+          {
+            "past": { "parts": ["시험이", "끝났으면", "놀았을", "거예요"], "meaning": "I would have played if the exam ended" },
+            "present": { "parts": ["시험이", "끝나면", "놀아요"], "meaning": "I play when the exam ends" },
+            "future": { "parts": ["시험이", "끝나면", "놀", "거예요"], "meaning": "I will play when the exam ends" }
+          },
+          {
+            "past": { "parts": ["건강했으면", "운동했을", "거예요"], "meaning": "I would have exercised if I was healthy" },
+            "present": { "parts": ["건강하면", "운동해요"], "meaning": "I exercise if I am healthy" },
+            "future": { "parts": ["건강하면", "운동할", "거예요"], "meaning": "I will exercise if I am healthy" }
+          },
+          {
+            "past": { "parts": ["시간이", "됐으면", "도왔을", "거예요"], "meaning": "I would have helped if I had time" },
+            "present": { "parts": ["시간이", "되면", "도와요"], "meaning": "I help if I have time" },
+            "future": { "parts": ["시간이", "되면", "도울", "거예요"], "meaning": "I will help if I have time" }
           }
         ]
       }
@@ -700,13 +880,25 @@
       "tenseVariations": false,
       "sentences": {
         "beginner": [
-          { "parts": ["비가", "올", "것", "같아요"], "meaning": "It seems like it will rain" }
+          { "parts": ["비가", "올", "것", "같아요"], "meaning": "It seems like it will rain" },
+          { "parts": ["좋은", "것", "같아요"], "meaning": "It seems good" },
+          { "parts": ["예쁜", "것", "같아요"], "meaning": "It seems pretty" },
+          { "parts": ["재미있는", "것", "같아요"], "meaning": "It seems fun" },
+          { "parts": ["어려운", "것", "같아요"], "meaning": "It seems difficult" }
         ],
         "intermediate": [
-          { "parts": ["그", "사람은", "학생인", "것", "같아요"], "meaning": "That person seems to be a student" }
+          { "parts": ["그", "사람은", "학생인", "것", "같아요"], "meaning": "That person seems to be a student" },
+          { "parts": ["친구가", "바쁜", "것", "같아요"], "meaning": "It seems like my friend is busy" },
+          { "parts": ["날씨가", "추운", "것", "같아요"], "meaning": "It seems like the weather is cold" },
+          { "parts": ["시험이", "쉬운", "것", "같아요"], "meaning": "It seems like the exam is easy" },
+          { "parts": ["그", "사람은", "친절한", "것", "같아요"], "meaning": "That person seems kind" }
         ],
         "advanced": [
-          { "parts": ["그", "영화는", "재미있을", "것", "같아요"], "meaning": "That movie seems like it will be interesting" }
+          { "parts": ["그", "영화는", "재미있을", "것", "같아요"], "meaning": "That movie seems like it will be interesting" },
+          { "parts": ["내일", "날씨가", "좋을", "것", "같아요"], "meaning": "It seems like the weather will be nice tomorrow" },
+          { "parts": ["그", "식당은", "맛있을", "것", "같아요"], "meaning": "That restaurant seems like it will be delicious" },
+          { "parts": ["프로젝트가", "잘", "될", "것", "같아요"], "meaning": "It seems like the project will go well" },
+          { "parts": ["시험에", "합격할", "것", "같아요"], "meaning": "It seems like I will pass the exam" }
         ]
       }
     },
@@ -722,6 +914,26 @@
             "past": { "parts": ["음악을", "들으면서", "공부했어요"], "meaning": "I studied while listening to music" },
             "present": { "parts": ["음악을", "들으면서", "공부해요"], "meaning": "I study while listening to music" },
             "future": { "parts": ["음악을", "들으면서", "공부할", "거예요"], "meaning": "I will study while listening to music" }
+          },
+          {
+            "past": { "parts": ["밥을", "먹으면서", "봤어요"], "meaning": "I watched while eating" },
+            "present": { "parts": ["밥을", "먹으면서", "봐요"], "meaning": "I watch while eating" },
+            "future": { "parts": ["밥을", "먹으면서", "볼", "거예요"], "meaning": "I will watch while eating" }
+          },
+          {
+            "past": { "parts": ["걸으면서", "전화했어요"], "meaning": "I talked on the phone while walking" },
+            "present": { "parts": ["걸으면서", "전화해요"], "meaning": "I talk on the phone while walking" },
+            "future": { "parts": ["걸으면서", "전화할", "거예요"], "meaning": "I will talk on the phone while walking" }
+          },
+          {
+            "past": { "parts": ["웃으면서", "말했어요"], "meaning": "I spoke while smiling" },
+            "present": { "parts": ["웃으면서", "말해요"], "meaning": "I speak while smiling" },
+            "future": { "parts": ["웃으면서", "말할", "거예요"], "meaning": "I will speak while smiling" }
+          },
+          {
+            "past": { "parts": ["쉬면서", "먹었어요"], "meaning": "I ate while resting" },
+            "present": { "parts": ["쉬면서", "먹어요"], "meaning": "I eat while resting" },
+            "future": { "parts": ["쉬면서", "먹을", "거예요"], "meaning": "I will eat while resting" }
           }
         ],
         "intermediate": [
@@ -729,6 +941,26 @@
             "past": { "parts": ["커피를", "마시면서", "책을", "읽었어요"], "meaning": "I read books while drinking coffee" },
             "present": { "parts": ["커피를", "마시면서", "책을", "읽어요"], "meaning": "I read books while drinking coffee" },
             "future": { "parts": ["커피를", "마시면서", "책을", "읽을", "거예요"], "meaning": "I will read books while drinking coffee" }
+          },
+          {
+            "past": { "parts": ["노래를", "부르면서", "샤워했어요"], "meaning": "I sang while showering" },
+            "present": { "parts": ["노래를", "부르면서", "샤워해요"], "meaning": "I sing while showering" },
+            "future": { "parts": ["노래를", "부르면서", "샤워할", "거예요"], "meaning": "I will sing while showering" }
+          },
+          {
+            "past": { "parts": ["일하면서", "공부했어요"], "meaning": "I studied while working" },
+            "present": { "parts": ["일하면서", "공부해요"], "meaning": "I study while working" },
+            "future": { "parts": ["일하면서", "공부할", "거예요"], "meaning": "I will study while working" }
+          },
+          {
+            "past": { "parts": ["TV를", "보면서", "밥을", "먹었어요"], "meaning": "I ate while watching TV" },
+            "present": { "parts": ["TV를", "보면서", "밥을", "먹어요"], "meaning": "I eat while watching TV" },
+            "future": { "parts": ["TV를", "보면서", "밥을", "먹을", "거예요"], "meaning": "I will eat while watching TV" }
+          },
+          {
+            "past": { "parts": ["음악을", "들으면서", "운동했어요"], "meaning": "I exercised while listening to music" },
+            "present": { "parts": ["음악을", "들으면서", "운동해요"], "meaning": "I exercise while listening to music" },
+            "future": { "parts": ["음악을", "들으면서", "운동할", "거예요"], "meaning": "I will exercise while listening to music" }
           }
         ],
         "advanced": [
