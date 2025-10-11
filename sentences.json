@@ -12,6 +12,26 @@
             "past": { "parts": ["저는", "학생이었어요"], "meaning": "I was a student" },
             "present": { "parts": ["저는", "학생이에요"], "meaning": "I am a student" },
             "future": { "parts": ["저는", "학생일", "거예요"], "meaning": "I will be a student" }
+          },
+          {
+            "past": { "parts": ["저는", "교사였어요"], "meaning": "I was a teacher" },
+            "present": { "parts": ["저는", "교사예요"], "meaning": "I am a teacher" },
+            "future": { "parts": ["저는", "교사일", "거예요"], "meaning": "I will be a teacher" }
+          },
+          {
+            "past": { "parts": ["이것은", "선물이었어요"], "meaning": "This was a gift" },
+            "present": { "parts": ["이것은", "선물이에요"], "meaning": "This is a gift" },
+            "future": { "parts": ["이것은", "선물일", "거예요"], "meaning": "This will be a gift" }
+          },
+          {
+            "past": { "parts": ["그것은", "제", "가방이었어요"], "meaning": "That was my bag" },
+            "present": { "parts": ["그것은", "제", "가방이에요"], "meaning": "That is my bag" },
+            "future": { "parts": ["그것은", "제", "가방일", "거예요"], "meaning": "That will be my bag" }
+          },
+          {
+            "past": { "parts": ["여기는", "우리", "집이었어요"], "meaning": "This was our home" },
+            "present": { "parts": ["여기는", "우리", "집이에요"], "meaning": "This is our home" },
+            "future": { "parts": ["여기는", "우리", "집일", "거예요"], "meaning": "This will be our home" }
           }
         ],
         "intermediate": [
@@ -19,6 +39,26 @@
             "past": { "parts": ["제", "친구는", "선생님이었어요"], "meaning": "My friend was a teacher" },
             "present": { "parts": ["제", "친구는", "선생님이에요"], "meaning": "My friend is a teacher" },
             "future": { "parts": ["제", "친구는", "선생님일", "거예요"], "meaning": "My friend will be a teacher" }
+          },
+          {
+            "past": { "parts": ["그녀는", "제", "선생님이었어요"], "meaning": "She was my teacher" },
+            "present": { "parts": ["그녀는", "제", "선생님이에요"], "meaning": "She is my teacher" },
+            "future": { "parts": ["그녀는", "제", "선생님일", "거예요"], "meaning": "She will be my teacher" }
+          },
+          {
+            "past": { "parts": ["오빠는", "회사원이었어요"], "meaning": "My older brother was an office worker" },
+            "present": { "parts": ["오빠는", "회사원이에요"], "meaning": "My older brother is an office worker" },
+            "future": { "parts": ["오빠는", "회사원일", "거예요"], "meaning": "My older brother will be an office worker" }
+          },
+          {
+            "past": { "parts": ["이곳은", "도서관이었어요"], "meaning": "This place was a library" },
+            "present": { "parts": ["이곳은", "도서관이에요"], "meaning": "This place is a library" },
+            "future": { "parts": ["이곳은", "도서관일", "거예요"], "meaning": "This place will be a library" }
+          },
+          {
+            "past": { "parts": ["제", "취미는", "독서였어요"], "meaning": "My hobby was reading" },
+            "present": { "parts": ["제", "취미는", "독서예요"], "meaning": "My hobby is reading" },
+            "future": { "parts": ["제", "취미는", "독서일", "거예요"], "meaning": "My hobby will be reading" }
           }
         ],
         "advanced": [
@@ -26,6 +66,26 @@
             "past": { "parts": ["우리", "아버지는", "의사였어요"], "meaning": "My father was a doctor" },
             "present": { "parts": ["우리", "아버지는", "의사예요"], "meaning": "My father is a doctor" },
             "future": { "parts": ["우리", "아버지는", "의사일", "거예요"], "meaning": "My father will be a doctor" }
+          },
+          {
+            "past": { "parts": ["우리", "어머니는", "교수였어요"], "meaning": "My mother was a professor" },
+            "present": { "parts": ["우리", "어머니는", "교수예요"], "meaning": "My mother is a professor" },
+            "future": { "parts": ["우리", "어머니는", "교수일", "거예요"], "meaning": "My mother will be a professor" }
+          },
+          {
+            "past": { "parts": ["제", "목표는", "변호사였어요"], "meaning": "My goal was to be a lawyer" },
+            "present": { "parts": ["제", "목표는", "변호사예요"], "meaning": "My goal is to be a lawyer" },
+            "future": { "parts": ["제", "목표는", "변호사일", "거예요"], "meaning": "My goal will be to be a lawyer" }
+          },
+          {
+            "past": { "parts": ["이", "식당은", "유명한", "곳이었어요"], "meaning": "This restaurant was a famous place" },
+            "present": { "parts": ["이", "식당은", "유명한", "곳이에요"], "meaning": "This restaurant is a famous place" },
+            "future": { "parts": ["이", "식당은", "유명한", "곳일", "거예요"], "meaning": "This restaurant will be a famous place" }
+          },
+          {
+            "past": { "parts": ["제", "전공은", "컴퓨터", "공학이었어요"], "meaning": "My major was computer science" },
+            "present": { "parts": ["제", "전공은", "컴퓨터", "공학이에요"], "meaning": "My major is computer science" },
+            "future": { "parts": ["제", "전공은", "컴퓨터", "공학일", "거예요"], "meaning": "My major will be computer science" }
           }
         ]
       }
