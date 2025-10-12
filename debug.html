@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Korean Grammar</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        const DebugApp = () => {
+            const [status, setStatus] = useState('Starting...');
+            const [data, setData] = useState(null);
+            const [error, setError] = useState(null);
+            
+            useEffect(() => {
+                setStatus('Fetching JSON...');
+                fetch('sentences.json')
+                    .then(response => {
+                        setStatus('Got response: ' + response.status);
+                        return response.text();
+                    })
+                    .then(text => {
+                        setStatus('Got text, length: ' + text.length);
+                        try {
+                            const parsed = JSON.parse(text);
+                            setData(parsed);
+                            setStatus('✅ Successfully parsed JSON!');
+                        } catch (e) {
+                            setError('JSON Parse Error: ' + e.message);
+                            setStatus('❌ Failed to parse JSON');
+                        }
+                    })
+                    .catch(err => {
+                        setError('Fetch Error: ' + err.message);
+                        setStatus('❌ Failed to fetch');
+                    });
+            }, []);
+            
+            return (
+                <div className="p-8">
+                    <h1 className="text-2xl font-bold mb-4">Debug Korean Grammar App</h1>
+                    <p className="mb-2"><strong>Status:</strong> {status}</p>
+                    {error && <p className="text-red-600 mb-2"><strong>Error:</strong> {error}</p>}
+                    {data && (
+                        <div className="mt-4">
+                            <p><strong>Beginner patterns:</strong> {data.beginner.length}</p>
+                            <p><strong>Intermediate patterns:</strong> {data.intermediate.length}</p>
+                            <p><strong>Advanced patterns:</strong> {data.advanced.length}</p>
+                            <p><strong>First pattern name:</strong> {data.beginner[0].name}</p>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+        
+        ReactDOM.render(<DebugApp />, document.getElementById('root'));
+    </script>
+</body>
+</html>

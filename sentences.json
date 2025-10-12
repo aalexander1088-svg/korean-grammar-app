@@ -1842,5 +1842,157 @@
         ]
       }
     }
+  ],
+  "combo": [
+    {
+      "id": "past-causative",
+      "name": "Past + Causative",
+      "description": "Combine past tense with causative (-게 하다)",
+      "explanation": "Express past actions that caused something to happen",
+      "tenseVariations": false,
+      "sentences": {
+        "beginner": [
+          { "parts": ["어제", "친구를", "웃게", "했어요"], "meaning": "I made my friend laugh yesterday" },
+          { "parts": ["지난주에", "아이를", "자게", "했어요"], "meaning": "I made the child sleep last week" },
+          { "parts": ["어제", "학생을", "읽게", "했어요"], "meaning": "I made the student read yesterday" },
+          { "parts": ["지난달에", "친구를", "기다리게", "했어요"], "meaning": "I made my friend wait last month" },
+          { "parts": ["어제", "아이를", "먹게", "했어요"], "meaning": "I made the child eat yesterday" }
+        ],
+        "intermediate": [
+          { "parts": ["작년에", "팀을", "협력하게", "했어요"], "meaning": "I made the team cooperate last year" },
+          { "parts": ["지난주에", "직원들을", "일찍", "오게", "했어요"], "meaning": "I made the employees come early last week" },
+          { "parts": ["어제", "학생들을", "조용하게", "했어요"], "meaning": "I made the students quiet yesterday" },
+          { "parts": ["지난달에", "아이들을", "춤추게", "했어요"], "meaning": "I made the children dance last month" },
+          { "parts": ["작년에", "친구를", "노래하게", "했어요"], "meaning": "I made my friend sing last year" }
+        ],
+        "advanced": [
+          { "parts": ["지난", "프로젝트에서", "회사를", "성공하게", "했어요"], "meaning": "I made the company successful in the last project" },
+          { "parts": ["작년에", "그를", "행복하게", "했어요"], "meaning": "I made him happy last year" },
+          { "parts": ["지난주에", "시장을", "활성화하게", "했어요"], "meaning": "I made the market active last week" },
+          { "parts": ["어제", "문화를", "발전하게", "했어요"], "meaning": "I made culture develop yesterday" },
+          { "parts": ["지난달에", "사회를", "더", "좋게", "했어요"], "meaning": "I made society better last month" }
+        ]
+      }
+    },
+    {
+      "id": "future-want",
+      "name": "Future + Want",
+      "description": "Combine future tense with want (-고 싶다)",
+      "explanation": "Express future desires and wants",
+      "tenseVariations": false,
+      "sentences": {
+        "beginner": [
+          { "parts": ["내년에", "한국어를", "배우고", "싶을", "거예요"], "meaning": "I will want to learn Korean next year" },
+          { "parts": ["다음주에", "여행을", "가고", "싶을", "거예요"], "meaning": "I will want to travel next week" },
+          { "parts": ["내일", "친구를", "만나고", "싶을", "거예요"], "meaning": "I will want to meet my friend tomorrow" },
+          { "parts": ["주말에", "쉬고", "싶을", "거예요"], "meaning": "I will want to rest on the weekend" },
+          { "parts": ["내년에", "운동을", "하고", "싶을", "거예요"], "meaning": "I will want to exercise next year" }
+        ],
+        "intermediate": [
+          { "parts": ["다음", "달에", "새로운", "취미를", "배우고", "싶을", "거예요"], "meaning": "I will want to learn a new hobby next month" },
+          { "parts": ["내년에", "더", "건강해지고", "싶을", "거예요"], "meaning": "I will want to become healthier next year" },
+          { "parts": ["다음주에", "좋은", "직장에", "취직하고", "싶을", "거예요"], "meaning": "I will want to get a job at a good company next week" },
+          { "parts": ["내년에", "세계", "여행을", "하고", "싶을", "거예요"], "meaning": "I will want to travel around the world next year" },
+          { "parts": ["다음달에", "요리를", "배우고", "싶을", "거예요"], "meaning": "I will want to learn cooking next month" }
+        ],
+        "advanced": [
+          { "parts": ["내년에", "전문가가", "되고", "싶을", "거예요"], "meaning": "I will want to become an expert next year" },
+          { "parts": ["다음", "프로젝트에서", "팀장이", "되고", "싶을", "거예요"], "meaning": "I will want to become a team leader in the next project" },
+          { "parts": ["내년에", "사회에", "기여하고", "싶을", "거예요"], "meaning": "I will want to contribute to society next year" },
+          { "parts": ["다음주에", "새로운", "도전을", "시작하고", "싶을", "거예요"], "meaning": "I will want to start a new challenge next week" },
+          { "parts": ["내년에", "더", "나은", "사람이", "되고", "싶을", "거예요"], "meaning": "I will want to become a better person next year" }
+        ]
+      }
+    },
+    {
+      "id": "while-because",
+      "name": "While + Because",
+      "description": "Combine while (-으면서) with because (-아서)",
+      "explanation": "Express simultaneous actions with reasons",
+      "tenseVariations": false,
+      "sentences": {
+        "beginner": [
+          { "parts": ["공부하면서", "졸려서", "커피를", "마셨어요"], "meaning": "I drank coffee because I was sleepy while studying" },
+          { "parts": ["걸으면서", "더워서", "물을", "마셨어요"], "meaning": "I drank water because it was hot while walking" },
+          { "parts": ["일하면서", "피곤해서", "쉬었어요"], "meaning": "I rested because I was tired while working" },
+          { "parts": ["요리하면서", "배고파서", "간식을", "먹었어요"], "meaning": "I ate snacks because I was hungry while cooking" },
+          { "parts": ["운동하면서", "목말라서", "음료를", "마셨어요"], "meaning": "I drank a beverage because I was thirsty while exercising" }
+        ],
+        "intermediate": [
+          { "parts": ["운전하면서", "졸려서", "라디오를", "들었어요"], "meaning": "I listened to the radio because I was sleepy while driving" },
+          { "parts": ["청소하면서", "더워서", "창문을", "열었어요"], "meaning": "I opened the window because it was hot while cleaning" },
+          { "parts": ["쇼핑하면서", "배고파서", "음식을", "먹었어요"], "meaning": "I ate food because I was hungry while shopping" },
+          { "parts": ["공부하면서", "아파서", "약을", "먹었어요"], "meaning": "I took medicine because I was sick while studying" },
+          { "parts": ["일하면서", "스트레스받아서", "음악을", "들었어요"], "meaning": "I listened to music because I was stressed while working" }
+        ],
+        "advanced": [
+          { "parts": ["회의하면서", "지루해서", "메모를", "적었어요"], "meaning": "I took notes because I was bored while in the meeting" },
+          { "parts": ["프로젝트를", "하면서", "어려워서", "도움을", "요청했어요"], "meaning": "I asked for help because it was difficult while doing the project" },
+          { "parts": ["발표하면서", "긴장해서", "깊게", "숨을", "쉬었어요"], "meaning": "I took deep breaths because I was nervous while presenting" },
+          { "parts": ["여행하면서", "돈이", "없어서", "알바를", "했어요"], "meaning": "I did part-time work because I had no money while traveling" },
+          { "parts": ["학습하면서", "이해가", "안", "되어서", "질문했어요"], "meaning": "I asked questions because I didn't understand while learning" }
+        ]
+      }
+    },
+    {
+      "id": "after-try",
+      "name": "After + Try",
+      "description": "Combine after (-고 나서) with try (-아/어 보다)",
+      "explanation": "Express trying something after completing another action",
+      "tenseVariations": false,
+      "sentences": {
+        "beginner": [
+          { "parts": ["숙제하고", "나서", "새로운", "운동을", "해", "봤어요"], "meaning": "After doing homework, I tried new exercises" },
+          { "parts": ["씻고", "나서", "새로운", "음식을", "먹어", "봤어요"], "meaning": "After washing, I tried new food" },
+          { "parts": ["읽고", "나서", "새로운", "게임을", "해", "봤어요"], "meaning": "After reading, I tried new games" },
+          { "parts": ["먹고", "나서", "새로운", "음악을", "들어", "봤어요"], "meaning": "After eating, I tried new music" },
+          { "parts": ["보고", "나서", "새로운", "활동을", "해", "봤어요"], "meaning": "After watching, I tried new activities" }
+        ],
+        "intermediate": [
+          { "parts": ["운동하고", "나서", "새로운", "요리를", "만들어", "봤어요"], "meaning": "After exercising, I tried making new food" },
+          { "parts": ["공부하고", "나서", "새로운", "언어를", "배워", "봤어요"], "meaning": "After studying, I tried learning a new language" },
+          { "parts": ["일하고", "나서", "새로운", "취미를", "시작해", "봤어요"], "meaning": "After working, I tried starting a new hobby" },
+          { "parts": ["여행하고", "나서", "새로운", "문화를", "체험해", "봤어요"], "meaning": "After traveling, I tried experiencing new culture" },
+          { "parts": ["쉬고", "나서", "새로운", "책을", "읽어", "봤어요"], "meaning": "After resting, I tried reading a new book" }
+        ],
+        "advanced": [
+          { "parts": ["프로젝트를", "완성하고", "나서", "새로운", "도전을", "시작해", "봤어요"], "meaning": "After completing the project, I tried starting a new challenge" },
+          { "parts": ["회사를", "그만두고", "나서", "새로운", "일을", "찾아", "봤어요"], "meaning": "After quitting the company, I tried looking for new work" },
+          { "parts": ["이사를", "하고", "나서", "새로운", "환경에", "적응해", "봤어요"], "meaning": "After moving, I tried adapting to a new environment" },
+          { "parts": ["졸업하고", "나서", "새로운", "분야를", "공부해", "봤어요"], "meaning": "After graduating, I tried studying a new field" },
+          { "parts": ["결혼하고", "나서", "새로운", "삶을", "시작해", "봤어요"], "meaning": "After getting married, I tried starting a new life" }
+        ]
+      }
+    },
+    {
+      "id": "if-seems",
+      "name": "If + Seems",
+      "description": "Combine if (-으면) with seems (-은/는 것 같아요)",
+      "explanation": "Express conditional assumptions and appearances",
+      "tenseVariations": false,
+      "sentences": {
+        "beginner": [
+          { "parts": ["날씨가", "좋으면", "재미있을", "것", "같아요"], "meaning": "If the weather is nice, it seems like it will be fun" },
+          { "parts": ["친구가", "오면", "기쁠", "것", "같아요"], "meaning": "If my friend comes, it seems like I will be happy" },
+          { "parts": ["시험이", "쉬우면", "합격할", "것", "같아요"], "meaning": "If the exam is easy, it seems like I will pass" },
+          { "parts": ["음식이", "맛있으면", "다시", "먹을", "것", "같아요"], "meaning": "If the food is delicious, it seems like I will eat it again" },
+          { "parts": ["영화가", "재미있으면", "추천할", "것", "같아요"], "meaning": "If the movie is interesting, it seems like I will recommend it" }
+        ],
+        "intermediate": [
+          { "parts": ["돈이", "많으면", "여행을", "갈", "것", "같아요"], "meaning": "If I have a lot of money, it seems like I will travel" },
+          { "parts": ["시간이", "있으면", "공부를", "더", "할", "것", "같아요"], "meaning": "If I have time, it seems like I will study more" },
+          { "parts": ["날씨가", "나쁘면", "집에", "있을", "것", "같아요"], "meaning": "If the weather is bad, it seems like I will stay home" },
+          { "parts": ["친구가", "바쁘면", "혼자", "갈", "것", "같아요"], "meaning": "If my friend is busy, it seems like I will go alone" },
+          { "parts": ["음식이", "비싸면", "다른", "곳을", "찾을", "것", "같아요"], "meaning": "If the food is expensive, it seems like I will find another place" }
+        ],
+        "advanced": [
+          { "parts": ["프로젝트가", "성공하면", "승진할", "것", "같아요"], "meaning": "If the project succeeds, it seems like I will be promoted" },
+          { "parts": ["시험이", "어려우면", "더", "열심히", "공부할", "것", "같아요"], "meaning": "If the exam is difficult, it seems like I will study harder" },
+          { "parts": ["회사가", "좋으면", "오래", "다닐", "것", "같아요"], "meaning": "If the company is good, it seems like I will work there for a long time" },
+          { "parts": ["친구가", "도움을", "주면", "고마워할", "것", "같아요"], "meaning": "If my friend helps, it seems like I will be grateful" },
+          { "parts": ["날씨가", "계속", "좋으면", "여행을", "계획할", "것", "같아요"], "meaning": "If the weather continues to be good, it seems like I will plan a trip" }
+        ]
+      }
+    }
   ]
 }

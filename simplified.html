@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simplified Korean Grammar</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    
+    const KoreanGrammarApp = () => {
+      const [grammarPatterns, setGrammarPatterns] = useState(null);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
+      
+      useEffect(() => {
+        console.log('Fetching sentences.json...');
+        fetch('sentences.json')
+          .then(response => {
+            console.log('Response status:', response.status);
+            return response.json();
+          })
+          .then(data => {
+            console.log('Data loaded:', data);
+            setGrammarPatterns(data);
+            setLoading(false);
+          })
+          .catch(error => {
+            console.error('Error loading sentences:', error);
+            setError(error.message);
+            setLoading(false);
+          });
+      }, []);
+      
+      if (loading) {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center">
+            <div className="text-2xl text-purple-600">Loading...</div>
+          </div>
+        );
+      }
+      
+      if (error) {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center">
+            <div className="text-2xl text-red-600">Error: {error}</div>
+          </div>
+        );
+      }
+      
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full">
+            <h1 className="text-3xl font-bold text-gray-800 mb-3 text-center">Korean Grammar</h1>
+            <p className="text-gray-600 mb-8 text-center">Choose your tier</p>
+            
+            <div className="space-y-3">
+              <button className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-5 px-6 rounded-xl transition-colors">
+                <div className="text-xl">Beginner</div>
+                <div className="text-sm opacity-90">{grammarPatterns.beginner.length} patterns</div>
+              </button>
+              <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-5 px-6 rounded-xl transition-colors">
+                <div className="text-xl">Intermediate</div>
+                <div className="text-sm opacity-90">{grammarPatterns.intermediate.length} patterns</div>
+              </button>
+              <button className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-5 px-6 rounded-xl transition-colors">
+                <div className="text-xl">Advanced</div>
+                <div className="text-sm opacity-90">{grammarPatterns.advanced.length} patterns</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    };
+    
+    console.log('Rendering app...');
+    ReactDOM.render(<KoreanGrammarApp />, document.getElementById('root'));
+    console.log('App rendered!');
+  </script>
+</body>
+</html>

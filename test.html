@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Korean Grammar App</title>
+</head>
+<body>
+    <h1>Testing Korean Grammar App</h1>
+    <div id="test"></div>
+    
+    <script>
+        // Test 1: Check if JSON loads
+        fetch('sentences.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('test').innerHTML = 
+                    '<h2>✅ JSON loaded successfully!</h2>' +
+                    '<p>Beginner patterns: ' + data.beginner.length + '</p>' +
+                    '<p>Intermediate patterns: ' + data.intermediate.length + '</p>' +
+                    '<p>Advanced patterns: ' + data.advanced.length + '</p>' +
+                    '<p>First pattern: ' + data.beginner[0].name + '</p>';
+            })
+            .catch(error => {
+                document.getElementById('test').innerHTML = 
+                    '<h2>❌ JSON failed to load</h2>' +
+                    '<p>Error: ' + error.message + '</p>';
+            });
+    </script>
+</body>
+</html>
