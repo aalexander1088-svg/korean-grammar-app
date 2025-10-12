@@ -101,6 +101,16 @@
       const [isCorrect, setIsCorrect] = useState(false);
       const [questionsAnswered, setQuestionsAnswered] = useState(0);
       const [tensesCompleted, setTensesCompleted] = useState([]);
+      
+      // Heat Map and Boss Battle states
+      const [heatMapData, setHeatMapData] = useState(() => {
+        const saved = localStorage.getItem('korean-grammar-heatmap');
+        return saved ? JSON.parse(saved) : {};
+      });
+      const [bossBattleMode, setBossBattleMode] = useState(false);
+      const [bossHealth, setBossHealth] = useState(100);
+      const [currentBoss, setCurrentBoss] = useState(null);
+      const [bossBattlesCompleted, setBossBattlesCompleted] = useState(0);
 
       const distractorWords = {
         beginner: ['어제', '내일', '오늘', '지금', '학교에', '집에', '친구랑', '혼자', '공부하러', '가요', '저는', '이것은'],
@@ -123,6 +133,97 @@
             console.error('Error loading sentences:', error);
           });
       }, []);
+
+      // Save heat map data to localStorage whenever it changes
+      useEffect(() => {
+        localStorage.setItem('korean-grammar-heatmap', JSON.stringify(heatMapData));
+      }, [heatMapData]);
+
+      // Heat Map Functions
+      const updateHeatMap = (patternId, tier, correct) => {
+        const key = `${tier}-${patternId}`;
+        setHeatMapData(prev => {
+          const newData = { ...prev };
+          if (!newData[key]) {
+            newData[key] = { practiced: 0, correct: 0, incorrect: 0 };
+          }
+          newData[key].practiced++;
+          if (correct) {
+            newData[key].correct++;
+          } else {
+            newData[key].incorrect++;
+          }
+          return newData;
+        });
+      };
+
+      const resetHeatMap = () => {
+        setHeatMapData({});
+        localStorage.removeItem('korean-grammar-heatmap');
+      };
+
+      const getHeatMapStats = () => {
+        const stats = {};
+        Object.keys(heatMapData).forEach(key => {
+          const data = heatMapData[key];
+          const accuracy = data.practiced > 0 ? (data.correct / data.practiced * 100).toFixed(1) : 0;
+          stats[key] = {
+            practiced: data.practiced,
+            accuracy: parseFloat(accuracy),
+            needsWork: data.incorrect > data.correct
+          };
+        });
+        return stats;
+      };
+
+      // Boss Battle Functions
+      const startBossBattle = () => {
+        if (!grammarPatterns?.combo) return;
+        
+        const comboPatterns = grammarPatterns.combo;
+        const randomBoss = comboPatterns[Math.floor(Math.random() * comboPatterns.length)];
+        
+        setCurrentBoss({
+          name: randomBoss.name,
+          description: randomBoss.description,
+          pattern: randomBoss,
+          difficulty: 'advanced' // Boss battles are always advanced difficulty
+        });
+        setBossHealth(100);
+        setBossBattleMode(true);
+        setScreen('practice');
+        
+        // Set up the first boss sentence
+        const sentences = randomBoss.sentences.advanced;
+        const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
+        setCurrentSentenceSet(randomSentence);
+        setSelectedPattern(randomBoss);
+        setDifficulty('advanced');
+        setupQuestion(randomSentence, null);
+      };
+
+      const bossAttack = () => {
+        setBossHealth(prev => {
+          const newHealth = Math.max(0, prev - 20);
+          if (newHealth <= 0) {
+            // Boss defeated!
+            setBossBattlesCompleted(prev => prev + 1);
+            setTimeout(() => {
+              setBossBattleMode(false);
+              setScreen('tier-selection');
+              setCurrentBoss(null);
+              setBossHealth(100);
+            }, 2000);
+          }
+          return newHealth;
+        });
+      };
+
+      const bossDefend = () => {
+        // Boss takes less damage, player takes damage
+        setBossHealth(prev => Math.max(0, prev - 10));
+        setScore(prev => Math.max(0, prev - 1));
+      };
 
       const shuffleArray = (array) => {
         const shuffled = [...array];
@@ -200,10 +301,23 @@
         setShowFeedback(true);
         setQuestionsAnswered(questionsAnswered + 1);
 
+        // Update heat map
+        updateHeatMap(selectedPattern.id, difficulty, correct);
+
         if (correct) {
           setScore(score + 1);
           if (selectedPattern.tenseVariations) {
             setTensesCompleted([...tensesCompleted, currentTense]);
+          }
+          
+          // Boss battle logic
+          if (bossBattleMode) {
+            bossAttack();
+          }
+        } else {
+          // Boss battle logic for incorrect answers
+          if (bossBattleMode) {
+            bossDefend();
           }
         }
       };
@@ -295,6 +409,20 @@
                   </div>
                   <div className="text-sm opacity-90">Speed & Memory</div>
                 </button>
+                <button onClick={startBossBattle} className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-5 px-6 rounded-xl transition-colors">
+                  <div className="flex items-center justify-center mb-1">
+                    <div className="mr-2"><Brain /></div>
+                    <span className="text-xl">Boss Battle</span>
+                  </div>
+                  <div className="text-sm opacity-90">Fight combo patterns!</div>
+                </button>
+                <button onClick={() => setScreen('heat-map')} className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-5 px-6 rounded-xl transition-colors">
+                  <div className="flex items-center justify-center mb-1">
+                    <div className="mr-2"><Star /></div>
+                    <span className="text-xl">Heat Map</span>
+                  </div>
+                  <div className="text-sm opacity-90">Track your progress</div>
+                </button>
               </div>
             </div>
           </div>
@@ -335,6 +463,94 @@
                   <div className="text-sm opacity-90">Master multiple grammar patterns at once</div>
                 </button>
               </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (screen === 'heat-map') {
+        const stats = getHeatMapStats();
+        const hasData = Object.keys(stats).length > 0;
+        
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <button onClick={() => setScreen('tier-selection')} className="flex items-center text-gray-600 hover:text-gray-800 mb-4 transition-colors">
+                <ArrowLeft /><span className="ml-2">Back</span>
+              </button>
+              <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Learning Heat Map</h2>
+              
+              {!hasData ? (
+                <div className="text-center py-8">
+                  <div className="text-6xl mb-4">📊</div>
+                  <p className="text-gray-600 mb-4">No practice data yet!</p>
+                  <p className="text-sm text-gray-500">Start practicing grammar patterns to see your progress here.</p>
+                </div>
+              ) : (
+                <>
+                  <div className="mb-6 flex justify-between items-center">
+                    <p className="text-gray-600">Your practice statistics:</p>
+                    <button onClick={resetHeatMap} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                      Reset Data
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {Object.entries(stats).map(([key, data]) => {
+                      const [tier, patternId] = key.split('-');
+                      const pattern = grammarPatterns?.[tier]?.find(p => p.id === patternId);
+                      const patternName = pattern ? pattern.name : `${tier}-${patternId}`;
+                      
+                      return (
+                        <div key={key} className={`p-4 rounded-xl border-2 ${data.needsWork ? 'border-red-200 bg-red-50' : data.accuracy >= 80 ? 'border-green-200 bg-green-50' : 'border-yellow-200 bg-yellow-50'}`}>
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <h3 className="font-bold text-lg">{patternName}</h3>
+                              <p className="text-sm text-gray-600 capitalize">{tier} level</p>
+                            </div>
+                            <div className="text-right">
+                              <div className={`text-2xl font-bold ${data.needsWork ? 'text-red-600' : data.accuracy >= 80 ? 'text-green-600' : 'text-yellow-600'}`}>
+                                {data.accuracy}%
+                              </div>
+                              <p className="text-xs text-gray-500">{data.practiced} attempts</p>
+                            </div>
+                          </div>
+                          
+                          <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+                            <div 
+                              className={`h-2 rounded-full ${data.needsWork ? 'bg-red-500' : data.accuracy >= 80 ? 'bg-green-500' : 'bg-yellow-500'}`}
+                              style={{ width: `${data.accuracy}%` }}
+                            ></div>
+                          </div>
+                          
+                          <div className="flex justify-between text-xs text-gray-600">
+                            <span>{data.needsWork ? '⚠️ Needs more practice' : data.accuracy >= 80 ? '🎉 Excellent!' : '📈 Keep practicing!'}</span>
+                            <span>{data.correct}/{data.practiced} correct</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  
+                  <div className="mt-6 p-4 bg-blue-50 rounded-xl">
+                    <h3 className="font-bold text-blue-800 mb-2">Legend:</h3>
+                    <div className="grid grid-cols-3 gap-2 text-sm">
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                        <span className="text-green-700">80%+ accuracy</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                        <span className="text-yellow-700">50-79% accuracy</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                        <span className="text-red-700">Below 50% accuracy</span>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         );
@@ -427,6 +643,15 @@
                 <div>
                   <span className="text-sm font-bold text-gray-500">Score: {score}/{questionsAnswered}</span>
                   <div className="text-xs font-semibold text-purple-600 mt-1">{selectedPattern.name}</div>
+                  {bossBattleMode && currentBoss && (
+                    <div className="mt-2 p-2 bg-red-100 rounded-lg">
+                      <div className="text-xs font-bold text-red-800">🔥 BOSS BATTLE: {currentBoss.name}</div>
+                      <div className="w-full bg-red-200 rounded-full h-2 mt-1">
+                        <div className="bg-red-600 h-2 rounded-full transition-all duration-300" style={{ width: `${bossHealth}%` }}></div>
+                      </div>
+                      <div className="text-xs text-red-700 mt-1">Boss Health: {bossHealth}%</div>
+                    </div>
+                  )}
                 </div>
                 <button onClick={resetToStart} className="text-purple-600 hover:text-purple-800 font-semibold text-sm transition-colors">Exit</button>
               </div>
