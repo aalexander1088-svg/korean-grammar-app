@@ -160,9 +160,6 @@
       </svg>
     );
 
-      // Vocabulary Cards data - loaded from external JSON file
-      const [vocabularyCards, setVocabularyCards] = useState([]);
-
     // Must Know Korean Phrases data
     const mustKnowPhrases = {
       category1: {
@@ -267,6 +264,7 @@
       const [flashcardPhrases, setFlashcardPhrases] = useState([]);
       
       // Vocabulary Flashcard states
+      const [vocabularyCards, setVocabularyCards] = useState([]);
       const [currentVocabularyCard, setCurrentVocabularyCard] = useState(0);
       const [isVocabularyFlipped, setIsVocabularyFlipped] = useState(false);
       const [isVocabularyMuted, setIsVocabularyMuted] = useState(true);
