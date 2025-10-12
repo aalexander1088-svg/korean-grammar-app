@@ -628,8 +628,10 @@
         // Floating Korean characters
         const hangeulChars = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'];
         
+        console.log('About to render tier selection with hangeul chars:', hangeulChars.length);
+        
         return (
-          <div className="min-h-screen gradient-bg relative overflow-hidden flex items-center justify-center p-4">
+          <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
             {/* Floating mesh blobs */}
             <div className="absolute inset-0 overflow-hidden">
               <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
@@ -643,11 +645,11 @@
                 key={index}
                 className="absolute text-white opacity-10 animate-float pointer-events-none"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  fontSize: `${40 + Math.random() * 60}px`,
-                  animationDelay: `${Math.random() * 20}s`,
-                  animationDuration: `${15 + Math.random() * 20}s`
+                  left: `${(index * 7) % 100}%`,
+                  top: `${(index * 11) % 100}%`,
+                  fontSize: `${40 + (index % 6) * 10}px`,
+                  animationDelay: `${index * 1.5}s`,
+                  animationDuration: `${15 + (index % 5) * 2}s`
                 }}
               >
                 {char}
