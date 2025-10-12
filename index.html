@@ -261,7 +261,25 @@
         // Set up the random mode
         setSelectedPattern(randomPattern);
         setDifficulty(randomSentence.difficulty);
-        setCurrentSentenceSet(randomSentence);
+        
+        // Handle sentence structure properly for Random Mode
+        if (randomSentence.tense && randomPattern.tenseVariations) {
+          // For tense variations, we need to structure it properly
+          const tenseSentenceSet = {};
+          tenseSentenceSet[randomSentence.tense] = {
+            parts: randomSentence.parts,
+            meaning: randomSentence.meaning
+          };
+          setCurrentSentenceSet(tenseSentenceSet);
+          setCurrentTense(randomSentence.tense);
+        } else {
+          // For direct sentences (no tense variations)
+          setCurrentSentenceSet({
+            parts: randomSentence.parts,
+            meaning: randomSentence.meaning
+          });
+        }
+        
         setScreen('practice');
         
         // Set random input mode (50/50 chance)
@@ -276,8 +294,20 @@
         setIsCorrect(false);
         
         console.log('About to setup question...');
-        // Setup question properly
-        setupQuestion(randomSentence, null);
+        // Setup question properly - pass the structured sentence
+        if (randomSentence.tense && randomPattern.tenseVariations) {
+          setupQuestion({
+            [randomSentence.tense]: {
+              parts: randomSentence.parts,
+              meaning: randomSentence.meaning
+            }
+          }, randomSentence.tense);
+        } else {
+          setupQuestion({
+            parts: randomSentence.parts,
+            meaning: randomSentence.meaning
+          }, null);
+        }
       };
 
       // Boss Battle Functions
