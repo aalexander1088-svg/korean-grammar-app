@@ -160,87 +160,8 @@
       </svg>
     );
 
-    // Vocabulary Cards data
-    const vocabularyCards = [
-      {
-        id: 1,
-        word: "늦다",
-        romanization: "neutda",
-        frontTitle: "늦다",
-        meaning: "to be late / to do something late",
-        description: [
-          "Used when talking about time – when someone or something is delayed or not on time.",
-          "It's about being late, not about the speed of something."
-        ],
-        examples: [
-          { korean: "수업에 늦었어요.", english: "I was late for class." },
-          { korean: "너무 늦게 잤어요.", english: "I went to bed too late." },
-          { korean: "지금 가면 늦을 거예요.", english: "If you go now, you'll be late." }
-        ]
-      },
-      {
-        id: 2,
-        word: "고장나다",
-        romanization: "go-jang-na-da",
-        frontTitle: "고장나다",
-        meaning: "to malfunction / to stop working",
-        description: [
-          "Used when a machine, device, or system doesn't work properly, even if it looks fine on the outside.",
-          "Focus = functional failure (not necessarily physical damage).",
-          "English equivalents: to break down, to malfunction, to stop working."
-        ],
-        examples: [
-          { korean: "엘리베이터가 고장났어요.", english: "The elevator broke down." },
-          { korean: "제 컴퓨터가 고장났어요.", english: "My computer isn't working / My computer broke down." }
-        ]
-      },
-      {
-        id: 3,
-        word: "움직이다",
-        romanization: "um-jig-i-da",
-        frontTitle: "움직이다",
-        meaning: "to move (itself) / to move (body part)",
-        description: [
-          "N이/가 움직이다 = to move (itself) - intransitive",
-          "N을/를 움직이다 = to move (body part) - transitive"
-        ],
-        examples: [
-          { korean: "차가 움직이고 있어요.", english: "The car is moving." },
-          { korean: "손을 움직일 수 없어요.", english: "I can't move my hand." }
-        ]
-      },
-      {
-        id: 4,
-        word: "옮기다",
-        romanization: "om-gi-da",
-        frontTitle: "옮기다",
-        meaning: "to move something, carry",
-        description: [
-          "N을/를 옮기다 = to move something, to relocate, to carry",
-          "Used when moving objects from one place to another"
-        ],
-        examples: [
-          { korean: "책상을 옮겼어요.", english: "I moved the desk." },
-          { korean: "짐을 옮기는 중이에요.", english: "I'm moving luggage/stuff." }
-        ]
-      },
-      {
-        id: 5,
-        word: "배우다",
-        romanization: "bae-u-da",
-        frontTitle: "배우다",
-        meaning: "to learn / to study",
-        description: [
-          "Used for learning skills, subjects, or information",
-          "Can be used with -고 있다 for progressive learning",
-          "Often used with -에서 (from) to indicate source of learning"
-        ],
-        examples: [
-          { korean: "한국어를 배우고 있어요.", english: "I'm learning Korean." },
-          { korean: "선생님한테 배웠어요.", english: "I learned from the teacher." }
-        ]
-      }
-    ];
+      // Vocabulary Cards data - loaded from external JSON file
+      const [vocabularyCards, setVocabularyCards] = useState([]);
 
     // Must Know Korean Phrases data
     const mustKnowPhrases = {
@@ -391,6 +312,22 @@
       useEffect(() => {
         localStorage.setItem('korean-phrases-learned', JSON.stringify(learnedPhrases));
       }, [learnedPhrases]);
+
+      // Load vocabulary cards from JSON file
+      useEffect(() => {
+        const loadVocabulary = async () => {
+          try {
+            const response = await fetch('vocabulary.json');
+            const data = await response.json();
+            setVocabularyCards(data.vocabularyCards);
+          } catch (error) {
+            console.error('Error loading vocabulary:', error);
+            // Fallback to empty array if file doesn't exist
+            setVocabularyCards([]);
+          }
+        };
+        loadVocabulary();
+      }, []);
 
       // Quiz Functions
       const generateQuizQuestions = (category = null) => {
@@ -1728,6 +1665,22 @@
       }
 
       if (screen === 'vocabulary-flashcards') {
+        // Loading state
+        if (vocabularyCards.length === 0) {
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
+              <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
+                <button onClick={() => setScreen('tier-selection')} className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors">
+                  <ArrowLeft /><span className="ml-2">Back to Menu</span>
+                </button>
+                <div className="text-4xl mb-4">📚</div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Loading Vocabulary...</h2>
+                <p className="text-gray-600">Please wait while we load the vocabulary cards.</p>
+              </div>
+            </div>
+          );
+        }
+
         const currentCard = vocabularyCards[currentVocabularyCard];
         const isFirstCard = currentVocabularyCard === 0;
         const isLastCard = currentVocabularyCard === vocabularyCards.length - 1;
