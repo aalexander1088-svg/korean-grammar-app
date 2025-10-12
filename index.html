@@ -178,7 +178,13 @@
 
       // Random Mode Functions
       const startRandomMode = () => {
-        if (!grammarPatterns) return;
+        console.log('Starting Random Mode...');
+        console.log('grammarPatterns:', grammarPatterns);
+        
+        if (!grammarPatterns) {
+          console.log('No grammar patterns available');
+          return;
+        }
         
         // Collect all patterns from all tiers
         const allPatterns = [];
@@ -193,10 +199,16 @@
           }
         });
         
-        if (allPatterns.length === 0) return;
+        console.log('All patterns:', allPatterns.length);
+        
+        if (allPatterns.length === 0) {
+          console.log('No patterns found');
+          return;
+        }
         
         // Pick a random pattern
         const randomPattern = allPatterns[Math.floor(Math.random() * allPatterns.length)];
+        console.log('Random pattern selected:', randomPattern);
         
         // Get all sentences from this pattern
         const allSentences = [];
@@ -206,35 +218,45 @@
               // For patterns with tense variations, add each tense
               randomPattern.sentences[difficulty].forEach(sentenceSet => {
                 Object.keys(sentenceSet).forEach(tense => {
-                  allSentences.push({
-                    ...sentenceSet[tense],
-                    difficulty: difficulty,
-                    tense: tense,
-                    patternId: randomPattern.id,
-                    patternName: randomPattern.name,
-                    tier: randomPattern.tier
-                  });
+                  if (sentenceSet[tense] && sentenceSet[tense].parts) {
+                    allSentences.push({
+                      ...sentenceSet[tense],
+                      difficulty: difficulty,
+                      tense: tense,
+                      patternId: randomPattern.id,
+                      patternName: randomPattern.name,
+                      tier: randomPattern.tier
+                    });
+                  }
                 });
               });
             } else {
               // For patterns without tense variations
               randomPattern.sentences[difficulty].forEach(sentence => {
-                allSentences.push({
-                  ...sentence,
-                  difficulty: difficulty,
-                  patternId: randomPattern.id,
-                  patternName: randomPattern.name,
-                  tier: randomPattern.tier
-                });
+                if (sentence && sentence.parts) {
+                  allSentences.push({
+                    ...sentence,
+                    difficulty: difficulty,
+                    patternId: randomPattern.id,
+                    patternName: randomPattern.name,
+                    tier: randomPattern.tier
+                  });
+                }
               });
             }
           }
         });
         
-        if (allSentences.length === 0) return;
+        console.log('All sentences:', allSentences.length);
+        
+        if (allSentences.length === 0) {
+          console.log('No valid sentences found');
+          return;
+        }
         
         // Pick a random sentence
         const randomSentence = allSentences[Math.floor(Math.random() * allSentences.length)];
+        console.log('Random sentence selected:', randomSentence);
         
         // Set up the random mode
         setSelectedPattern(randomPattern);
@@ -253,8 +275,9 @@
         setShowFeedback(false);
         setIsCorrect(false);
         
+        console.log('About to setup question...');
         // Setup question properly
-        setupQuestion(randomSentence, randomInputMode);
+        setupQuestion(randomSentence, null);
       };
 
       // Boss Battle Functions
@@ -363,11 +386,18 @@
       };
 
       const setupQuestion = (sentence, tense) => {
+        console.log('setupQuestion called with:', sentence, tense);
+        
         const correctParts = tense ? [...sentence[tense].parts] : [...sentence.parts];
+        console.log('Correct parts:', correctParts);
         
         // Get difficulty from the sentence if available, otherwise use current difficulty
         const currentDifficulty = sentence.difficulty || difficulty || 'beginner';
+        console.log('Current difficulty:', currentDifficulty);
+        
         const distractors = distractorWords[currentDifficulty];
+        console.log('Distractors:', distractors);
+        
         const numDistractors = Math.floor(Math.random() * 4) + 5;
         const selectedDistractors = [];
         const shuffledDistractors = shuffleArray([...distractors]);
@@ -379,11 +409,15 @@
         }
 
         const allParts = [...correctParts, ...selectedDistractors];
+        console.log('All parts:', allParts);
+        
         setShuffledParts(shuffleArray(allParts));
         setSelectedParts([]);
         setTypedAnswer('');
         setShowFeedback(false);
         setIsCorrect(false);
+        
+        console.log('setupQuestion completed');
       };
 
       const startNewSentenceSet = () => {
