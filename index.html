@@ -201,7 +201,7 @@
 
       const generateBossSentence = (bossPattern) => {
         // Create a sentence that combines multiple grammar patterns for maximum difficulty
-        const comboSentences = bossPattern.sentences.advanced;
+        const comboSentences = bossPattern.sentences.boss;
         const randomSentence = comboSentences[Math.floor(Math.random() * comboSentences.length)];
         
         // Make boss sentences harder by adding more distractors
@@ -209,8 +209,8 @@
         setSelectedPattern(bossPattern);
         setDifficulty('advanced');
         
-        // Boss battles always use tap mode for better gameplay
-        setInputMode('tap');
+        // Boss battles always use typing mode for maximum challenge
+        setInputMode('typing');
         
         // Setup question with more distractors for boss battles
         const correctParts = [...randomSentence.parts];
@@ -653,12 +653,10 @@
                 <h3 className="font-bold text-gray-800 mb-2">Defeat the boss by completing this combo sentence:</h3>
                 <p className="text-sm text-gray-600 mb-3">{currentBoss.description}</p>
                 
-                {/* Show target sentence and meaning */}
+                {/* Show meaning only for typing mode */}
                 <div className="mb-4 p-3 bg-blue-50 border-2 border-blue-200 rounded-lg">
-                  <p className="text-sm font-bold text-blue-800 mb-1">Target Sentence:</p>
-                  <p className="text-lg font-semibold text-blue-900 mb-2">{currentSentence.parts.join(' ')}</p>
-                  <p className="text-sm font-bold text-blue-800 mb-1">Meaning:</p>
-                  <p className="text-sm text-blue-700">{currentSentence.meaning}</p>
+                  <p className="text-sm font-bold text-blue-800 mb-1">Translate this meaning to Korean:</p>
+                  <p className="text-lg font-semibold text-blue-900">{currentSentence.meaning}</p>
                 </div>
                 
                 {inputMode === 'tap' ? (
@@ -733,7 +731,8 @@
               <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4">
                 <h4 className="font-bold text-yellow-800 mb-2">⚔️ Battle Rules:</h4>
                 <ul className="text-sm text-yellow-700 space-y-1">
-                  <li>• Look at the target sentence above and select the correct word parts</li>
+                  <li>• Type the Korean translation of the English meaning above</li>
+                  <li>• These are complex sentences combining 2-4 grammar patterns</li>
                   <li>• Correct answers deal damage to the boss</li>
                   <li>• Wrong answers make the boss stronger</li>
                   <li>• You need 5 successful attacks to win</li>

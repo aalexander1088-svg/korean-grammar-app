@@ -1946,6 +1946,13 @@
           { "parts": ["지난주에", "시장을", "활성화하게", "했어요"], "meaning": "I made the market active last week" },
           { "parts": ["어제", "문화를", "발전하게", "했어요"], "meaning": "I made culture develop yesterday" },
           { "parts": ["지난달에", "사회를", "더", "좋게", "했어요"], "meaning": "I made society better last month" }
+        ],
+        "boss": [
+          { "parts": ["어제", "회사에서", "모든", "직원들이", "새로운", "프로젝트를", "성공적으로", "완료하게", "했어요"], "meaning": "Yesterday, I made all the employees at the company successfully complete the new project" },
+          { "parts": ["지난달에", "우리", "팀이", "매우", "어려운", "문제를", "해결하게", "했어요"], "meaning": "Last month, I made our team solve a very difficult problem" },
+          { "parts": ["작년에", "학생들이", "한국어를", "더", "빠르게", "배우게", "했어요"], "meaning": "Last year, I made the students learn Korean faster" },
+          { "parts": ["지난주에", "고객들이", "우리", "제품을", "더", "많이", "사게", "했어요"], "meaning": "Last week, I made customers buy our product more" },
+          { "parts": ["어제", "부모님이", "저를", "더", "자랑스럽게", "생각하게", "했어요"], "meaning": "Yesterday, I made my parents think of me more proudly" }
         ]
       }
     },
@@ -1976,6 +1983,13 @@
           { "parts": ["내년에", "사회에", "기여하고", "싶을", "거예요"], "meaning": "I will want to contribute to society next year" },
           { "parts": ["다음주에", "새로운", "도전을", "시작하고", "싶을", "거예요"], "meaning": "I will want to start a new challenge next week" },
           { "parts": ["내년에", "더", "나은", "사람이", "되고", "싶을", "거예요"], "meaning": "I will want to become a better person next year" }
+        ],
+        "boss": [
+          { "parts": ["내년에", "회사에서", "매우", "중요한", "프로젝트를", "성공적으로", "완료하고", "싶을", "거예요"], "meaning": "Next year, I will want to successfully complete a very important project at the company" },
+          { "parts": ["다음", "달에", "새로운", "기술을", "배워서", "전문가가", "되고", "싶을", "거예요"], "meaning": "Next month, I will want to become an expert by learning new technology" },
+          { "parts": ["내년에", "세계", "여행을", "하면서", "다양한", "문화를", "경험하고", "싶을", "거예요"], "meaning": "Next year, I will want to experience various cultures while traveling around the world" },
+          { "parts": ["다음주에", "팀원들과", "함께", "어려운", "문제를", "해결하고", "싶을", "거예요"], "meaning": "Next week, I will want to solve difficult problems together with my team members" },
+          { "parts": ["내년에", "부모님을", "더", "자랑스럽게", "생각하게", "하고", "싶을", "거예요"], "meaning": "Next year, I will want to make my parents think of me more proudly" }
         ]
       }
     },
@@ -2006,6 +2020,13 @@
           { "parts": ["발표하면서", "긴장해서", "깊게", "숨을", "쉬었어요"], "meaning": "I took deep breaths because I was nervous while presenting" },
           { "parts": ["여행하면서", "돈이", "없어서", "알바를", "했어요"], "meaning": "I did part-time work because I had no money while traveling" },
           { "parts": ["학습하면서", "이해가", "안", "되어서", "질문했어요"], "meaning": "I asked questions because I didn't understand while learning" }
+        ],
+        "boss": [
+          { "parts": ["회사에서", "매우", "중요한", "프로젝트를", "진행하면서", "팀원들이", "피곤해서", "휴식을", "취했어요"], "meaning": "While conducting a very important project at the company, the team members took a break because they were tired" },
+          { "parts": ["새로운", "기술을", "배우면서", "이해하기", "어려워서", "전문가에게", "도움을", "요청했어요"], "meaning": "While learning new technology, I asked a specialist for help because it was difficult to understand" },
+          { "parts": ["긴", "회의를", "하면서", "집중하기", "어려워서", "커피를", "마셨어요"], "meaning": "While having a long meeting, I drank coffee because it was difficult to concentrate" },
+          { "parts": ["해외", "출장을", "다니면서", "언어가", "서툴러서", "번역기를", "사용했어요"], "meaning": "While going on business trips abroad, I used a translator because my language skills were poor" },
+          { "parts": ["복잡한", "문제를", "해결하면서", "시간이", "부족해서", "야근을", "했어요"], "meaning": "While solving complex problems, I worked overtime because there wasn't enough time" }
         ]
       }
     },
@@ -2036,6 +2057,13 @@
           { "parts": ["취업을", "준비하고", "나서", "면접", "연습을", "해", "봤어요"], "meaning": "After preparing for job hunting, I tried practicing for interviews" },
           { "parts": ["해외", "출장을", "다녀오고", "나서", "현지", "문화를", "경험해", "봤어요"], "meaning": "After returning from a business trip abroad, I tried experiencing the local culture" },
           { "parts": ["새로운", "아파트로", "이사하고", "나서", "이웃들과", "인사를", "해", "봤어요"], "meaning": "After moving to a new apartment, I tried greeting the neighbors" }
+        ],
+        "boss": [
+          { "parts": ["회사에서", "매우", "중요한", "프로젝트를", "성공적으로", "완료하고", "나서", "팀원들과", "함께", "축하", "파티를", "해", "봤어요"], "meaning": "After successfully completing a very important project at the company, I tried having a celebration party together with the team members" },
+          { "parts": ["새로운", "기술을", "완전히", "마스터하고", "나서", "전문가로서", "다른", "사람들에게", "가르쳐", "봤어요"], "meaning": "After completely mastering new technology, I tried teaching other people as an expert" },
+          { "parts": ["복잡한", "문제를", "해결하고", "나서", "더", "어려운", "도전을", "시작해", "봤어요"], "meaning": "After solving complex problems, I tried starting an even more difficult challenge" },
+          { "parts": ["긴", "기간", "공부를", "끝내고", "나서", "실제", "현장에서", "지식을", "적용해", "봤어요"], "meaning": "After finishing studying for a long period, I tried applying my knowledge in real field situations" },
+          { "parts": ["다양한", "경험을", "쌓고", "나서", "자신만의", "방법으로", "새로운", "아이디어를", "실현해", "봤어요"], "meaning": "After accumulating various experiences, I tried realizing new ideas in my own way" }
         ]
       }
     },
@@ -2066,7 +2094,14 @@
           { "parts": ["회사가", "좋으면", "오래", "다닐", "것", "같아요"], "meaning": "If the company is good, it seems like I will work there for a long time" },
           { "parts": ["친구가", "도움을", "주면", "고마워할", "것", "같아요"], "meaning": "If my friend helps, it seems like I will be grateful" },
           { "parts": ["날씨가", "계속", "좋으면", "여행을", "계획할", "것", "같아요"], "meaning": "If the weather continues to be good, it seems like I will plan a trip" }
-          ]
+        ],
+        "boss": [
+          { "parts": ["이", "매우", "복잡한", "프로젝트가", "성공적으로", "완료되면", "우리", "팀이", "회사에서", "인정받을", "것", "같아요"], "meaning": "If this very complex project is successfully completed, it seems like our team will be recognized by the company" },
+          { "parts": ["새로운", "기술을", "완전히", "마스터하면", "전문가로서", "더", "많은", "기회를", "얻을", "것", "같아요"], "meaning": "If I completely master new technology, it seems like I will get more opportunities as an expert" },
+          { "parts": ["이", "어려운", "상황을", "해결하면", "동료들이", "나를", "더", "신뢰할", "것", "같아요"], "meaning": "If I solve this difficult situation, it seems like my colleagues will trust me more" },
+          { "parts": ["긴", "시간", "노력한", "결과가", "좋으면", "부모님이", "매우", "자랑스러워할", "것", "같아요"], "meaning": "If the result of my long-time efforts is good, it seems like my parents will be very proud" },
+          { "parts": ["이", "도전적인", "목표를", "달성하면", "자신감이", "훨씬", "더", "커질", "것", "같아요"], "meaning": "If I achieve this challenging goal, it seems like my confidence will become much greater" }
+        ]
         }
       }
     ]
