@@ -653,6 +653,14 @@
                 <h3 className="font-bold text-gray-800 mb-2">Defeat the boss by completing this combo sentence:</h3>
                 <p className="text-sm text-gray-600 mb-3">{currentBoss.description}</p>
                 
+                {/* Show target sentence and meaning */}
+                <div className="mb-4 p-3 bg-blue-50 border-2 border-blue-200 rounded-lg">
+                  <p className="text-sm font-bold text-blue-800 mb-1">Target Sentence:</p>
+                  <p className="text-lg font-semibold text-blue-900 mb-2">{currentSentence.parts.join(' ')}</p>
+                  <p className="text-sm font-bold text-blue-800 mb-1">Meaning:</p>
+                  <p className="text-sm text-blue-700">{currentSentence.meaning}</p>
+                </div>
+                
                 {inputMode === 'tap' ? (
                   <div className="mb-4">
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -704,12 +712,19 @@
                     <p className={`font-bold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
                       {isCorrect ? '🎉 Great attack! Boss takes damage!' : '💥 Boss deflects your attack! Try again!'}
                     </p>
-                    <p className="text-sm text-gray-700 mt-2">
-                      <strong>Correct:</strong> {currentSentence.parts.join(' ')}
-                    </p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      <strong>Meaning:</strong> {currentSentence.meaning}
-                    </p>
+                    {!isCorrect && (
+                      <div className="mt-3">
+                        <p className="text-sm text-gray-700">
+                          <strong>Your answer:</strong> {inputMode === 'tap' ? selectedParts.join(' ') : typedAnswer}
+                        </p>
+                        <p className="text-sm text-gray-700 mt-1">
+                          <strong>Correct answer:</strong> {currentSentence.parts.join(' ')}
+                        </p>
+                        <p className="text-sm text-gray-600 mt-1">
+                          <strong>Meaning:</strong> {currentSentence.meaning}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -718,6 +733,7 @@
               <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4">
                 <h4 className="font-bold text-yellow-800 mb-2">⚔️ Battle Rules:</h4>
                 <ul className="text-sm text-yellow-700 space-y-1">
+                  <li>• Look at the target sentence above and select the correct word parts</li>
                   <li>• Correct answers deal damage to the boss</li>
                   <li>• Wrong answers make the boss stronger</li>
                   <li>• You need 5 successful attacks to win</li>
