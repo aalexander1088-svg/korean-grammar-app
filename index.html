@@ -187,25 +187,59 @@
           name: randomBoss.name,
           description: randomBoss.description,
           pattern: randomBoss,
-          difficulty: 'advanced' // Boss battles are always advanced difficulty
+          difficulty: 'advanced',
+          attacksRemaining: 5, // Boss needs 5 correct answers to defeat
+          specialAbility: 'Multi-Pattern Master' // Boss special ability
         });
         setBossHealth(100);
         setBossBattleMode(true);
-        setScreen('practice');
+        setScreen('boss-battle');
         
-        // Set up the first boss sentence
-        const sentences = randomBoss.sentences.advanced;
-        const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
+        // Generate a super-challenging combo sentence
+        generateBossSentence(randomBoss);
+      };
+
+      const generateBossSentence = (bossPattern) => {
+        // Create a sentence that combines multiple grammar patterns for maximum difficulty
+        const comboSentences = bossPattern.sentences.advanced;
+        const randomSentence = comboSentences[Math.floor(Math.random() * comboSentences.length)];
+        
+        // Make boss sentences harder by adding more distractors
         setCurrentSentenceSet(randomSentence);
-        setSelectedPattern(randomBoss);
+        setSelectedPattern(bossPattern);
         setDifficulty('advanced');
-        setupQuestion(randomSentence, null);
+        
+        // Setup question with more distractors for boss battles
+        const correctParts = [...randomSentence.parts];
+        const distractors = [
+          ...distractorWords.advanced,
+          '그러니까', '그런데', '하지만', '그래서', '왜냐하면',
+          '아무리', '비록', '만약', '설령', '혹시',
+          '정말', '정말로', '진짜', '완전히', '정말로'
+        ];
+        
+        const numDistractors = 8; // More distractors for boss battles
+        const selectedDistractors = [];
+        const shuffledDistractors = shuffleArray([...distractors]);
+
+        for (let i = 0; i < numDistractors && i < shuffledDistractors.length; i++) {
+          if (!correctParts.includes(shuffledDistractors[i])) {
+            selectedDistractors.push(shuffledDistractors[i]);
+          }
+        }
+
+        const allParts = [...correctParts, ...selectedDistractors];
+        setShuffledParts(shuffleArray(allParts));
+        setSelectedParts([]);
+        setTypedAnswer('');
+        setShowFeedback(false);
+        setIsCorrect(false);
       };
 
       const bossAttack = () => {
-        setBossHealth(prev => {
-          const newHealth = Math.max(0, prev - 20);
-          if (newHealth <= 0) {
+        setCurrentBoss(prev => {
+          const newBoss = { ...prev, attacksRemaining: prev.attacksRemaining - 1 };
+          if (newBoss.attacksRemaining <= 0) {
             // Boss defeated!
             setBossBattlesCompleted(prev => prev + 1);
             setTimeout(() => {
@@ -213,16 +247,26 @@
               setScreen('tier-selection');
               setCurrentBoss(null);
               setBossHealth(100);
-            }, 2000);
+            }, 3000);
+          } else {
+            // Generate next boss sentence
+            setTimeout(() => {
+              generateBossSentence(newBoss.pattern);
+            }, 1500);
           }
-          return newHealth;
+          return newBoss;
         });
       };
 
       const bossDefend = () => {
-        // Boss takes less damage, player takes damage
-        setBossHealth(prev => Math.max(0, prev - 10));
-        setScore(prev => Math.max(0, prev - 1));
+        // Boss gets stronger with each wrong answer
+        setCurrentBoss(prev => ({ ...prev, attacksRemaining: prev.attacksRemaining + 1 }));
+        setScore(prev => Math.max(0, prev - 2));
+        
+        // Generate new boss sentence after wrong answer
+        setTimeout(() => {
+          generateBossSentence(currentBoss.pattern);
+        }, 1500);
       };
 
       const shuffleArray = (array) => {
@@ -301,8 +345,10 @@
         setShowFeedback(true);
         setQuestionsAnswered(questionsAnswered + 1);
 
-        // Update heat map
-        updateHeatMap(selectedPattern.id, difficulty, correct);
+        // Update heat map (only for regular practice, not boss battles)
+        if (!bossBattleMode) {
+          updateHeatMap(selectedPattern.id, difficulty, correct);
+        }
 
         if (correct) {
           setScore(score + 1);
@@ -556,6 +602,136 @@
         );
       }
 
+      if (screen === 'boss-battle') {
+        if (!currentBoss || !currentSentenceSet) {
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-100 flex items-center justify-center p-4">
+              <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
+                <div className="text-6xl mb-4">🔥</div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Boss Battle Loading...</h2>
+                <button onClick={() => setScreen('tier-selection')} className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
+                  Back to Menu
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        const currentSentence = currentSentenceSet;
+
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-100 flex items-center justify-center p-4">
+            <div className="bg-white rounded-3xl shadow-2xl p-6 max-w-2xl w-full">
+              {/* Boss Battle Header */}
+              <div className="bg-red-100 rounded-xl p-4 mb-6 border-2 border-red-300">
+                <div className="flex justify-between items-center mb-3">
+                  <div>
+                    <h2 className="text-xl font-bold text-red-800">🔥 BOSS BATTLE</h2>
+                    <p className="text-sm text-red-600">{currentBoss.name}</p>
+                    <p className="text-xs text-red-500">{currentBoss.specialAbility}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-red-800">Attacks Remaining: {currentBoss.attacksRemaining}</div>
+                    <div className="text-sm text-red-600">Score: {score}</div>
+                  </div>
+                </div>
+                
+                <div className="w-full bg-red-200 rounded-full h-3">
+                  <div 
+                    className="bg-red-600 h-3 rounded-full transition-all duration-500" 
+                    style={{ width: `${(currentBoss.attacksRemaining / 5) * 100}%` }}
+                  ></div>
+                </div>
+                <p className="text-xs text-red-700 mt-1">Boss Health: {currentBoss.attacksRemaining}/5</p>
+              </div>
+
+              {/* Current Sentence */}
+              <div className="mb-6 p-4 bg-gray-50 rounded-xl">
+                <h3 className="font-bold text-gray-800 mb-2">Defeat the boss by completing this combo sentence:</h3>
+                <p className="text-sm text-gray-600 mb-3">{currentBoss.description}</p>
+                
+                {inputMode === 'tap' ? (
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {selectedParts.map((part, index) => (
+                        <button
+                          key={index}
+                          onClick={() => removePart(index)}
+                          className="bg-blue-500 text-white px-3 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+                        >
+                          {part}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {shuffledParts.map((part, index) => (
+                        <button
+                          key={index}
+                          onClick={() => addPart(part, index)}
+                          className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-2 rounded-lg font-semibold transition-colors"
+                        >
+                          {part}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mb-4">
+                    <input
+                      type="text"
+                      value={typedAnswer}
+                      onChange={(e) => setTypedAnswer(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && checkAnswer()}
+                      placeholder="Type your answer here..."
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none text-lg"
+                    />
+                  </div>
+                )}
+
+                <button
+                  onClick={checkAnswer}
+                  disabled={showFeedback}
+                  className="w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-colors"
+                >
+                  {showFeedback ? (isCorrect ? '✅ Correct!' : '❌ Try Again') : 'Attack Boss!'}
+                </button>
+
+                {showFeedback && (
+                  <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-100 border-2 border-green-300' : 'bg-red-100 border-2 border-red-300'}`}>
+                    <p className={`font-bold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+                      {isCorrect ? '🎉 Great attack! Boss takes damage!' : '💥 Boss deflects your attack! Try again!'}
+                    </p>
+                    <p className="text-sm text-gray-700 mt-2">
+                      <strong>Correct:</strong> {currentSentence.parts.join(' ')}
+                    </p>
+                    <p className="text-sm text-gray-600 mt-1">
+                      <strong>Meaning:</strong> {currentSentence.meaning}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Battle Instructions */}
+              <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4">
+                <h4 className="font-bold text-yellow-800 mb-2">⚔️ Battle Rules:</h4>
+                <ul className="text-sm text-yellow-700 space-y-1">
+                  <li>• Correct answers deal damage to the boss</li>
+                  <li>• Wrong answers make the boss stronger</li>
+                  <li>• You need 5 successful attacks to win</li>
+                  <li>• Each wrong answer adds +1 to boss health</li>
+                </ul>
+              </div>
+
+              <div className="mt-4 text-center">
+                <button onClick={() => { setBossBattleMode(false); setScreen('tier-selection'); setCurrentBoss(null); }} className="text-gray-600 hover:text-gray-800 font-semibold transition-colors">
+                  Flee Battle
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
       if (screen === 'pattern-selection') {
         const patterns = grammarPatterns[selectedTier];
         const backScreen = challengeMode ? 'challenge-selection' : 'tier-selection';
@@ -643,15 +819,6 @@
                 <div>
                   <span className="text-sm font-bold text-gray-500">Score: {score}/{questionsAnswered}</span>
                   <div className="text-xs font-semibold text-purple-600 mt-1">{selectedPattern.name}</div>
-                  {bossBattleMode && currentBoss && (
-                    <div className="mt-2 p-2 bg-red-100 rounded-lg">
-                      <div className="text-xs font-bold text-red-800">🔥 BOSS BATTLE: {currentBoss.name}</div>
-                      <div className="w-full bg-red-200 rounded-full h-2 mt-1">
-                        <div className="bg-red-600 h-2 rounded-full transition-all duration-300" style={{ width: `${bossHealth}%` }}></div>
-                      </div>
-                      <div className="text-xs text-red-700 mt-1">Boss Health: {bossHealth}%</div>
-                    </div>
-                  )}
                 </div>
                 <button onClick={resetToStart} className="text-purple-600 hover:text-purple-800 font-semibold text-sm transition-colors">Exit</button>
               </div>
