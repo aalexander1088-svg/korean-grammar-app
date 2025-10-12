@@ -176,6 +176,79 @@
         return stats;
       };
 
+      // Random Mode Functions
+      const startRandomMode = () => {
+        if (!grammarPatterns) return;
+        
+        // Collect all patterns from all tiers
+        const allPatterns = [];
+        Object.keys(grammarPatterns).forEach(tier => {
+          if (grammarPatterns[tier] && Array.isArray(grammarPatterns[tier])) {
+            grammarPatterns[tier].forEach(pattern => {
+              allPatterns.push({
+                ...pattern,
+                tier: tier
+              });
+            });
+          }
+        });
+        
+        if (allPatterns.length === 0) return;
+        
+        // Pick a random pattern
+        const randomPattern = allPatterns[Math.floor(Math.random() * allPatterns.length)];
+        
+        // Get all sentences from this pattern
+        const allSentences = [];
+        Object.keys(randomPattern.sentences).forEach(difficulty => {
+          if (randomPattern.sentences[difficulty]) {
+            if (randomPattern.tenseVariations) {
+              // For patterns with tense variations, add each tense
+              randomPattern.sentences[difficulty].forEach(sentenceSet => {
+                Object.keys(sentenceSet).forEach(tense => {
+                  allSentences.push({
+                    ...sentenceSet[tense],
+                    difficulty: difficulty,
+                    tense: tense,
+                    patternId: randomPattern.id,
+                    patternName: randomPattern.name,
+                    tier: randomPattern.tier
+                  });
+                });
+              });
+            } else {
+              // For patterns without tense variations
+              randomPattern.sentences[difficulty].forEach(sentence => {
+                allSentences.push({
+                  ...sentence,
+                  difficulty: difficulty,
+                  patternId: randomPattern.id,
+                  patternName: randomPattern.name,
+                  tier: randomPattern.tier
+                });
+              });
+            }
+          }
+        });
+        
+        if (allSentences.length === 0) return;
+        
+        // Pick a random sentence
+        const randomSentence = allSentences[Math.floor(Math.random() * allSentences.length)];
+        
+        // Set up the random mode
+        setSelectedPattern(randomPattern);
+        setDifficulty(randomSentence.difficulty);
+        setCurrentSentenceSet(randomSentence);
+        setScreen('practice');
+        
+        // Set random input mode (50/50 chance)
+        const randomInputMode = Math.random() < 0.5 ? 'tap' : 'typing';
+        setInputMode(randomInputMode);
+        
+        setupQuestion(randomSentence, randomInputMode);
+      };
+
       // Boss Battle Functions
       const startBossBattle = () => {
         if (!grammarPatterns?.combo) return;
@@ -372,6 +445,13 @@
       };
 
       const nextQuestion = () => {
+        // Check if we're in Random Mode (no specific tier selected)
+        if (!selectedTier) {
+          // Generate a new random question
+          startRandomMode();
+          return;
+        }
+        
         if (selectedPattern.tenseVariations) {
           if (currentTense === 'past') {
             setCurrentTense('present');
@@ -451,12 +531,12 @@
                   </div>
                   <div className="text-sm opacity-90">5 combined patterns</div>
                 </button>
-                <button onClick={() => setScreen('challenge-selection')} className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-5 px-6 rounded-xl transition-colors">
+                <button onClick={() => startRandomMode()} className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-5 px-6 rounded-xl transition-colors">
                   <div className="flex items-center justify-center mb-1">
                     <div className="mr-2"><Zap /></div>
-                    <span className="text-xl">Challenge Modes</span>
+                    <span className="text-xl">Random Mode</span>
                   </div>
-                  <div className="text-sm opacity-90">Speed & Memory</div>
+                  <div className="text-sm opacity-90">Any pattern, any sentence!</div>
                 </button>
                 <button onClick={startBossBattle} className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-5 px-6 rounded-xl transition-colors">
                   <div className="flex items-center justify-center mb-1">
@@ -478,44 +558,6 @@
         );
       }
 
-      if (screen === 'challenge-selection') {
-        return (
-          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full">
-              <button onClick={() => setScreen('tier-selection')} className="flex items-center text-gray-600 hover:text-gray-800 mb-4 transition-colors">
-                <ArrowLeft /><span className="ml-2">Back</span>
-              </button>
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Challenge Modes</h2>
-              
-              <div className="space-y-4">
-                <button onClick={() => { setChallengeMode('speed'); setScreen('tier-selection'); }} className="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-4 px-6 rounded-2xl font-semibold text-lg hover:from-orange-500 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                  <div className="flex items-center justify-center mb-1">
-                    <div className="mr-2"><Zap /></div>
-                    <span>Speed Round</span>
-                  </div>
-                  <div className="text-sm opacity-90">Complete sentences as fast as possible</div>
-                </button>
-
-                <button onClick={() => { setChallengeMode('memory'); setScreen('tier-selection'); }} className="w-full bg-gradient-to-r from-teal-400 to-teal-600 text-white py-4 px-6 rounded-2xl font-semibold text-lg hover:from-teal-500 hover:to-teal-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                  <div className="flex items-center justify-center mb-1">
-                    <div className="mr-2"><Brain /></div>
-                    <span>Memory Challenge</span>
-                  </div>
-                  <div className="text-sm opacity-90">Build longer sentences by adding patterns</div>
-                </button>
-
-                <button onClick={() => { setChallengeMode('combo-challenge'); setScreen('pattern-selection'); setSelectedTier('combo'); }} className="w-full bg-gradient-to-r from-violet-400 to-violet-600 text-white py-4 px-6 rounded-2xl font-semibold text-lg hover:from-violet-500 hover:to-violet-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                  <div className="flex items-center justify-center mb-1">
-                    <div className="mr-2"><Sparkles /></div>
-                    <span>Combo Challenge</span>
-                  </div>
-                  <div className="text-sm opacity-90">Master multiple grammar patterns at once</div>
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      }
 
       if (screen === 'heat-map') {
         const stats = getHeatMapStats();
@@ -836,7 +878,9 @@
               <div className="flex justify-between items-center mb-4">
                 <div>
                   <span className="text-sm font-bold text-gray-500">Score: {score}/{questionsAnswered}</span>
-                  <div className="text-xs font-semibold text-purple-600 mt-1">{selectedPattern.name}</div>
+                  <div className="text-xs font-semibold text-purple-600 mt-1">
+                    {selectedTier ? selectedPattern.name : `🎲 Random Mode - ${selectedPattern.name} (${selectedPattern.tier})`}
+                  </div>
                 </div>
                 <button onClick={resetToStart} className="text-purple-600 hover:text-purple-800 font-semibold text-sm transition-colors">Exit</button>
               </div>
