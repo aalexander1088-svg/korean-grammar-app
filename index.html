@@ -425,8 +425,8 @@
       const [grammarPatterns, setGrammarPatterns] = useState(null);
       const [screen, setScreen] = useState('tier-selection');
 
-      // Floating Korean Characters Component
-      const FloatingCharacters = () => {
+      // Floating Korean Characters - inline JSX
+      const renderFloatingCharacters = () => {
         const floatingChars = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다'];
         
         return (
@@ -1225,7 +1225,7 @@
             </div>
             
             {/* Floating Korean characters */}
-            <FloatingCharacters />
+            {renderFloatingCharacters()}
             
             {/* Content */}
             <div className="content-container">
@@ -1751,7 +1751,7 @@
               <div className="blob-2"></div>
               <div className="blob-3"></div>
             </div>
-            <FloatingCharacters />
+            {renderFloatingCharacters()}
             
             <div className="content-container">
               <div className="glass-card max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -1915,7 +1915,7 @@
                 <div className="blob-2"></div>
                 <div className="blob-3"></div>
               </div>
-              <FloatingCharacters />
+              {renderFloatingCharacters()}
               
               <div className="content-container">
                 <div className="glass-card max-w-md">
@@ -1945,7 +1945,7 @@
               <div className="blob-2"></div>
               <div className="blob-3"></div>
             </div>
-            <FloatingCharacters />
+            {renderFloatingCharacters()}
             
             <div className="content-container">
               <div className="glass-card max-w-4xl">
