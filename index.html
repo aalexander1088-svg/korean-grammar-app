@@ -246,6 +246,14 @@
         const randomInputMode = Math.random() < 0.5 ? 'tap' : 'typing';
         setInputMode(randomInputMode);
         
+        // Reset states
+        setShuffledParts([]);
+        setSelectedParts([]);
+        setTypedAnswer('');
+        setShowFeedback(false);
+        setIsCorrect(false);
+        
+        // Setup question properly
         setupQuestion(randomSentence, randomInputMode);
       };
 
@@ -356,7 +364,10 @@
 
       const setupQuestion = (sentence, tense) => {
         const correctParts = tense ? [...sentence[tense].parts] : [...sentence.parts];
-        const distractors = distractorWords[difficulty];
+        
+        // Get difficulty from the sentence if available, otherwise use current difficulty
+        const currentDifficulty = sentence.difficulty || difficulty || 'beginner';
+        const distractors = distractorWords[currentDifficulty];
         const numDistractors = Math.floor(Math.random() * 4) + 5;
         const selectedDistractors = [];
         const shuffledDistractors = shuffleArray([...distractors]);
