@@ -111,7 +111,7 @@
 
       useEffect(() => {
         console.log('Fetching sentences.json...');
-        fetch('sentences.json')
+        fetch('sentences.json?v=' + Date.now())
           .then(response => {
             console.log('Response status:', response.status);
             return response.json();
@@ -524,8 +524,16 @@
     };
 
     console.log('About to render KoreanGrammarApp...');
-    ReactDOM.render(<KoreanGrammarApp />, document.getElementById('root'));
-    console.log('KoreanGrammarApp rendered!');
+    console.log('React version:', React.version);
+    console.log('ReactDOM version:', ReactDOM.version);
+    console.log('Root element:', document.getElementById('root'));
+    
+    try {
+      ReactDOM.render(<KoreanGrammarApp />, document.getElementById('root'));
+      console.log('KoreanGrammarApp rendered successfully!');
+    } catch (error) {
+      console.error('Error rendering KoreanGrammarApp:', error);
+    }
   </script>
 </body>
 </html>
