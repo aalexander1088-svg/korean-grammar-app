@@ -209,6 +209,9 @@
         setSelectedPattern(bossPattern);
         setDifficulty('advanced');
         
+        // Boss battles always use tap mode for better gameplay
+        setInputMode('tap');
+        
         // Setup question with more distractors for boss battles
         const correctParts = [...randomSentence.parts];
         const distractors = [
