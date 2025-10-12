@@ -318,12 +318,33 @@
         const loadVocabulary = async () => {
           try {
             const response = await fetch('vocabulary.json');
+            if (!response.ok) {
+              throw new Error('Failed to fetch vocabulary.json');
+            }
             const data = await response.json();
-            setVocabularyCards(data.vocabularyCards);
+            console.log('Loaded vocabulary:', data);
+            setVocabularyCards(data.vocabularyCards || []);
           } catch (error) {
             console.error('Error loading vocabulary:', error);
-            // Fallback to empty array if file doesn't exist
-            setVocabularyCards([]);
+            // Fallback vocabulary cards if file doesn't exist
+            setVocabularyCards([
+              {
+                id: 1,
+                word: "늦다",
+                romanization: "neutda",
+                frontTitle: "늦다",
+                meaning: "to be late / to do something late",
+                description: [
+                  "Used when talking about time – when someone or something is delayed or not on time.",
+                  "It's about being late, not about the speed of something."
+                ],
+                examples: [
+                  { korean: "수업에 늦었어요.", english: "I was late for class." },
+                  { korean: "너무 늦게 잤어요.", english: "I went to bed too late." },
+                  { korean: "지금 가면 늦을 거예요.", english: "If you go now, you'll be late." }
+                ]
+              }
+            ]);
           }
         };
         loadVocabulary();
