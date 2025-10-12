@@ -1198,10 +1198,11 @@
       };
 
       if (!grammarPatterns) {
-        console.log('Rendering loading state');
+        console.log('Rendering loading state - grammarPatterns is null');
+        console.log('Current screen:', screen);
         return (
           <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center">
-            <div className="text-2xl text-purple-600">Loading...</div>
+            <div className="text-2xl text-purple-600">Loading sentences.json...</div>
           </div>
         );
       }
