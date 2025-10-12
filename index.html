@@ -59,6 +59,19 @@
       50% { opacity: 0.7; transform: scale(0.95); }
     }
     
+    /* Vocabulary Flashcard 3D Flip Animation */
+    .transform-style-preserve-3d {
+      transform-style: preserve-3d;
+    }
+    
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    
     .gradient-bg {
       background: linear-gradient(-45deg, #a855f7, #e879f9, #06b6d4, #a855f7);
       background-size: 400% 400%;
@@ -147,6 +160,150 @@
       </svg>
     );
 
+    // Vocabulary Cards data
+    const vocabularyCards = [
+      {
+        id: 1,
+        word: "늦다",
+        romanization: "neutda",
+        frontTitle: "늦다",
+        meaning: "to be late / to do something late",
+        description: [
+          "Used when talking about time – when someone or something is delayed or not on time.",
+          "It's about being late, not about the speed of something."
+        ],
+        examples: [
+          { korean: "수업에 늦었어요.", english: "I was late for class." },
+          { korean: "너무 늦게 잤어요.", english: "I went to bed too late." },
+          { korean: "지금 가면 늦을 거예요.", english: "If you go now, you'll be late." }
+        ]
+      },
+      {
+        id: 2,
+        word: "고장나다",
+        romanization: "go-jang-na-da",
+        frontTitle: "고장나다",
+        meaning: "to malfunction / to stop working",
+        description: [
+          "Used when a machine, device, or system doesn't work properly, even if it looks fine on the outside.",
+          "Focus = functional failure (not necessarily physical damage).",
+          "English equivalents: to break down, to malfunction, to stop working."
+        ],
+        examples: [
+          { korean: "엘리베이터가 고장났어요.", english: "The elevator broke down." },
+          { korean: "제 컴퓨터가 고장났어요.", english: "My computer isn't working / My computer broke down." }
+        ]
+      },
+      {
+        id: 3,
+        word: "움직이다",
+        romanization: "um-jig-i-da",
+        frontTitle: "움직이다",
+        meaning: "to move (itself) / to move (body part)",
+        description: [
+          "N이/가 움직이다 = to move (itself) - intransitive",
+          "N을/를 움직이다 = to move (body part) - transitive"
+        ],
+        examples: [
+          { korean: "차가 움직이고 있어요.", english: "The car is moving." },
+          { korean: "손을 움직일 수 없어요.", english: "I can't move my hand." }
+        ]
+      },
+      {
+        id: 4,
+        word: "옮기다",
+        romanization: "om-gi-da",
+        frontTitle: "옮기다",
+        meaning: "to move something, carry",
+        description: [
+          "N을/를 옮기다 = to move something, to relocate, to carry",
+          "Used when moving objects from one place to another"
+        ],
+        examples: [
+          { korean: "책상을 옮겼어요.", english: "I moved the desk." },
+          { korean: "짐을 옮기는 중이에요.", english: "I'm moving luggage/stuff." }
+        ]
+      },
+      {
+        id: 5,
+        word: "배우다",
+        romanization: "bae-u-da",
+        frontTitle: "배우다",
+        meaning: "to learn / to study",
+        description: [
+          "Used for learning skills, subjects, or information",
+          "Can be used with -고 있다 for progressive learning",
+          "Often used with -에서 (from) to indicate source of learning"
+        ],
+        examples: [
+          { korean: "한국어를 배우고 있어요.", english: "I'm learning Korean." },
+          { korean: "선생님한테 배웠어요.", english: "I learned from the teacher." }
+        ]
+      }
+    ];
+
+    // Must Know Korean Phrases data
+    const mustKnowPhrases = {
+      category1: {
+        title: "MUST-KNOW KOREAN PHRASES #1",
+        phrases: [
+          { english: "All set?", korean: "다 준비됐어?" },
+          { english: "Anything else?", korean: "다른 건 없어?" },
+          { english: "Are you sure?", korean: "확실해?" },
+          { english: "Cool", korean: "좋네. 좋아" },
+          { english: "Correct", korean: "맞아" },
+          { english: "Cut it out", korean: "그만 좀 해. 작작해." },
+          { english: "Depends.", korean: "그때그때 달라." },
+          { english: "Don't get me wrong.", korean: "오해하지 마." },
+          { english: "Don't worry about it.", korean: "걱정하지 마." },
+          { english: "Enjoy.", korean: "맛있게 먹어." },
+          { english: "Fair enough.", korean: "그래 인정." },
+          { english: "Glad to hear that.", korean: "다행이야" },
+          { english: "Good for you.", korean: "잘됐네. 축하해." },
+          { english: "Hang on a second.", korean: "잠깐만. 잠시만" }
+        ]
+      },
+      category2: {
+        title: "MUST-KNOW KOREAN PHRASES #2",
+        phrases: [
+          { english: "agreed", korean: "동의해" },
+          { english: "are you kidding me?", korean: "장난해?" },
+          { english: "as you wish", korean: "너 좋을대로 해" },
+          { english: "beats me", korean: "나도 몰라" },
+          { english: "Do me a favor", korean: "부탁 하나만 할게" },
+          { english: "Go ahead", korean: "먼저 해" },
+          { english: "Got it", korean: "알겠어" },
+          { english: "How come?", korean: "어째서? 왜?" },
+          { english: "How did it go?", korean: "어떻게 됐어?" },
+          { english: "I didn't mean it", korean: "일부러 그런거 아니야" },
+          { english: "I don't get it", korean: "이해가 안돼" },
+          { english: "I gotta go", korean: "나 가야겠다" },
+          { english: "I knew it", korean: "그럴줄 알았어" },
+          { english: "I take it back", korean: "그 말은 취소할게" }
+        ]
+      },
+      category3: {
+        title: "MUST-KNOW KOREAN PHRASES #3",
+        phrases: [
+          { english: "take care", korean: "잘 가" },
+          { english: "text me", korean: "문자 해" },
+          { english: "that looks good on you", korean: "그거 너한테 잘 어울려" },
+          { english: "that was so close!", korean: "너무 아깝다!" },
+          { english: "that's what I'm saying", korean: "내 말이 그거야" },
+          { english: "time flies", korean: "시간 진짜 빠르다" },
+          { english: "we'll see", korean: "상황 좀 보자" },
+          { english: "what about it?", korean: "그게 뭐?" },
+          { english: "what can I say?", korean: "어쩌겠어?" },
+          { english: "what does that mean?", korean: "그게 무슨 뜻이야?" },
+          { english: "what happened?", korean: "어떻게 된거야? 무슨일이야?" },
+          { english: "what's the occasion?", korean: "오늘 무슨 날이야?" },
+          { english: "whatever", korean: "그러든지" },
+          { english: "you got me", korean: "들켰다." },
+          { english: "you know what?", korean: "그거 알아?" }
+        ]
+      }
+    };
+
     const KoreanGrammarApp = () => {
       const [grammarPatterns, setGrammarPatterns] = useState(null);
       const [screen, setScreen] = useState('tier-selection');
@@ -167,6 +324,31 @@
       const [isCorrect, setIsCorrect] = useState(false);
       const [questionsAnswered, setQuestionsAnswered] = useState(0);
       const [tensesCompleted, setTensesCompleted] = useState([]);
+      
+      // Phrases section states
+      const [expandedCategory, setExpandedCategory] = useState(null);
+      const [searchTerm, setSearchTerm] = useState("");
+      
+      // Quiz and Flashcard states
+      const [phrasesMode, setPhrasesMode] = useState('browse'); // 'browse', 'quiz', 'flashcards'
+      const [currentQuestion, setCurrentQuestion] = useState(0);
+      const [quizQuestions, setQuizQuestions] = useState([]);
+      const [selectedAnswer, setSelectedAnswer] = useState(null);
+      const [showAnswer, setShowAnswer] = useState(false);
+      const [quizScore, setQuizScore] = useState(0);
+      const [quizResults, setQuizResults] = useState([]);
+      const [currentFlashcard, setCurrentFlashcard] = useState(0);
+      const [flashcardSide, setFlashcardSide] = useState('front'); // 'front' or 'back'
+      const [learnedPhrases, setLearnedPhrases] = useState(() => {
+        const saved = localStorage.getItem('korean-phrases-learned');
+        return saved ? JSON.parse(saved) : {};
+      });
+      const [flashcardPhrases, setFlashcardPhrases] = useState([]);
+      
+      // Vocabulary Flashcard states
+      const [currentVocabularyCard, setCurrentVocabularyCard] = useState(0);
+      const [isVocabularyFlipped, setIsVocabularyFlipped] = useState(false);
+      const [isVocabularyMuted, setIsVocabularyMuted] = useState(true);
       
       // Heat Map and Boss Battle states
       const [heatMapData, setHeatMapData] = useState(() => {
@@ -204,6 +386,219 @@
       useEffect(() => {
         localStorage.setItem('korean-grammar-heatmap', JSON.stringify(heatMapData));
       }, [heatMapData]);
+
+      // Save learned phrases to localStorage whenever it changes
+      useEffect(() => {
+        localStorage.setItem('korean-phrases-learned', JSON.stringify(learnedPhrases));
+      }, [learnedPhrases]);
+
+      // Quiz Functions
+      const generateQuizQuestions = (category = null) => {
+        let allPhrases = [];
+        
+        if (category) {
+          allPhrases = mustKnowPhrases[category].phrases.map(phrase => ({
+            ...phrase,
+            category: category
+          }));
+        } else {
+          // Get all phrases from all categories
+          Object.entries(mustKnowPhrases).forEach(([catKey, category]) => {
+            category.phrases.forEach(phrase => {
+              allPhrases.push({
+                ...phrase,
+                category: catKey
+              });
+            });
+          });
+        }
+
+        const questions = [];
+        const usedPhrases = new Set();
+
+        // Generate 10 questions
+        for (let i = 0; i < Math.min(10, allPhrases.length); i++) {
+          let phrase;
+          do {
+            phrase = allPhrases[Math.floor(Math.random() * allPhrases.length)];
+          } while (usedPhrases.has(phrase.english + phrase.korean));
+          
+          usedPhrases.add(phrase.english + phrase.korean);
+
+          // Randomly choose English->Korean or Korean->English
+          const isEnglishToKorean = Math.random() < 0.5;
+          
+          if (isEnglishToKorean) {
+            // English to Korean question
+            const correctAnswer = phrase.korean;
+            const wrongAnswers = allPhrases
+              .filter(p => p.korean !== correctAnswer)
+              .map(p => p.korean)
+              .sort(() => Math.random() - 0.5)
+              .slice(0, 3);
+            
+            const allAnswers = [correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+            
+            questions.push({
+              question: phrase.english,
+              correctAnswer: correctAnswer,
+              allAnswers: allAnswers,
+              type: 'english-to-korean',
+              category: phrase.category
+            });
+          } else {
+            // Korean to English question
+            const correctAnswer = phrase.english;
+            const wrongAnswers = allPhrases
+              .filter(p => p.english !== correctAnswer)
+              .map(p => p.english)
+              .sort(() => Math.random() - 0.5)
+              .slice(0, 3);
+            
+            const allAnswers = [correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+            
+            questions.push({
+              question: phrase.korean,
+              correctAnswer: correctAnswer,
+              allAnswers: allAnswers,
+              type: 'korean-to-english',
+              category: phrase.category
+            });
+          }
+        }
+
+        return questions;
+      };
+
+      const startQuiz = (category = null) => {
+        const questions = generateQuizQuestions(category);
+        setQuizQuestions(questions);
+        setCurrentQuestion(0);
+        setSelectedAnswer(null);
+        setShowAnswer(false);
+        setQuizScore(0);
+        setQuizResults([]);
+        setPhrasesMode('quiz');
+      };
+
+      const startFlashcards = (category = null) => {
+        let allPhrases = [];
+        
+        if (category) {
+          allPhrases = mustKnowPhrases[category].phrases.map(phrase => ({
+            ...phrase,
+            category: category
+          }));
+        } else {
+          Object.entries(mustKnowPhrases).forEach(([catKey, category]) => {
+            category.phrases.forEach(phrase => {
+              allPhrases.push({
+                ...phrase,
+                category: catKey
+              });
+            });
+          });
+        }
+
+        // Prioritize phrases that haven't been learned yet
+        const unlearnedPhrases = allPhrases.filter(phrase => 
+          !learnedPhrases[phrase.english + phrase.korean]
+        );
+        
+        // If all phrases are learned, show all phrases
+        const phrasesToShow = unlearnedPhrases.length > 0 ? unlearnedPhrases : allPhrases;
+        
+        setFlashcardPhrases(phrasesToShow);
+        setCurrentFlashcard(0);
+        setFlashcardSide('front');
+        setPhrasesMode('flashcards');
+      };
+
+      const handleQuizAnswer = (answer) => {
+        if (showAnswer) return;
+        
+        setSelectedAnswer(answer);
+        setShowAnswer(true);
+        
+        const isCorrect = answer === quizQuestions[currentQuestion].correctAnswer;
+        const newScore = isCorrect ? quizScore + 1 : quizScore;
+        setQuizScore(newScore);
+        
+        setQuizResults([...quizResults, {
+          question: quizQuestions[currentQuestion].question,
+          correctAnswer: quizQuestions[currentQuestion].correctAnswer,
+          selectedAnswer: answer,
+          isCorrect: isCorrect,
+          type: quizQuestions[currentQuestion].type
+        }]);
+      };
+
+      const nextQuizQuestion = () => {
+        if (currentQuestion < quizQuestions.length - 1) {
+          setCurrentQuestion(currentQuestion + 1);
+          setSelectedAnswer(null);
+          setShowAnswer(false);
+        }
+      };
+
+      const finishQuiz = () => {
+        setPhrasesMode('browse');
+        setCurrentQuestion(0);
+        setQuizQuestions([]);
+        setSelectedAnswer(null);
+        setShowAnswer(false);
+      };
+
+      const markPhraseAsLearned = (phrase, learned = true) => {
+        const key = phrase.english + phrase.korean;
+        setLearnedPhrases(prev => ({
+          ...prev,
+          [key]: learned
+        }));
+      };
+
+      const nextFlashcard = () => {
+        if (currentFlashcard < flashcardPhrases.length - 1) {
+          setCurrentFlashcard(currentFlashcard + 1);
+          setFlashcardSide('front');
+        } else {
+          setPhrasesMode('browse');
+        }
+      };
+
+      const previousFlashcard = () => {
+        if (currentFlashcard > 0) {
+          setCurrentFlashcard(currentFlashcard - 1);
+          setFlashcardSide('front');
+        }
+      };
+
+      const flipFlashcard = () => {
+        setFlashcardSide(flashcardSide === 'front' ? 'back' : 'front');
+      };
+
+      // Vocabulary Flashcard Functions
+      const handleVocabularyFlip = () => {
+        setIsVocabularyFlipped(!isVocabularyFlipped);
+      };
+
+      const handleVocabularyNext = () => {
+        if (currentVocabularyCard < vocabularyCards.length - 1) {
+          setCurrentVocabularyCard(currentVocabularyCard + 1);
+          setIsVocabularyFlipped(false);
+        }
+      };
+
+      const handleVocabularyPrev = () => {
+        if (currentVocabularyCard > 0) {
+          setCurrentVocabularyCard(currentVocabularyCard - 1);
+          setIsVocabularyFlipped(false);
+        }
+      };
+
+      const toggleVocabularyMute = () => {
+        setIsVocabularyMuted(!isVocabularyMuted);
+      };
 
       // Heat Map Functions
       const updateHeatMap = (patternId, tier, correct) => {
@@ -795,11 +1190,41 @@
                   </div>
                 </button>
 
-                <button onClick={() => setScreen('heat-map')} className="group w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-bold py-6 px-6 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
+                <button onClick={() => setScreen('must-know-phrases')} className="group w-full bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white font-bold py-6 px-6 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                   
                   <div className="relative flex items-center justify-center mb-2">
                     <Star className="w-8 h-8 mr-3 drop-shadow-lg animate-twinkle" style={{animationDelay: '1.8s'}} />
+                    <span className="text-3xl font-black drop-shadow-lg group-hover:scale-110 transition-transform duration-300">필수 표현</span>
+                  </div>
+                  <div className="relative">
+                    <div className="text-xs font-semibold uppercase tracking-wider opacity-90 mb-1">Must-Know Phrases</div>
+                    <div className="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/30 inline-block">
+                      <span className="font-bold drop-shadow">일상 대화 표현들</span>
+                    </div>
+                  </div>
+                </button>
+
+                <button onClick={() => setScreen('vocabulary-flashcards')} className="group w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-6 px-6 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  
+                  <div className="relative flex items-center justify-center mb-2">
+                    <Star className="w-8 h-8 mr-3 drop-shadow-lg animate-twinkle" style={{animationDelay: '2.1s'}} />
+                    <span className="text-3xl font-black drop-shadow-lg group-hover:scale-110 transition-transform duration-300">어휘 카드</span>
+                  </div>
+                  <div className="relative">
+                    <div className="text-xs font-semibold uppercase tracking-wider opacity-90 mb-1">Vocabulary Flashcards</div>
+                    <div className="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/30 inline-block">
+                      <span className="font-bold drop-shadow">노트북 스타일 학습</span>
+                    </div>
+                  </div>
+                </button>
+
+                <button onClick={() => setScreen('heat-map')} className="group w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-bold py-6 px-6 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  
+                  <div className="relative flex items-center justify-center mb-2">
+                    <Star className="w-8 h-8 mr-3 drop-shadow-lg animate-twinkle" style={{animationDelay: '2.4s'}} />
                     <span className="text-3xl font-black drop-shadow-lg group-hover:scale-110 transition-transform duration-300">히트 맵</span>
                   </div>
                   <div className="relative">
@@ -907,6 +1332,609 @@
                   </div>
                 </>
               )}
+            </div>
+          </div>
+        );
+      }
+
+      if (screen === 'must-know-phrases') {
+        const toggleCategory = (categoryKey) => {
+          setExpandedCategory(expandedCategory === categoryKey ? null : categoryKey);
+        };
+
+        const filteredPhrases = (phrases) => {
+          if (!searchTerm) return phrases;
+          return phrases.filter(phrase => 
+            phrase.english.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            phrase.korean.includes(searchTerm)
+          );
+        };
+
+        // Quiz Mode
+        if (phrasesMode === 'quiz') {
+          const question = quizQuestions[currentQuestion];
+          const isLastQuestion = currentQuestion === quizQuestions.length - 1;
+          
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
+              <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full">
+                {/* Quiz Header */}
+                <div className="flex justify-between items-center mb-6">
+                  <button onClick={finishQuiz} className="flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+                    <ArrowLeft /><span className="ml-2">Exit Quiz</span>
+                  </button>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-teal-600">Score: {quizScore}/{quizQuestions.length}</div>
+                    <div className="text-sm text-gray-500">Question {currentQuestion + 1} of {quizQuestions.length}</div>
+                  </div>
+                </div>
+
+                {/* Progress Bar */}
+                <div className="w-full bg-gray-200 rounded-full h-3 mb-8">
+                  <div 
+                    className="bg-gradient-to-r from-teal-500 to-emerald-500 h-3 rounded-full transition-all duration-300"
+                    style={{ width: `${((currentQuestion + 1) / quizQuestions.length) * 100}%` }}
+                  ></div>
+                </div>
+
+                {/* Question */}
+                <div className="text-center mb-8">
+                  <div className="mb-4">
+                    <span className={`inline-block px-4 py-2 rounded-full text-sm font-semibold ${
+                      question.type === 'english-to-korean' 
+                        ? 'bg-blue-100 text-blue-800' 
+                        : 'bg-green-100 text-green-800'
+                    }`}>
+                      {question.type === 'english-to-korean' ? 'English → Korean' : 'Korean → English'}
+                    </span>
+                  </div>
+                  <h2 className="text-3xl font-bold text-gray-800 mb-4">{question.question}</h2>
+                  <p className="text-gray-600">Choose the correct translation:</p>
+                </div>
+
+                {/* Answer Options */}
+                <div className="space-y-3 mb-8">
+                  {question.allAnswers.map((answer, index) => {
+                    let buttonClass = "w-full p-4 rounded-xl font-semibold text-lg transition-all duration-200 ";
+                    
+                    if (showAnswer) {
+                      if (answer === question.correctAnswer) {
+                        buttonClass += "bg-green-500 text-white";
+                      } else if (answer === selectedAnswer && answer !== question.correctAnswer) {
+                        buttonClass += "bg-red-500 text-white";
+                      } else {
+                        buttonClass += "bg-gray-200 text-gray-500";
+                      }
+                    } else {
+                      buttonClass += selectedAnswer === answer 
+                        ? "bg-teal-500 text-white hover:bg-teal-600" 
+                        : "bg-gray-100 text-gray-800 hover:bg-gray-200";
+                    }
+
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => handleQuizAnswer(answer)}
+                        disabled={showAnswer}
+                        className={buttonClass}
+                      >
+                        {answer}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Feedback */}
+                {showAnswer && (
+                  <div className={`p-4 rounded-xl mb-6 ${
+                    selectedAnswer === question.correctAnswer 
+                      ? 'bg-green-100 border-2 border-green-300' 
+                      : 'bg-red-100 border-2 border-red-300'
+                  }`}>
+                    <div className="text-center">
+                      <div className="text-2xl mb-2">
+                        {selectedAnswer === question.correctAnswer ? '✅' : '❌'}
+                      </div>
+                      <p className={`font-bold ${
+                        selectedAnswer === question.correctAnswer ? 'text-green-800' : 'text-red-800'
+                      }`}>
+                        {selectedAnswer === question.correctAnswer 
+                          ? 'Correct!' 
+                          : `Wrong! The correct answer is: ${question.correctAnswer}`
+                        }
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Next Button */}
+                {showAnswer && (
+                  <div className="text-center">
+                    {isLastQuestion ? (
+                      <button
+                        onClick={finishQuiz}
+                        className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-xl transition-colors"
+                      >
+                        Finish Quiz ({quizScore}/{quizQuestions.length})
+                      </button>
+                    ) : (
+                      <button
+                        onClick={nextQuizQuestion}
+                        className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-xl transition-colors"
+                      >
+                        Next Question
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        }
+
+        // Flashcard Mode
+        if (phrasesMode === 'flashcards') {
+          const phrase = flashcardPhrases[currentFlashcard];
+          const isLastCard = currentFlashcard === flashcardPhrases.length - 1;
+          const isLearned = learnedPhrases[phrase.english + phrase.korean];
+
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
+              <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full">
+                {/* Flashcard Header */}
+                <div className="flex justify-between items-center mb-6">
+                  <button onClick={() => setPhrasesMode('browse')} className="flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+                    <ArrowLeft /><span className="ml-2">Exit Flashcards</span>
+                  </button>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-teal-600">
+                      Card {currentFlashcard + 1} of {flashcardPhrases.length}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {isLearned ? '✅ Learned' : '📚 Learning'}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Progress Bar */}
+                <div className="w-full bg-gray-200 rounded-full h-3 mb-8">
+                  <div 
+                    className="bg-gradient-to-r from-teal-500 to-emerald-500 h-3 rounded-full transition-all duration-300"
+                    style={{ width: `${((currentFlashcard + 1) / flashcardPhrases.length) * 100}%` }}
+                  ></div>
+                </div>
+
+                {/* Flashcard */}
+                <div 
+                  className="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-2xl p-8 mb-8 min-h-[300px] flex items-center justify-center cursor-pointer hover:shadow-lg transition-all"
+                  onClick={flipFlashcard}
+                >
+                  <div className="text-center">
+                    {flashcardSide === 'front' ? (
+                      <div>
+                        <div className="text-sm text-gray-500 mb-2">English</div>
+                        <h2 className="text-3xl font-bold text-gray-800">{phrase.english}</h2>
+                        <p className="text-gray-600 mt-4">Tap to reveal Korean translation</p>
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="text-sm text-gray-500 mb-2">Korean</div>
+                        <h2 className="text-3xl font-bold text-teal-800">{phrase.korean}</h2>
+                        <p className="text-gray-600 mt-4">Tap to see English again</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex justify-center space-x-4 mb-6">
+                  <button
+                    onClick={() => markPhraseAsLearned(phrase, true)}
+                    className={`px-6 py-3 rounded-xl font-semibold transition-colors ${
+                      isLearned 
+                        ? 'bg-green-500 text-white' 
+                        : 'bg-green-100 text-green-700 hover:bg-green-200'
+                    }`}
+                  >
+                    ✅ I Know This
+                  </button>
+                  <button
+                    onClick={() => markPhraseAsLearned(phrase, false)}
+                    className="px-6 py-3 rounded-xl font-semibold bg-yellow-100 text-yellow-700 hover:bg-yellow-200 transition-colors"
+                  >
+                    📚 Need Practice
+                  </button>
+                </div>
+
+                {/* Navigation */}
+                <div className="flex justify-between items-center">
+                  <button
+                    onClick={previousFlashcard}
+                    disabled={currentFlashcard === 0}
+                    className="flex items-center px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Previous
+                  </button>
+
+                  <div className="text-center text-gray-600">
+                    Tap card to flip
+                  </div>
+
+                  <button
+                    onClick={nextFlashcard}
+                    className="flex items-center px-4 py-2 rounded-lg bg-teal-500 text-white hover:bg-teal-600 transition-colors"
+                  >
+                    {isLastCard ? 'Finish' : 'Next'}
+                    {!isLastCard && <ArrowRight className="w-4 h-4 ml-2" />}
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        // Browse Mode (Original)
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <button onClick={() => setScreen('tier-selection')} className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors">
+                <ArrowLeft /><span className="ml-2">Back to Menu</span>
+              </button>
+              
+              {/* Header */}
+              <div className="text-center mb-8">
+                <div className="flex justify-center mb-4">
+                  <Sparkles className="w-16 h-16 text-teal-600 drop-shadow-lg" />
+                </div>
+                <h2 className="text-4xl font-bold bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent mb-2">
+                  Must-Know Korean Phrases
+                </h2>
+                <p className="text-gray-600 text-lg">필수 한국어 표현</p>
+                <p className="text-sm text-gray-500 mt-2">Essential phrases for daily conversations</p>
+              </div>
+
+              {/* Learning Mode Buttons */}
+              <div className="flex justify-center space-x-4 mb-8">
+                <button
+                  onClick={() => startQuiz()}
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg"
+                >
+                  🧠 Quiz Mode
+                </button>
+                <button
+                  onClick={() => startFlashcards()}
+                  className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg"
+                >
+                  🎴 Flashcard Mode
+                </button>
+              </div>
+
+              {/* Search Bar */}
+              <div className="mb-6">
+                <input
+                  type="text"
+                  placeholder="Search phrases..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full p-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-lg"
+                />
+              </div>
+
+              {/* Category Cards */}
+              <div className="space-y-6">
+                {Object.entries(mustKnowPhrases).map(([categoryKey, category]) => (
+                  <div key={categoryKey} className="relative">
+                    {/* Card */}
+                    <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow">
+                      {/* Header */}
+                      <div 
+                        className="p-6 cursor-pointer hover:bg-gray-50 transition-colors"
+                        onClick={() => toggleCategory(categoryKey)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            {/* Category Icon */}
+                            <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full flex items-center justify-center">
+                              <span className="text-white font-bold text-lg">
+                                {categoryKey === 'category1' ? '1' : categoryKey === 'category2' ? '2' : '3'}
+                              </span>
+                            </div>
+                            
+                            <div>
+                              <h3 className="text-xl font-bold text-gray-800">{category.title}</h3>
+                              <p className="text-gray-600 text-sm">
+                                {category.phrases.length} phrases • Click to {expandedCategory === categoryKey ? 'collapse' : 'expand'}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          {/* Category-specific Quiz/Flashcard buttons */}
+                          <div className="flex space-x-2">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                startQuiz(categoryKey);
+                              }}
+                              className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm hover:bg-blue-200 transition-colors"
+                            >
+                              Quiz
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                startFlashcards(categoryKey);
+                              }}
+                              className="px-3 py-1 bg-purple-100 text-purple-700 rounded-lg text-sm hover:bg-purple-200 transition-colors"
+                            >
+                              Cards
+                            </button>
+                          </div>
+                          
+                          {/* Chevron */}
+                          <div className={`transform transition-transform duration-300 ${expandedCategory === categoryKey ? 'rotate-180' : ''}`}>
+                            <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Expanded Content */}
+                      <div className={`transition-all duration-500 ease-in-out overflow-hidden ${expandedCategory === categoryKey ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className="px-6 pb-6">
+                          <div className="bg-gray-50 rounded-xl p-6">
+                            {/* Phrases List */}
+                            <div className="space-y-3">
+                              {filteredPhrases(category.phrases).map((phrase, index) => {
+                                const isLearned = learnedPhrases[phrase.english + phrase.korean];
+                                return (
+                                  <div key={index} className={`flex justify-between items-center py-3 px-4 hover:bg-white hover:shadow-md rounded-lg transition-all group ${
+                                    isLearned ? 'bg-green-50 border border-green-200' : ''
+                                  }`}>
+                                    <span className="font-medium text-gray-800 flex items-center">
+                                      {isLearned && <span className="text-green-500 mr-2">✅</span>}
+                                      <span className="w-2 h-2 bg-teal-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                      {phrase.english}
+                                    </span>
+                                    <span className="font-semibold text-teal-700 bg-teal-100 px-3 py-1 rounded-lg text-sm">
+                                      {phrase.korean}
+                                    </span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                            
+                            {filteredPhrases(category.phrases).length === 0 && searchTerm && (
+                              <div className="text-center py-8 text-gray-500">
+                                <p>No phrases found matching "{searchTerm}"</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Footer Info */}
+              <div className="mt-8 text-center">
+                <p className="text-gray-600 text-sm">💡 Tip: Use Quiz Mode for testing and Flashcard Mode for studying</p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (screen === 'vocabulary-flashcards') {
+        const currentCard = vocabularyCards[currentVocabularyCard];
+        const isFirstCard = currentVocabularyCard === 0;
+        const isLastCard = currentVocabularyCard === vocabularyCards.length - 1;
+
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-4xl w-full">
+              {/* Header */}
+              <div className="flex justify-between items-center mb-8">
+                <button onClick={() => setScreen('tier-selection')} className="flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+                  <ArrowLeft /><span className="ml-2">Back to Menu</span>
+                </button>
+                <div className="text-center">
+                  <h2 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                    Vocabulary Flashcards
+                  </h2>
+                  <p className="text-gray-600">어휘 플래시카드</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-orange-600">
+                    Card {currentVocabularyCard + 1} of {vocabularyCards.length}
+                  </div>
+                </div>
+              </div>
+
+              {/* Flashcard Container */}
+              <div className="flex justify-center items-center mb-8">
+                <div className="relative w-full max-w-2xl">
+                  {/* Navigation Buttons */}
+                  <button
+                    onClick={handleVocabularyPrev}
+                    disabled={isFirstCard}
+                    className={`absolute left-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                      isFirstCard 
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                        : 'bg-white text-orange-600 hover:bg-orange-50 shadow-lg hover:scale-110'
+                    }`}
+                  >
+                    <ArrowLeft className="w-6 h-6" />
+                  </button>
+
+                  <button
+                    onClick={handleVocabularyNext}
+                    disabled={isLastCard}
+                    className={`absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                      isLastCard 
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                        : 'bg-white text-orange-600 hover:bg-orange-50 shadow-lg hover:scale-110'
+                    }`}
+                  >
+                    <ArrowRight className="w-6 h-6" />
+                  </button>
+
+                  {/* Simple Flashcard */}
+                  <div 
+                    className="w-full h-[600px] cursor-pointer bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl shadow-2xl overflow-hidden border-4 border-orange-200"
+                    onClick={handleVocabularyFlip}
+                  >
+                    {!isVocabularyFlipped ? (
+                      /* Front of Card */
+                      <div className="relative w-full h-full p-8 flex flex-col items-center justify-center">
+                        {/* Spiral Holes */}
+                        <div className="absolute left-4 top-0 bottom-0 flex flex-col items-center justify-evenly py-8">
+                          {[...Array(12)].map((_, i) => (
+                            <div key={i} className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                          ))}
+                        </div>
+
+                        {/* Page Corner */}
+                        <div className="absolute top-4 right-4 w-8 h-8 bg-gray-300 transform rotate-45"></div>
+
+                        {/* Page Counter */}
+                        <div className="absolute top-4 right-16 bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                          {currentVocabularyCard + 1}/{vocabularyCards.length}
+                        </div>
+
+                        {/* LEARN KOREAN WITH KELLY */}
+                        <div className="absolute top-4 right-32 text-xs text-gray-600 font-mono">
+                          LEARN KOREAN WITH KELLY
+                        </div>
+
+                        {/* Main Content */}
+                        <div className="text-center">
+                          {/* Red Circle Stamp */}
+                          <div className="inline-block border-4 border-red-500 rounded-full p-6 transform -rotate-3 mb-6">
+                            <div className="text-5xl font-black text-gray-800">
+                              {currentCard.word}
+                            </div>
+                          </div>
+                          
+                          {/* Romanization */}
+                          <div className="text-xl text-gray-600 font-medium mb-8">
+                            ({currentCard.romanization})
+                          </div>
+                          
+                          {/* Flip Hint */}
+                          <div className="text-gray-500 text-lg">
+                            💡 Click to see meaning and examples
+                          </div>
+                        </div>
+
+                        {/* Mute Button */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleVocabularyMute();
+                          }}
+                          className="absolute bottom-4 right-4 w-10 h-10 bg-gray-600 hover:bg-gray-700 rounded-full flex items-center justify-center text-white transition-all"
+                        >
+                          🔊
+                        </button>
+                      </div>
+                    ) : (
+                      /* Back of Card */
+                      <div className="relative w-full h-full p-8 overflow-y-auto">
+                        {/* Spiral Holes */}
+                        <div className="absolute left-4 top-0 bottom-0 flex flex-col items-center justify-evenly py-8">
+                          {[...Array(12)].map((_, i) => (
+                            <div key={i} className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                          ))}
+                        </div>
+
+                        {/* Page Corner */}
+                        <div className="absolute top-4 right-4 w-8 h-8 bg-gray-300 transform rotate-45"></div>
+
+                        {/* Page Counter */}
+                        <div className="absolute top-4 right-16 bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                          {currentVocabularyCard + 1}/{vocabularyCards.length}
+                        </div>
+
+                        {/* LEARN KOREAN WITH KELLY */}
+                        <div className="absolute top-4 right-32 text-xs text-gray-600 font-mono">
+                          LEARN KOREAN WITH KELLY
+                        </div>
+
+                        {/* Main Content */}
+                        <div className="mt-12">
+                          {/* Word Header */}
+                          <div className="flex items-center mb-6">
+                            <span className="text-2xl mr-3">⏰</span>
+                            <div>
+                              <div className="text-3xl font-bold text-gray-800">
+                                {currentCard.word} ({currentCard.romanization})
+                              </div>
+                              <div className="text-xl font-semibold text-orange-600 mt-1">
+                                = {currentCard.meaning}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Description */}
+                          <div className="mb-6">
+                            <div className="font-semibold text-gray-800 mb-3">Meaning:</div>
+                            <ul className="space-y-2">
+                              {currentCard.description.map((desc, index) => (
+                                <li key={index} className="flex items-start">
+                                  <span className="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                  <span className="text-gray-700 leading-relaxed">{desc}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Examples */}
+                          <div>
+                            <div className="font-bold text-gray-800 mb-4">Examples:</div>
+                            <div className="space-y-4">
+                              {currentCard.examples.map((example, index) => (
+                                <div key={index} className="bg-white bg-opacity-70 p-4 rounded-lg border border-orange-200">
+                                  <div className="text-lg font-medium text-gray-800 mb-1">
+                                    {example.korean}
+                                  </div>
+                                  <div className="flex items-center">
+                                    <span className="text-gray-400 mr-2">→</span>
+                                    <span className="text-gray-600">{example.english}</span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Mute Button */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleVocabularyMute();
+                          }}
+                          className="absolute bottom-4 right-4 w-10 h-10 bg-gray-600 hover:bg-gray-700 rounded-full flex items-center justify-center text-white transition-all"
+                        >
+                          🔊
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer Info */}
+              <div className="text-center">
+                <p className="text-gray-600 text-sm mb-2">
+                  💡 Click the card to flip between front and back
+                </p>
+                <p className="text-gray-500 text-xs">
+                  Use arrow buttons to navigate between cards
+                </p>
+              </div>
             </div>
           </div>
         );
