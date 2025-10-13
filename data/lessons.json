@@ -1,0 +1,224 @@
+[
+  {
+    "id": "lesson-1",
+    "title": "Lesson 1",
+    "subtitle": "일상 생활과 동물",
+    "description": "Daily life and animals - vocabulary and expressions",
+    "grammar": [
+      {
+        "pattern": "지난 번에 갔을 때",
+        "meaning": "When I went last time",
+        "examples": ["지난 번에 갔을 때 강아지가 제 손가락을 물었어요."]
+      },
+      {
+        "pattern": "어제부터...할 예정이었는데",
+        "meaning": "I was planning to... from yesterday, but",
+        "examples": ["어제부터 등산을 할 예정이었는데, 날씨가 안 좋아서 내일부터 하는 걸로 바꿨어요."]
+      },
+      {
+        "pattern": "N을/를 조심하다",
+        "meaning": "to watch out for N",
+        "examples": ["무니를 조심하라고 해요. 물 수도 있어요."]
+      }
+    ],
+    "vocabulary": [
+      { "korean": "물다", "english": "to bite", "romanization": "mulda" },
+      { "korean": "다치다", "english": "to hurt, injure", "romanization": "dachida" },
+      { "korean": "움직이다", "english": "to move", "romanization": "umjigida" },
+      { "korean": "봉지", "english": "plastic bag", "romanization": "bongji" },
+      { "korean": "소리", "english": "sound", "romanization": "sori" },
+      { "korean": "덮다", "english": "to cover", "romanization": "deopda" },
+      { "korean": "냉동실", "english": "freezer", "romanization": "naengdongshil" },
+      { "korean": "냉동식품", "english": "frozen food", "romanization": "naengdongshikpum" },
+      { "korean": "해동하다", "english": "to defrost", "romanization": "haedonghada" }
+    ],
+    "sentences": [
+      {
+        "korean": "지난 번에 갔을 때 강아지가 제 손가락을 물었어요.",
+        "english": "When I went last time, the puppy bit my finger.",
+        "pattern": "past experience"
+      },
+      {
+        "korean": "고양이들이 사람 음식을 먹고 싶어하는 영상을 많이 봐요.",
+        "english": "I watch many videos of cats wanting to eat human food.",
+        "pattern": "desire expression"
+      },
+      {
+        "korean": "어제부터 등산을 할 예정이었는데, 날씨가 안 좋아서 내일부터 하는 걸로 바꿨어요.",
+        "english": "I was planning to go hiking from yesterday, but I changed it to start tomorrow because the weather was bad.",
+        "pattern": "plan change"
+      },
+      {
+        "korean": "수영장을 커버로 덮었어요.",
+        "english": "I covered the swimming pool with a cover.",
+        "pattern": "covering action"
+      },
+      {
+        "korean": "고양이나 강아지를 키우고 싶어요.",
+        "english": "I want to raise a cat or dog.",
+        "pattern": "desire to raise pets"
+      }
+    ]
+  },
+  {
+    "id": "lesson-2",
+    "title": "Lesson 2",
+    "subtitle": "가족과 성격",
+    "description": "Family and personality - relationships and behavior",
+    "grammar": [
+      {
+        "pattern": "N을/를 따라다니다",
+        "meaning": "to follow around N",
+        "examples": ["고양이가 항상 저를 따라다녀요."]
+      },
+      {
+        "pattern": "자라다 vs 키우다",
+        "meaning": "to grow (itself) vs to grow/raise something",
+        "examples": ["아기가 자라요. / 아이를 키워요."]
+      },
+      {
+        "pattern": "N을/를 조심하다",
+        "meaning": "to watch out for N",
+        "examples": ["무니를 조심하라고 해요."]
+      }
+    ],
+    "vocabulary": [
+      { "korean": "침실", "english": "bedroom", "romanization": "chimsil" },
+      { "korean": "냉장고", "english": "fridge", "romanization": "naengjanggo" },
+      { "korean": "냉동고", "english": "freezer", "romanization": "naengdonggo" },
+      { "korean": "냉동하다", "english": "to freeze", "romanization": "naengdonghada" },
+      { "korean": "얼리다", "english": "to freeze", "romanization": "eollida" },
+      { "korean": "숙소", "english": "accommodation", "romanization": "suksso" },
+      { "korean": "관계", "english": "relationship", "romanization": "gwangye" },
+      { "korean": "성격", "english": "personality", "romanization": "seonggyeok" },
+      { "korean": "전형적이다", "english": "to be typical", "romanization": "jeonhyeongjeogida" },
+      { "korean": "행동", "english": "behavior", "romanization": "haengdong" },
+      { "korean": "따르다", "english": "to follow", "romanization": "ttareuda" },
+      { "korean": "자라다", "english": "to grow (itself)", "romanization": "jarada" },
+      { "korean": "키우다", "english": "to grow/raise something", "romanization": "kiuda" },
+      { "korean": "기생충", "english": "parasite", "romanization": "gisaengchung" },
+      { "korean": "착하다", "english": "to be nice, well-behaving", "romanization": "chakhada" },
+      { "korean": "순하다", "english": "to be mild, soft, easy", "romanization": "sunhada" }
+    ],
+    "sentences": [
+      {
+        "korean": "아내가 있을 때는 (아내가) 시끄러울까 봐 부엌에서 수업을 못해요.",
+        "english": "When my wife is home, I can't have class in the kitchen because I'm worried (she) might be loud.",
+        "pattern": "worry expression"
+      },
+      {
+        "korean": "회사를 아마존한테 팔았어요.",
+        "english": "I sold the company to Amazon.",
+        "pattern": "selling action"
+      },
+      {
+        "korean": "고양이가 항상 저를 따라와요.",
+        "english": "The cat always follows me.",
+        "pattern": "following behavior"
+      },
+      {
+        "korean": "알렉스 고양이가 진짜 착하게 생겼어요.",
+        "english": "Alex's cat really looks well-behaved.",
+        "pattern": "appearance description"
+      },
+      {
+        "korean": "다이노는 에너지가 많을 때 다른 고양이들을 괴롭혀요.",
+        "english": "Dino bullies other cats when he has a lot of energy.",
+        "pattern": "bullying behavior"
+      }
+    ]
+  },
+  {
+    "id": "lesson-3",
+    "title": "Lesson 3",
+    "subtitle": "움직임과 공간",
+    "description": "Movement and space - motion verbs and locations",
+    "grammar": [
+      {
+        "pattern": "N이/가 움직이다",
+        "meaning": "N to move (itself)",
+        "examples": ["고양이들이 다 지하에 있어요."]
+      },
+      {
+        "pattern": "N을/를 움직이다",
+        "meaning": "to move (body part)",
+        "examples": ["귀를 움직일 수 있어요?"]
+      },
+      {
+        "pattern": "N을/를 옮기다",
+        "meaning": "to move something, carry",
+        "examples": ["집을 옮기는 걸 '이사'라고 해요."]
+      },
+      {
+        "pattern": "A-어 보이다",
+        "meaning": "to look/appear A",
+        "examples": ["젊어 보이다, 나이 들어 보이다"]
+      },
+      {
+        "pattern": "있으니까",
+        "meaning": "because there is",
+        "examples": ["집 지하에 헬스장이 있어서 안 가도 돼요."]
+      }
+    ],
+    "vocabulary": [
+      { "korean": "지하", "english": "basement", "romanization": "jiha" },
+      { "korean": "옮기다", "english": "to move something, carry", "romanization": "omgida" },
+      { "korean": "자리", "english": "space, seat", "romanization": "jari" },
+      { "korean": "의자", "english": "chair", "romanization": "uija" },
+      { "korean": "귀찮다", "english": "to feel lazy", "romanization": "gwichanta" },
+      { "korean": "깨닫다", "english": "to realize", "romanization": "kkaedatda" },
+      { "korean": "우연", "english": "coincidence", "romanization": "uyeon" },
+      { "korean": "우연히", "english": "by accident, coincidentally", "romanization": "uyeonhi" },
+      { "korean": "근육통", "english": "muscle pain", "romanization": "geunyuktong" },
+      { "korean": "시키다", "english": "to order", "romanization": "sikida" },
+      { "korean": "빠르다", "english": "to be quick, fast", "romanization": "ppareuda" },
+      { "korean": "부르다", "english": "to call", "romanization": "bureuda" },
+      { "korean": "자연", "english": "nature", "romanization": "jayeon" },
+      { "korean": "자연스럽다", "english": "to be natural", "romanization": "jayeonseureopda" },
+      { "korean": "상체", "english": "upper body", "romanization": "sangche" },
+      { "korean": "하체", "english": "lower body", "romanization": "hache" },
+      { "korean": "발달하다", "english": "to develop", "romanization": "baldalhada" },
+      { "korean": "기계", "english": "machine", "romanization": "gigye" },
+      { "korean": "흰머리", "english": "gray hair", "romanization": "huinmeori" },
+      { "korean": "자랑스럽다", "english": "to feel proud", "romanization": "jarangseureopda" },
+      { "korean": "자랑하다", "english": "to brag", "romanization": "jaranghada" }
+    ],
+    "sentences": [
+      {
+        "korean": "고양이들이 다 지하에 있어요.",
+        "english": "All the cats are in the basement.",
+        "pattern": "location description"
+      },
+      {
+        "korean": "집을 옮기는 걸 '이사'라고 해요.",
+        "english": "Moving houses is called 'moving' (이사).",
+        "pattern": "definition"
+      },
+      {
+        "korean": "귀찮아도 몸을 움직여야 돼요",
+        "english": "Even if you feel lazy, you have to move your body.",
+        "pattern": "obligation"
+      },
+      {
+        "korean": "어제 다리 운동을 해서 오늘 다리에 근육통이 있어요.",
+        "english": "I did leg exercises yesterday, so I have muscle pain in my legs today.",
+        "pattern": "cause and effect"
+      },
+      {
+        "korean": "젊어 보이다, 나이 들어 보이다",
+        "english": "to look young, to look old",
+        "pattern": "appearance"
+      },
+      {
+        "korean": "저는 엄마가 자랑스러워요.",
+        "english": "I feel proud of my mom.",
+        "pattern": "pride expression"
+      },
+      {
+        "korean": "만족스러운 식사였어요.",
+        "english": "It was a satisfying meal.",
+        "pattern": "satisfaction"
+      }
+    ]
+  }
+]

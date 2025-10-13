@@ -1,0 +1,213 @@
+{
+  "vocabularyCards": [
+    {
+      "id": 1,
+      "word": "늦다",
+      "romanization": "neutda",
+      "frontTitle": "늦다",
+      "meaning": "to be late / to do something late",
+      "description": [
+        "Used when talking about time – when someone or something is delayed or not on time.",
+        "It's about being late, not about the speed of something."
+      ],
+      "examples": [
+        { "korean": "수업에 늦었어요.", "english": "I was late for class." },
+        { "korean": "너무 늦게 잤어요.", "english": "I went to bed too late." },
+        { "korean": "지금 가면 늦을 거예요.", "english": "If you go now, you'll be late." }
+      ]
+    },
+    {
+      "id": 2,
+      "word": "고장나다",
+      "romanization": "go-jang-na-da",
+      "frontTitle": "고장나다",
+      "meaning": "to malfunction / to stop working",
+      "description": [
+        "Used when a machine, device, or system doesn't work properly, even if it looks fine on the outside.",
+        "Focus = functional failure (not necessarily physical damage).",
+        "English equivalents: to break down, to malfunction, to stop working."
+      ],
+      "examples": [
+        { "korean": "엘리베이터가 고장났어요.", "english": "The elevator broke down." },
+        { "korean": "제 컴퓨터가 고장났어요.", "english": "My computer isn't working / My computer broke down." }
+      ]
+    },
+    {
+      "id": 3,
+      "word": "움직이다",
+      "romanization": "um-jig-i-da",
+      "frontTitle": "움직이다",
+      "meaning": "to move (itself) / to move (body part)",
+      "description": [
+        "N이/가 움직이다 = to move (itself) - intransitive",
+        "N을/를 움직이다 = to move (body part) - transitive"
+      ],
+      "examples": [
+        { "korean": "차가 움직이고 있어요.", "english": "The car is moving." },
+        { "korean": "손을 움직일 수 없어요.", "english": "I can't move my hand." }
+      ]
+    },
+    {
+      "id": 4,
+      "word": "옮기다",
+      "romanization": "om-gi-da",
+      "frontTitle": "옮기다",
+      "meaning": "to move something, carry",
+      "description": [
+        "N을/를 옮기다 = to move something, to relocate, to carry",
+        "Used when moving objects from one place to another"
+      ],
+      "examples": [
+        { "korean": "책상을 옮겼어요.", "english": "I moved the desk." },
+        { "korean": "짐을 옮기는 중이에요.", "english": "I'm moving luggage/stuff." }
+      ]
+    },
+    {
+      "id": 5,
+      "word": "배우다",
+      "romanization": "bae-u-da",
+      "frontTitle": "배우다",
+      "meaning": "to learn / to study",
+      "description": [
+        "Used for learning skills, subjects, or information",
+        "Can be used with -고 있다 for progressive learning",
+        "Often used with -에서 (from) to indicate source of learning"
+      ],
+      "examples": [
+        { "korean": "한국어를 배우고 있어요.", "english": "I'm learning Korean." },
+        { "korean": "선생님한테 배웠어요.", "english": "I learned from the teacher." }
+      ]
+    },
+    {
+      "id": 6,
+      "word": "숙소",
+      "romanization": "suk-so",
+      "frontTitle": "숙소",
+      "meaning": "accommodation",
+      "description": [
+        "A place where you stay temporarily, such as a hotel, hostel, or guesthouse.",
+        "Commonly used when traveling or on business trips."
+      ],
+      "examples": [
+        { "korean": "숙소를 예약했어요.", "english": "I booked accommodation." },
+        { "korean": "숙소가 어디예요?", "english": "Where is your accommodation?" },
+        { "korean": "좋은 숙소를 찾고 있어요.", "english": "I'm looking for good accommodation." }
+      ]
+    },
+    {
+      "id": 7,
+      "word": "관계",
+      "romanization": "gwan-gye",
+      "frontTitle": "관계",
+      "meaning": "relationship",
+      "description": [
+        "The connection or association between people, things, or concepts.",
+        "Can refer to personal relationships, business relationships, or any type of connection."
+      ],
+      "examples": [
+        { "korean": "우리 관계가 좋아요.", "english": "Our relationship is good." },
+        { "korean": "그 사람과 무슨 관계예요?", "english": "What's your relationship with that person?" },
+        { "korean": "관계를 개선하고 싶어요.", "english": "I want to improve the relationship." }
+      ]
+    },
+    {
+      "id": 8,
+      "word": "성격",
+      "romanization": "seong-gyeok",
+      "frontTitle": "성격",
+      "meaning": "personality",
+      "description": [
+        "A person's character or temperament.",
+        "The distinctive qualities that make someone who they are."
+      ],
+      "examples": [
+        { "korean": "성격이 좋아요.", "english": "He/She has a good personality." },
+        { "korean": "우리는 성격이 달라요.", "english": "We have different personalities." },
+        { "korean": "내 성격은 활발해요.", "english": "My personality is lively/outgoing." }
+      ]
+    },
+    {
+      "id": 9,
+      "word": "전형적이다",
+      "romanization": "jeon-hyeong-jeog-i-da",
+      "frontTitle": "전형적이다",
+      "meaning": "to be typical",
+      "description": [
+        "Something that represents the standard or common characteristics of a group or category.",
+        "Used to describe something as a typical example or representative case."
+      ],
+      "examples": [
+        { "korean": "전형적인 한국 음식이에요.", "english": "It's typical Korean food." },
+        { "korean": "그는 전형적인 학생이에요.", "english": "He is a typical student." },
+        { "korean": "전형적인 여름 날씨예요.", "english": "It's typical summer weather." }
+      ]
+    },
+    {
+      "id": 10,
+      "word": "행동",
+      "romanization": "haeng-dong",
+      "frontTitle": "행동",
+      "meaning": "behavior",
+      "description": [
+        "The way someone acts or conducts themselves.",
+        "Can refer to actions, conduct, or mannerisms."
+      ],
+      "examples": [
+        { "korean": "행동을 조심하세요.", "english": "Be careful with your behavior." },
+        { "korean": "이상한 행동을 했어요.", "english": "He/She did strange behavior." },
+        { "korean": "좋은 행동이에요.", "english": "That's good behavior." }
+      ]
+    },
+    {
+      "id": 11,
+      "word": "따르다",
+      "romanization": "tta-reu-da",
+      "frontTitle": "따르다",
+      "meaning": "to follow",
+      "description": [
+        "To go along with someone or something.",
+        "Can mean to follow rules, follow a person, or follow instructions.",
+        "Also used for obeying or complying with something."
+      ],
+      "examples": [
+        { "korean": "규칙을 따라야 해요.", "english": "You must follow the rules." },
+        { "korean": "저를 따라오세요.", "english": "Follow me." },
+        { "korean": "지시를 따랐어요.", "english": "I followed the instructions." }
+      ]
+    },
+    {
+      "id": 12,
+      "word": "자라다",
+      "romanization": "ja-ra-da",
+      "frontTitle": "자라다",
+      "meaning": "to grow (itself)",
+      "description": [
+        "Intransitive verb - something grows by itself naturally.",
+        "Used for plants, children, animals growing on their own.",
+        "Compare with 키우다 which means to raise/grow something."
+      ],
+      "examples": [
+        { "korean": "아이가 빨리 자라요.", "english": "The child is growing quickly." },
+        { "korean": "나무가 잘 자랐어요.", "english": "The tree grew well." },
+        { "korean": "서울에서 자랐어요.", "english": "I grew up in Seoul." }
+      ]
+    },
+    {
+      "id": 13,
+      "word": "키우다",
+      "romanization": "ki-u-da",
+      "frontTitle": "키우다",
+      "meaning": "to grow/raise something",
+      "description": [
+        "Transitive verb - to raise, grow, or cultivate something.",
+        "Used when someone actively raises children, pets, or plants.",
+        "Implies care and nurturing by a person."
+      ],
+      "examples": [
+        { "korean": "강아지를 키워요.", "english": "I'm raising a puppy." },
+        { "korean": "부모님이 저를 키웠어요.", "english": "My parents raised me." },
+        { "korean": "꽃을 키우고 있어요.", "english": "I'm growing flowers." }
+      ]
+    }
+  ]
+}

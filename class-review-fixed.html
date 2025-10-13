@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Korean Class Review - Fixed</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-bg {
+      background: linear-gradient(-45deg, #a855f7, #e879f9, #06b6d4, #a855f7);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+    
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    // Arrow Left Icon
+    const ArrowLeft = () => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 12H5"></path>
+        <path d="M12 19l-7-7 7-7"></path>
+      </svg>
+    );
+
+    // Class Review Lesson Data - Your Actual Lessons
+    const classReviewLessons = [
+      {
+        id: 1,
+        title: "Lesson 1: Daily Activities & Animals",
+        vocabulary: [
+          { korean: "물다", english: "to bite" },
+          { korean: "다치다", english: "to hurt, injure" },
+          { korean: "움직이다", english: "to move" },
+          { korean: "봉지", english: "plastic bag" },
+          { korean: "소리", english: "sound" },
+          { korean: "안 좋아요", english: "not good" },
+          { korean: "덮다", english: "to cover" },
+          { korean: "냉동실", english: "freezer" },
+          { korean: "냉동식품", english: "frozen food" },
+          { korean: "해동하다", english: "to defrost" },
+          { korean: "키우다", english: "to raise, keep (pets)" },
+          { korean: "드리다", english: "to give (honorific)" },
+          { korean: "어렸을 때", english: "when I was young" },
+          { korean: "자주", english: "often" },
+          { korean: "공원", english: "park" }
+        ],
+        grammar: [
+          {
+            pattern: "지난 번에 갔을 때",
+            meaning: "When I went last time",
+            examples: ["지난 번에 갔을 때 강아지가 제 손가락을 물었어요.", "지난 번에 갔을 때 날씨가 좋았어요."]
+          },
+          {
+            pattern: "N을/를 할 예정이다",
+            meaning: "I plan to do N",
+            examples: ["어제부터 등산을 할 예정이었는데, 날씨가 안 좋아서 내일부터 하는 걸로 바꿨어요.", "내일 쇼핑을 할 예정이에요."]
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Lesson 2: Home & Relationships",
+        vocabulary: [
+          { korean: "침실", english: "bedroom" },
+          { korean: "냉장고", english: "fridge" },
+          { korean: "냉동고", english: "freezer" },
+          { korean: "냉동하다", english: "to freeze" },
+          { korean: "얼리다", english: "to freeze" },
+          { korean: "얼음", english: "ice" },
+          { korean: "팔다", english: "to sell" },
+          { korean: "팔리다", english: "to be sold" },
+          { korean: "숙소", english: "accommodation" },
+          { korean: "관계", english: "relationship" },
+          { korean: "성격", english: "personality" },
+          { korean: "전형적이다", english: "to be typical" },
+          { korean: "행동", english: "behavior" },
+          { korean: "따르다", english: "to follow" },
+          { korean: "따라가다", english: "to follow" },
+          { korean: "따라다니다", english: "to follow around" },
+          { korean: "자라다", english: "to grow (itself)" },
+          { korean: "기생충", english: "parasite" },
+          { korean: "착하다", english: "to be nice, well-behaving" },
+          { korean: "순하다", english: "to be mild, soft, easy" },
+          { korean: "장난을 치다", english: "to mess around, prank" },
+          { korean: "괴롭히다", english: "to bully" },
+          { korean: "보름", english: "15 days" },
+          { korean: "천사", english: "angel" },
+          { korean: "악마", english: "devil" },
+          { korean: "만지다", english: "to touch" },
+          { korean: "조심하다", english: "to watch out, be careful" },
+          { korean: "산맥", english: "mountain range" },
+          { korean: "계단", english: "stair" },
+          { korean: "실내 수영장", english: "indoor pool" },
+          { korean: "야외 수영장", english: "outdoor pool" }
+        ],
+        grammar: [
+          {
+            pattern: "N을/를 조심하다",
+            meaning: "to watch out for N",
+            examples: ["다른 사람들이 우리 집에 오면 무니를 조심하라고 해요.", "차를 조심하세요."]
+          },
+          {
+            pattern: "N이/가 팔리다",
+            meaning: "N is sold (passive)",
+            examples: ["회사가 아마존한테 팔렸어요.", "집이 팔렸어요."]
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "Lesson 3: Movement & Body",
+        vocabulary: [
+          { korean: "지하", english: "basement" },
+          { korean: "옮기다", english: "to move something, carry" },
+          { korean: "이사", english: "moving house" },
+          { korean: "옮겨 다니다", english: "to move around" },
+          { korean: "자리", english: "space, seat" },
+          { korean: "의자", english: "chair" },
+          { korean: "귀", english: "ear" },
+          { korean: "귀찮다", english: "to feel lazy" },
+          { korean: "깨닫다", english: "to realize" },
+          { korean: "우연", english: "coincidence" },
+          { korean: "우연히", english: "by accident, coincidentally" },
+          { korean: "근육통", english: "muscle pain" },
+          { korean: "시키다", english: "to order" },
+          { korean: "빠르다", english: "to be quick, fast" },
+          { korean: "부르다", english: "to call" },
+          { korean: "자연", english: "nature" },
+          { korean: "자연스럽다", english: "to be natural" },
+          { korean: "상체", english: "upper body" },
+          { korean: "하체", english: "lower body" },
+          { korean: "발달하다", english: "to develop" },
+          { korean: "기계", english: "machine" },
+          { korean: "헬스장", english: "gym" },
+          { korean: "있으니까", english: "because there is" },
+          { korean: "있어 가지고", english: "because there is" },
+          { korean: "젊어 보이다", english: "to look young" },
+          { korean: "나이 들어 보이다", english: "to look old" },
+          { korean: "흰머리", english: "gray hair" },
+          { korean: "자랑스럽다", english: "to feel proud" },
+          { korean: "자랑하다", english: "to brag" },
+          { korean: "뛰어 다니다", english: "to run around" },
+          { korean: "누워 있다", english: "to be lying down" },
+          { korean: "성스럽다", english: "to be holy/sacred" },
+          { korean: "고통스럽다", english: "to be painful" },
+          { korean: "사랑스럽다", english: "to be lovely" },
+          { korean: "걱정스럽다", english: "to be worrying" },
+          { korean: "어른스럽다", english: "to be mature" },
+          { korean: "만족스럽다", english: "to be satisfying" },
+          { korean: "혼란스럽다", english: "to be chaotic" },
+          { korean: "고통", english: "pain" },
+          { korean: "비자", english: "visa" },
+          { korean: "공휴일", english: "public holiday" }
+        ],
+        grammar: [
+          {
+            pattern: "N이/가 움직이다",
+            meaning: "N moves (itself)",
+            examples: ["고양이들이 다 지하에 있어요.", "귀를 움직일 수 있어요?"]
+          },
+          {
+            pattern: "N을/를 움직이다",
+            meaning: "to move N (body part)",
+            examples: ["귀찮아도 몸을 움직여야 돼요.", "다리를 움직여요."]
+          },
+          {
+            pattern: "A-어 보이다",
+            meaning: "to look A",
+            examples: ["젊어 보이다", "나이 들어 보이다", "착하게 생겼어요."]
+          }
+        ]
+      }
+    ];
+
+    const ClassReviewApp = () => {
+      const [screen, setScreen] = useState('lesson-selection');
+      const [selectedLesson, setSelectedLesson] = useState(null);
+      const [currentCardIndex, setCurrentCardIndex] = useState(0);
+      const [showAnswer, setShowAnswer] = useState(false);
+
+      console.log('ClassReviewApp rendering, screen:', screen);
+
+      // Lesson Selection Screen
+      if (screen === 'lesson-selection') {
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-4xl">
+              <div className="text-center mb-8">
+                <button onClick={() => window.location.href = 'index.html'} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to Main App</span>
+                </button>
+                <h1 className="text-4xl font-bold text-white mb-2">Class Review</h1>
+                <p className="text-white/80">Select a lesson to review</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {classReviewLessons.map((lesson) => (
+                  <div key={lesson.id} className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <h3 className="text-xl font-bold text-purple-800 mb-4">{lesson.title}</h3>
+                    <div className="space-y-3">
+                      <button 
+                        onClick={() => {
+                          console.log('Flashcard button clicked for lesson:', lesson.id);
+                          setSelectedLesson(lesson);
+                          setCurrentCardIndex(0);
+                          setShowAnswer(false);
+                          setScreen('lesson-flashcards');
+                        }}
+                        className="w-full bg-purple-500 text-white py-3 px-4 rounded-lg hover:bg-purple-600 transition-colors font-medium"
+                      >
+                        📚 Flashcards ({lesson.vocabulary.length} words)
+                      </button>
+                      <button 
+                        onClick={() => {
+                          console.log('Grammar button clicked for lesson:', lesson.id);
+                          setSelectedLesson(lesson);
+                          setScreen('lesson-grammar');
+                        }}
+                        className="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+                      >
+                        📖 Grammar Review
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Lesson Flashcards Screen
+      if (screen === 'lesson-flashcards') {
+        console.log('Rendering flashcards screen, selectedLesson:', selectedLesson);
+        
+        if (!selectedLesson) {
+          return (
+            <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold text-white mb-4">Please select a lesson</h2>
+                <button onClick={() => setScreen('lesson-selection')} className="bg-white text-purple-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+                  Back to Lesson Selection
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        const currentCard = selectedLesson.vocabulary[currentCardIndex];
+        const progress = ((currentCardIndex + 1) / selectedLesson.vocabulary.length) * 100;
+
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-2xl">
+              <div className="text-center mb-6">
+                <button onClick={() => setScreen('lesson-selection')} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to Lessons</span>
+                </button>
+                <h2 className="text-2xl font-bold text-white mb-2">{selectedLesson.title}</h2>
+                <div className="w-full bg-white/20 rounded-full h-2 mb-4">
+                  <div className="bg-white h-2 rounded-full transition-all duration-300" style={{width: `${progress}%`}}></div>
+                </div>
+                <p className="text-white/80">{currentCardIndex + 1} / {selectedLesson.vocabulary.length}</p>
+              </div>
+
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center">
+                {currentCard && (
+                  <>
+                    <div className="mb-6">
+                      <h3 className="text-3xl font-bold text-purple-800 mb-4">{currentCard.korean}</h3>
+                      {showAnswer && (
+                        <p className="text-xl text-gray-700">{currentCard.english}</p>
+                      )}
+                    </div>
+                    
+                    <button 
+                      onClick={() => setShowAnswer(!showAnswer)}
+                      className="bg-purple-500 text-white px-8 py-3 rounded-lg hover:bg-purple-600 transition-colors font-medium mb-4"
+                    >
+                      {showAnswer ? 'Hide Answer' : 'Show Answer'}
+                    </button>
+
+                    <div className="flex justify-between mt-6">
+                      <button 
+                        onClick={() => {
+                          setCurrentCardIndex(Math.max(0, currentCardIndex - 1));
+                          setShowAnswer(false);
+                        }}
+                        disabled={currentCardIndex === 0}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentCardIndex === 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-500 text-white hover:bg-gray-600'}`}
+                      >
+                        ← Previous
+                      </button>
+                      <button 
+                        onClick={() => {
+                          setCurrentCardIndex(Math.min(selectedLesson.vocabulary.length - 1, currentCardIndex + 1));
+                          setShowAnswer(false);
+                        }}
+                        disabled={currentCardIndex === selectedLesson.vocabulary.length - 1}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentCardIndex === selectedLesson.vocabulary.length - 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-500 text-white hover:bg-gray-600'}`}
+                      >
+                        Next →
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Lesson Grammar Screen
+      if (screen === 'lesson-grammar') {
+        console.log('Rendering grammar screen, selectedLesson:', selectedLesson);
+        
+        if (!selectedLesson) {
+          return (
+            <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold text-white mb-4">Please select a lesson</h2>
+                <button onClick={() => setScreen('lesson-selection')} className="bg-white text-purple-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+                  Back to Lesson Selection
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-4xl">
+              <div className="text-center mb-6">
+                <button onClick={() => setScreen('lesson-selection')} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to Lessons</span>
+                </button>
+                <h2 className="text-2xl font-bold text-white mb-2">{selectedLesson.title}</h2>
+              </div>
+
+              <div className="space-y-6">
+                {selectedLesson.grammar.map((grammar, index) => (
+                  <div key={index} className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6">
+                    <h3 className="text-xl font-bold text-purple-800 mb-2">{grammar.pattern}</h3>
+                    <p className="text-gray-700 mb-4">{grammar.meaning}</p>
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-gray-800">Examples:</h4>
+                      {grammar.examples.map((example, i) => (
+                        <p key={i} className="text-gray-600 pl-4">• {example}</p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Fallback
+      return (
+        <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-white mb-4">Unknown screen: {screen}</h2>
+            <button onClick={() => setScreen('lesson-selection')} className="bg-white text-purple-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+              Go to Lesson Selection
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    // Render the app
+    console.log('About to render ClassReviewApp...');
+    ReactDOM.render(<ClassReviewApp />, document.getElementById('root'));
+    console.log('ClassReviewApp rendered!');
+  </script>
+</body>
+</html>

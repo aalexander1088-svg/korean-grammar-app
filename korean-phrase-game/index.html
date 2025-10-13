@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Phrase Game</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Pixel Art Styles */
+        .pixel-art {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+        
+        /* Custom animations */
+        @keyframes bounce-in {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .bounce-in { animation: bounce-in 0.5s ease-out; }
+        .shake { animation: shake 0.3s ease-in-out; }
+        
+        /* Pixel art character styles */
+        .character {
+            width: 64px;
+            height: 64px;
+            position: relative;
+        }
+        
+        /* Speech bubble styles */
+        .speech-bubble {
+            position: relative;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px;
+            max-width: 250px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: white;
+            border-left: 0;
+            border-right: 10px solid transparent;
+            border-right-color: #333;
+        }
+        
+        .speech-bubble.npc::after {
+            right: 20px;
+            left: auto;
+            border-left: 10px solid transparent;
+            border-right: 0;
+            border-left-color: #333;
+        }
+        
+        /* Game container */
+        .game-container {
+            background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Pixel button styles */
+        .pixel-button {
+            background: #4a5568;
+            border: 2px solid #2d3748;
+            color: white;
+            padding: 8px 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+        
+        .pixel-button:hover {
+            background: #718096;
+            transform: translateY(-1px);
+        }
+        
+        .pixel-button:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Must-know Korean phrases from "Learn Korean with Kelly"
+        const mustKnowPhrases = {
+            phrases1: [
+                { korean: "다 준비됐어?" },
+                { korean: "다른 건 없어?" },
+                { korean: "확실해?" },
+                { korean: "좋네, 좋아" },
+                { korean: "맞아" },
+                { korean: "그만 좀 해. 작작해." },
+                { korean: "그때그때 달라." },
+                { korean: "오해하지 마." },
+                { korean: "걱정하지 마." },
+                { korean: "맛있게 먹어." },
+                { korean: "그래 인정." },
+                { korean: "다행이야" },
+                { korean: "잘됐네. 축하해." },
+                { korean: "잠깐만, 잠시만" }
+            ],
+            phrases2: [
+                { korean: "동의해" },
+                { korean: "장난해?" },
+                { korean: "너 좋을대로 해" },
+                { korean: "나도 몰라" },
+                { korean: "부탁 하나만 할게" },
+                { korean: "먼저 해" },
+                { korean: "알겠어" },
+                { korean: "어째서? 왜?" },
+                { korean: "어떻게 됐어?" },
+                { korean: "일부러 그런거 아니야" },
+                { korean: "이해가 안돼" },
+                { korean: "나 가야겠다" },
+                { korean: "그럴줄 알았어" },
+                { korean: "그 말은 취소할게" }
+            ],
+            phrases3: [
+                { korean: "잘 가" },
+                { korean: "문자 해" },
+                { korean: "그거 너한테 잘 어울려" },
+                { korean: "너무 아깝다!" },
+                { korean: "내 말이 그거야" },
+                { korean: "시간 진짜 빠르다" },
+                { korean: "상황 좀 보자" },
+                { korean: "그게 뭐?" },
+                { korean: "어쩌겠어?" },
+                { korean: "그게 무슨 뜻이야?" },
+                { korean: "어떻게 된거야? 무슨일이야?" },
+                { korean: "오늘 무슨 날이야?" },
+                { korean: "그러든지" },
+                { korean: "들켰다." },
+                { korean: "그거 알아?" }
+            ]
+        };
+
+        // Natural Korean conversations using must-know phrases
+        const conversations = [
+            // Natural Q&A pairs
+            {
+                id: "conversation_1",
+                title: "준비 확인",
+                npcMessage: "이제 갈 준비 다 됐어?",
+                correctPhrase: "다 준비됐어?",
+                category: "phrases1"
+            },
+            {
+                id: "conversation_2", 
+                title: "칭찬하기",
+                npcMessage: "새 옷 어때?",
+                correctPhrase: "좋네, 좋아",
+                category: "phrases1"
+            },
+            {
+                id: "conversation_3",
+                title: "맞다고 동의",
+                npcMessage: "내 말이 맞지?",
+                correctPhrase: "맞아",
+                category: "phrases1"
+            },
+            {
+                id: "conversation_4",
+                title: "걱정하지 말라고",
+                npcMessage: "괜찮을까 걱정돼.",
+                correctPhrase: "걱정하지 마.",
+                category: "phrases1"
+            },
+            {
+                id: "conversation_5",
+                title: "맛있게 먹으라고",
+                npcMessage: "배고파서 밥 먹을게.",
+                correctPhrase: "맛있게 먹어.",
+                category: "phrases1"
+            },
+            {
+                id: "conversation_6",
+                title: "동의한다고",
+                npcMessage: "내 생각이 맞지?",
+                correctPhrase: "동의해",
+                category: "phrases2"
+            },
+            {
+                id: "conversation_7",
+                title: "장난치는 거 아니냐고",
+                npcMessage: "정말로 그런 일이 있어?",
+                correctPhrase: "장난해?",
+                category: "phrases2"
+            },
+            {
+                id: "conversation_8",
+                title: "나도 모른다고",
+                npcMessage: "이거 어떻게 하는지 알아?",
+                correctPhrase: "나도 몰라",
+                category: "phrases2"
+            },
+            {
+                id: "conversation_9",
+                title: "알겠다고",
+                npcMessage: "이해했어?",
+                correctPhrase: "알겠어",
+                category: "phrases2"
+            },
+            {
+                id: "conversation_10",
+                title: "의도적으로 한 게 아니라고",
+                npcMessage: "일부러 그런 거야?",
+                correctPhrase: "일부러 그런거 아니야",
+                category: "phrases2"
+            },
+            {
+                id: "conversation_11",
+                title: "안녕히 가라고",
+                npcMessage: "이제 집에 갈게.",
+                correctPhrase: "잘 가",
+                category: "phrases3"
+            },
+            {
+                id: "conversation_12",
+                title: "문자하라고",
+                npcMessage: "나중에 연락할게.",
+                correctPhrase: "문자 해",
+                category: "phrases3"
+            },
+            {
+                id: "conversation_13",
+                title: "잘 어울린다고",
+                npcMessage: "새 옷 어때?",
+                correctPhrase: "그거 너한테 잘 어울려",
+                category: "phrases3"
+            },
+            {
+                id: "conversation_14",
+                title: "아깝다고",
+                npcMessage: "거의 다 됐는데...",
+                correctPhrase: "너무 아깝다!",
+                category: "phrases3"
+            },
+            {
+                id: "conversation_15",
+                title: "시간이 빠르다고",
+                npcMessage: "벌써 이렇게 시간이...",
+                correctPhrase: "시간 진짜 빠르다",
+                category: "phrases3"
+            },
+            {
+                id: "conversation_16",
+                title: "상황을 보자고",
+                npcMessage: "어떻게 할까?",
+                correctPhrase: "상황 좀 보자",
+                category: "phrases3"
+            },
+            {
+                id: "conversation_17",
+                title: "그게 뭐냐고",
+                npcMessage: "그거 알아?",
+                correctPhrase: "그게 뭐?",
+                category: "phrases3"
+            },
+            {
+                id: "conversation_18",
+                title: "어쩌겠다고",
+                npcMessage: "어떻게 하지?",
+                correctPhrase: "어쩌겠어?",
+                category: "phrases3"
+            },
+            {
+                id: "conversation_19",
+                title: "뜻이 뭔지 묻기",
+                npcMessage: "그런 말 했어.",
+                correctPhrase: "그게 무슨 뜻이야?",
+                category: "phrases3"
+            },
+            {
+                id: "conversation_20",
+                title: "확신 확인",
+                npcMessage: "정말 그렇게 생각해?",
+                correctPhrase: "확실해?",
+                category: "phrases1"
+            }
+        ];
+
+        // Traditional Korean Hanbok Pixel Art Characters
+        const PixelCharacter = ({ type, isTalking = false, className = "" }) => {
+            const isFemale = type === 'npc';
+            
+            return (
+                <div className={`character ${className} ${isTalking ? 'animate-pulse' : ''}`}>
+                    <div className="w-full h-full pixel-art relative">
+                        {/* Shadow */}
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-2 bg-gray-600 opacity-50 rounded-full"></div>
+                        
+                        {/* Head */}
+                        <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-pink-200 border-2 border-gray-800 rounded-sm">
+                            {/* Hair */}
+                            <div className={`absolute -top-1 left-0 w-full h-4 ${isFemale ? 'bg-blue-900' : 'bg-blue-900'} border-2 border-gray-800 rounded-t-sm`}>
+                                {isFemale && (
+                                    <>
+                                        {/* Hair accessory */}
+                                        <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-4 h-2 bg-pink-300 border border-gray-800"></div>
+                                        <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white border border-gray-800"></div>
+                                    </>
+                                )}
+                                {!isFemale && (
+                                    <>
+                                        {/* Cap */}
+                                        <div className="absolute -top-1 left-0 w-full h-3 bg-gray-800 border-2 border-gray-800"></div>
+                                        <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white"></div>
+                                    </>
+                                )}
+                            </div>
+                            
+                            {/* Eyes */}
+                            <div className="absolute top-4 left-2 w-1 h-1 bg-black"></div>
+                            <div className="absolute top-4 right-2 w-1 h-1 bg-black"></div>
+                            
+                            {/* Mouth */}
+                            <div className={`absolute top-6 left-1/2 transform -translate-x-1/2 ${isTalking ? 'w-3 h-1 bg-red-400' : 'w-2 h-1 bg-gray-600'}`}></div>
+                        </div>
+                        
+                        {/* Body - Hanbok */}
+                        {isFemale ? (
+                            <>
+                                {/* Female Hanbok - Jeogori (top) */}
+                                <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-8 h-6 bg-teal-400 border-2 border-gray-800">
+                                    {/* White inner layer */}
+                                    <div className="absolute top-0 left-0 w-full h-2 bg-white border-b border-gray-800"></div>
+                                    {/* Yellow accents */}
+                                    <div className="absolute top-2 left-0 w-1 h-2 bg-yellow-400"></div>
+                                    <div className="absolute top-2 right-0 w-1 h-2 bg-yellow-400"></div>
+                                </div>
+                                
+                                {/* Female Hanbok - Chima (skirt) */}
+                                <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-12 h-8 bg-purple-500 border-2 border-gray-800 rounded-b-sm">
+                                    {/* Decorative patterns */}
+                                    <div className="absolute top-1 left-2 w-1 h-1 bg-yellow-400"></div>
+                                    <div className="absolute top-2 right-3 w-1 h-1 bg-pink-400"></div>
+                                    <div className="absolute top-4 left-4 w-1 h-1 bg-yellow-400"></div>
+                                    <div className="absolute top-5 right-2 w-1 h-1 bg-pink-400"></div>
+                                </div>
+                                
+                                {/* Arms */}
+                                <div className="absolute top-8 left-0 w-2 h-4 bg-teal-500 border-2 border-gray-800"></div>
+                                <div className="absolute top-8 right-0 w-2 h-4 bg-teal-500 border-2 border-gray-800"></div>
+                            </>
+                        ) : (
+                            <>
+                                {/* Male Hanbok - Jeogori (top) */}
+                                <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-8 h-6 bg-white border-2 border-gray-800">
+                                    {/* Red vest */}
+                                    <div className="absolute top-1 left-1 w-6 h-4 bg-red-500 border border-gray-800"></div>
+                                </div>
+                                
+                                {/* Male Hanbok - Baji (pants) */}
+                                <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-teal-400 border-2 border-gray-800">
+                                    {/* Pants legs */}
+                                    <div className="absolute bottom-0 left-1 w-2 h-6 bg-teal-500 border border-gray-800"></div>
+                                    <div className="absolute bottom-0 right-1 w-2 h-6 bg-teal-500 border border-gray-800"></div>
+                                </div>
+                                
+                                {/* Arms */}
+                                <div className="absolute top-8 left-0 w-2 h-4 bg-teal-500 border-2 border-gray-800"></div>
+                                <div className="absolute top-8 right-0 w-2 h-4 bg-teal-500 border-2 border-gray-800"></div>
+                            </>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Speech Bubble Component
+        const SpeechBubble = ({ message, isNpc = false, className = "" }) => {
+            return (
+                <div className={`speech-bubble ${isNpc ? 'npc' : ''} ${className}`}>
+                    <div className="text-sm font-bold text-gray-800">{message}</div>
+                </div>
+            );
+        };
+
+        // Main Game Component
+        const KoreanPhraseGame = () => {
+            const [currentConversation, setCurrentConversation] = useState(0);
+            const [gameState, setGameState] = useState('intro'); // intro, playing, result
+            const [selectedPhrase, setSelectedPhrase] = useState('');
+            const [showFeedback, setShowFeedback] = useState(false);
+            const [feedbackMessage, setFeedbackMessage] = useState('');
+            const [isCorrect, setIsCorrect] = useState(false);
+            const [npcIsTalking, setNpcIsTalking] = useState(false);
+            const [playerIsTalking, setPlayerIsTalking] = useState(false);
+            const [score, setScore] = useState(0);
+            const [totalQuestions, setTotalQuestions] = useState(0);
+            const [correctAnswers, setCorrectAnswers] = useState(0);
+            const [wrongAnswers, setWrongAnswers] = useState(0);
+            const [conversationHistory, setConversationHistory] = useState([]);
+
+            const conversation = conversations[currentConversation];
+            // Get phrases from the same category as the conversation, limit to 3 choices
+            const allPhrases = mustKnowPhrases[conversation.category] || [];
+            const correctPhrase = allPhrases.find(p => p.korean === conversation.correctPhrase);
+            
+            // Get 2-3 wrong options from the same category
+            const wrongPhrases = allPhrases.filter(p => p.korean !== conversation.correctPhrase);
+            const shuffledWrong = [...wrongPhrases].sort(() => Math.random() - 0.5);
+            const selectedWrong = shuffledWrong.slice(0, 2);
+            
+            // Combine correct answer with wrong options and shuffle
+            const availablePhrases = [correctPhrase, ...selectedWrong]
+                .filter(Boolean)
+                .sort(() => Math.random() - 0.5);
+
+            const handlePhraseSelect = (phrase) => {
+                setSelectedPhrase(phrase.korean);
+                setPlayerIsTalking(true);
+                setTotalQuestions(prev => prev + 1);
+                
+                // Check if correct
+                const correct = phrase.korean === conversation.correctPhrase;
+                setIsCorrect(correct);
+                
+                // Update scoring
+                if (correct) {
+                    setCorrectAnswers(prev => prev + 1);
+                    setScore(prev => prev + 10);
+                    setFeedbackMessage("정확해요! (Correct!)");
+                } else {
+                    setWrongAnswers(prev => prev + 1);
+                    setFeedbackMessage("음? (Huh?)");
+                }
+                
+                // Add to conversation history
+                setConversationHistory(prev => [...prev, {
+                    conversation: conversation.title,
+                    selected: phrase.korean,
+                    correct: conversation.correctPhrase,
+                    wasCorrect: correct
+                }]);
+                
+                setShowFeedback(true);
+                
+                // Reset talking states
+                setTimeout(() => {
+                    setPlayerIsTalking(false);
+                    setNpcIsTalking(false);
+                    setShowFeedback(false);
+                    
+                    if (correct) {
+                        // Move to next conversation or show completion
+                        setTimeout(() => {
+                            if (currentConversation < conversations.length - 1) {
+                                setCurrentConversation(prev => prev + 1);
+                                setSelectedPhrase(''); // Reset selected phrase for next question
+                                setNpcIsTalking(true);
+                            } else {
+                                setGameState('result');
+                            }
+                        }, 1000);
+                    } else {
+                        // Reset selected phrase after wrong answer so they can try again
+                        setSelectedPhrase('');
+                    }
+                }, 2000);
+            };
+
+            const startGame = () => {
+                setGameState('playing');
+                setNpcIsTalking(true);
+            };
+
+            const resetGame = () => {
+                setCurrentConversation(0);
+                setGameState('intro');
+                setSelectedPhrase('');
+                setShowFeedback(false);
+                setIsCorrect(false);
+                setScore(0);
+                setTotalQuestions(0);
+                setCorrectAnswers(0);
+                setWrongAnswers(0);
+                setConversationHistory([]);
+            };
+
+            if (gameState === 'intro') {
+                return (
+                    <div className="game-container flex items-center justify-center p-4">
+                        <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
+                            <h1 className="text-2xl font-bold mb-4 text-gray-800">한국어 표현 게임</h1>
+                            <p className="text-gray-600 mb-6">
+                                픽셀 캐릭터와 대화하며 필수 한국어 표현을 연습해보세요!
+                            </p>
+                            <button 
+                                onClick={startGame}
+                                className="pixel-button text-lg px-6 py-3"
+                            >
+                                게임 시작
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (gameState === 'result') {
+                const accuracy = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+                const getGrade = () => {
+                    if (accuracy >= 90) return { grade: "A+", emoji: "🏆", color: "text-yellow-600" };
+                    if (accuracy >= 80) return { grade: "A", emoji: "🥇", color: "text-green-600" };
+                    if (accuracy >= 70) return { grade: "B", emoji: "🥈", color: "text-blue-600" };
+                    if (accuracy >= 60) return { grade: "C", emoji: "🥉", color: "text-orange-600" };
+                    return { grade: "D", emoji: "📚", color: "text-red-600" };
+                };
+                const gradeInfo = getGrade();
+                
+                return (
+                    <div className="game-container flex items-center justify-center p-4">
+                        <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full text-center">
+                            <h1 className="text-3xl font-bold mb-4 text-green-600">🎉 축하합니다!</h1>
+                            <p className="text-gray-600 mb-6">
+                                모든 대화를 완료했습니다! 결과를 확인해보세요:
+                            </p>
+                            
+                            {/* Statistics */}
+                            <div className="grid grid-cols-2 gap-4 mb-6">
+                                <div className="bg-blue-50 p-4 rounded-lg">
+                                    <div className="text-2xl font-bold text-blue-600">{score}</div>
+                                    <div className="text-sm text-gray-600">총 점수</div>
+                                </div>
+                                <div className="bg-green-50 p-4 rounded-lg">
+                                    <div className="text-2xl font-bold text-green-600">{accuracy}%</div>
+                                    <div className="text-sm text-gray-600">정확도</div>
+                                </div>
+                                <div className="bg-purple-50 p-4 rounded-lg">
+                                    <div className="text-2xl font-bold text-purple-600">{correctAnswers}</div>
+                                    <div className="text-sm text-gray-600">맞춤</div>
+                                </div>
+                                <div className="bg-red-50 p-4 rounded-lg">
+                                    <div className="text-2xl font-bold text-red-600">{wrongAnswers}</div>
+                                    <div className="text-sm text-gray-600">틀림</div>
+                                </div>
+                            </div>
+                            
+                            {/* Grade */}
+                            <div className={`text-4xl font-bold ${gradeInfo.color} mb-4`}>
+                                {gradeInfo.emoji} 등급 {gradeInfo.grade}
+                            </div>
+                            
+                            {/* Conversation History */}
+                            <div className="mt-6 text-left">
+                                <h3 className="font-bold text-gray-800 mb-3">대화 복습:</h3>
+                                <div className="max-h-40 overflow-y-auto space-y-2">
+                                    {conversationHistory.map((item, index) => (
+                                        <div key={index} className={`p-2 rounded text-sm ${item.wasCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+                                            <div className="font-semibold">{item.conversation}</div>
+                                            <div>당신: {item.selected}</div>
+                                            {!item.wasCorrect && <div>정답: {item.correct}</div>}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            <div className="mt-6 space-x-4">
+                                <button 
+                                    onClick={resetGame}
+                                    className="pixel-button text-lg px-6 py-3"
+                                >
+                                    다시 하기
+                                </button>
+                                <button 
+                                    onClick={() => setGameState('intro')}
+                                    className="pixel-button text-lg px-6 py-3"
+                                >
+                                    메인 메뉴
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="game-container p-4">
+                    {/* Header */}
+                    <div className="text-center mb-6">
+                        <h1 className="text-xl font-bold text-gray-800 mb-2">{conversation.title}</h1>
+                        <p className="text-sm text-gray-600">대화 {currentConversation + 1} / {conversations.length}</p>
+                        
+                        {/* Score Display */}
+                        <div className="flex justify-center space-x-4 mt-4">
+                            <div className="bg-white bg-opacity-80 px-3 py-1 rounded-lg">
+                                <span className="text-sm font-bold text-blue-600">점수: {score}</span>
+                            </div>
+                            <div className="bg-white bg-opacity-80 px-3 py-1 rounded-lg">
+                                <span className="text-sm font-bold text-green-600">✓ {correctAnswers}</span>
+                            </div>
+                            <div className="bg-white bg-opacity-80 px-3 py-1 rounded-lg">
+                                <span className="text-sm font-bold text-red-600">✗ {wrongAnswers}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Characters and Conversation */}
+                    <div className="flex flex-col items-center space-y-4 mb-8">
+                        {/* NPC Character and Speech */}
+                        <div className="flex items-center space-x-4">
+                            <PixelCharacter type="npc" isTalking={npcIsTalking} />
+                            <SpeechBubble 
+                                message={conversation.npcMessage} 
+                                isNpc={true}
+                                className={npcIsTalking ? 'bounce-in' : ''}
+                            />
+                        </div>
+
+                        {/* Player Character and Speech */}
+                        {selectedPhrase && (
+                            <div className="flex items-center space-x-4">
+                                <SpeechBubble 
+                                    message={selectedPhrase} 
+                                    isNpc={false}
+                                    className={`bounce-in ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}
+                                />
+                                <PixelCharacter type="player" isTalking={playerIsTalking} />
+                            </div>
+                        )}
+
+                        {/* Feedback */}
+                        {showFeedback && (
+                            <div className={`text-center p-4 rounded-lg ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} ${isCorrect ? 'bounce-in' : 'shake'}`}>
+                                <div className="font-bold">{feedbackMessage}</div>
+                            </div>
+                        )}
+                    </div>
+
+
+                    {/* Phrase Options */}
+                    <div className="space-y-2">
+                        <h3 className="font-bold text-gray-800 mb-3">답변을 선택하세요:</h3>
+                        {availablePhrases.map((phrase, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handlePhraseSelect(phrase)}
+                                disabled={selectedPhrase !== ''}
+                                className="w-full p-3 bg-white border-2 border-gray-300 rounded-lg text-left hover:bg-gray-50 hover:border-blue-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <div className="font-bold text-gray-800 text-lg">{phrase.korean}</div>
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Game Controls */}
+                    <div className="mt-6 text-center">
+                        <button 
+                            onClick={resetGame}
+                            className="pixel-button mr-4"
+                        >
+                            게임 초기화
+                        </button>
+                        <button 
+                            onClick={() => setGameState('intro')}
+                            className="pixel-button"
+                        >
+                            메인 메뉴
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the game
+        ReactDOM.render(<KoreanPhraseGame />, document.getElementById('root'));
+    </script>
+</body>
+</html>

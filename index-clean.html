@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Korean Grammar Practice</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            'gradient': 'gradient 15s ease infinite',
+            'gradient-text': 'gradient-text 3s ease infinite',
+            'blob': 'blob 7s infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'bounce-subtle': 'bounce-subtle 2s ease-in-out infinite',
+            'twinkle': 'twinkle 1.5s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes gradient-text {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes blob {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(30px, -50px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes bounce-subtle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const KoreanGrammarApp = () => {
+      console.log('KoreanGrammarApp component starting...');
+      const [grammarPatterns, setGrammarPatterns] = useState(null);
+      const [screen, setScreen] = useState('tier-selection');
+      console.log('Initial state - grammarPatterns:', grammarPatterns, 'screen:', screen);
+      
+      // SIMPLIFIED: Just return a working component for now
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center">
+          <div className="text-2xl text-purple-600">Korean Grammar App - Simplified Version Working!</div>
+          <div className="mt-4 text-sm text-gray-600">Screen: {screen}</div>
+          <div className="mt-2 text-sm text-gray-600">Data loaded: {grammarPatterns ? 'Yes' : 'No'}</div>
+        </div>
+      );
+    };
+
+    console.log('About to render KoreanGrammarApp...');
+    console.log('React version:', React.version);
+    console.log('ReactDOM version:', ReactDOM.version);
+    console.log('Root element:', document.getElementById('root'));
+    
+    try {
+      ReactDOM.render(<KoreanGrammarApp />, document.getElementById('root'));
+      console.log('KoreanGrammarApp rendered successfully!');
+    } catch (error) {
+      console.error('Error rendering KoreanGrammarApp:', error);
+    }
+  </script>
+</body>
+</html>

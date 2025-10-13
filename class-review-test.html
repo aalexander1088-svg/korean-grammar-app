@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Korean Class Review - Test</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-bg {
+      background: linear-gradient(-45deg, #a855f7, #e879f9, #06b6d4, #a855f7);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+    
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // Arrow Left Icon
+    const ArrowLeft = () => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 12H5"></path>
+        <path d="M12 19l-7-7 7-7"></path>
+      </svg>
+    );
+
+    // Arrow Right Icon
+    const ArrowRight = () => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 12h14"></path>
+        <path d="M12 5l7 7-7 7"></path>
+      </svg>
+    );
+
+    // Class Review Lesson Data (English only for testing)
+    const classReviewLessons = [
+      {
+        id: 1,
+        title: "Lesson 1: Basic Greetings & Introductions",
+        vocabulary: [
+          { korean: "Hello (formal)", english: "Hello (formal)" },
+          { korean: "Hello (informal)", english: "Hello (informal)" },
+          { korean: "Thank you", english: "Thank you" },
+          { korean: "Sorry", english: "Sorry" },
+          { korean: "Yes", english: "Yes" },
+          { korean: "No", english: "No" }
+        ],
+        grammar: [
+          {
+            pattern: "Hello (formal greeting)",
+            meaning: "Hello (formal greeting)",
+            examples: ["Hello, I am Kim Minsu.", "Hello, nice to meet you."]
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Lesson 2: Numbers & Time",
+        vocabulary: [
+          { korean: "One", english: "One" },
+          { korean: "Two", english: "Two" },
+          { korean: "Three", english: "Three" },
+          { korean: "Time/hour", english: "Time/hour" },
+          { korean: "Minute", english: "Minute" }
+        ],
+        grammar: [
+          {
+            pattern: "What time is it?",
+            meaning: "What time is it?",
+            examples: ["What time is it now?", "It's 3 PM."]
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "Lesson 3: Family & Relationships",
+        vocabulary: [
+          { korean: "Family", english: "Family" },
+          { korean: "Father", english: "Father" },
+          { korean: "Mother", english: "Mother" },
+          { korean: "Older brother", english: "Older brother (male speaking)" },
+          { korean: "Older sister", english: "Older sister (male speaking)" }
+        ],
+        grammar: [
+          {
+            pattern: "I have ...",
+            meaning: "I have ...",
+            examples: ["I have an older brother.", "I have an older sister."]
+          }
+        ]
+      }
+    ];
+
+    const ClassReviewApp = () => {
+      const [screen, setScreen] = useState('lesson-selection');
+      const [selectedLesson, setSelectedLesson] = useState(null);
+      const [currentCardIndex, setCurrentCardIndex] = useState(0);
+      const [showAnswer, setShowAnswer] = useState(false);
+
+      // Lesson Selection Screen
+      if (screen === 'lesson-selection') {
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-4xl">
+              <div className="text-center mb-8">
+                <button onClick={() => window.location.href = 'index.html'} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to Main App</span>
+                </button>
+                <h1 className="text-4xl font-bold text-white mb-2">Class Review</h1>
+                <p className="text-white/80">Select a lesson to review</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {classReviewLessons.map((lesson) => (
+                  <div key={lesson.id} className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <h3 className="text-xl font-bold text-purple-800 mb-4">{lesson.title}</h3>
+                    <div className="space-y-3">
+                      <button 
+                        onClick={() => {
+                          setSelectedLesson(lesson);
+                          setCurrentCardIndex(0);
+                          setShowAnswer(false);
+                          setScreen('lesson-flashcards');
+                        }}
+                        className="w-full bg-purple-500 text-white py-3 px-4 rounded-lg hover:bg-purple-600 transition-colors font-medium"
+                      >
+                        📚 Flashcards ({lesson.vocabulary.length} words)
+                      </button>
+                      <button 
+                        onClick={() => {
+                          setSelectedLesson(lesson);
+                          setScreen('lesson-grammar');
+                        }}
+                        className="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+                      >
+                        📖 Grammar Review
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Lesson Flashcards Screen
+      if (screen === 'lesson-flashcards') {
+        if (!selectedLesson) {
+          return (
+            <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold text-white mb-4">Please select a lesson</h2>
+                <button onClick={() => setScreen('lesson-selection')} className="bg-white text-purple-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+                  Back to Lesson Selection
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        const currentCard = selectedLesson.vocabulary[currentCardIndex];
+        const progress = ((currentCardIndex + 1) / selectedLesson.vocabulary.length) * 100;
+
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-2xl">
+              <div className="text-center mb-6">
+                <button onClick={() => setScreen('lesson-selection')} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to Lessons</span>
+                </button>
+                <h2 className="text-2xl font-bold text-white mb-2">{selectedLesson.title}</h2>
+                <div className="w-full bg-white/20 rounded-full h-2 mb-4">
+                  <div className="bg-white h-2 rounded-full transition-all duration-300" style={{width: `${progress}%`}}></div>
+                </div>
+                <p className="text-white/80">{currentCardIndex + 1} / {selectedLesson.vocabulary.length}</p>
+              </div>
+
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center">
+                {currentCard && (
+                  <>
+                    <div className="mb-6">
+                      <h3 className="text-3xl font-bold text-purple-800 mb-4">{currentCard.korean}</h3>
+                      {showAnswer && (
+                        <p className="text-xl text-gray-700">{currentCard.english}</p>
+                      )}
+                    </div>
+                    
+                    <button 
+                      onClick={() => setShowAnswer(!showAnswer)}
+                      className="bg-purple-500 text-white px-8 py-3 rounded-lg hover:bg-purple-600 transition-colors font-medium mb-4"
+                    >
+                      {showAnswer ? 'Hide Answer' : 'Show Answer'}
+                    </button>
+
+                    <div className="flex justify-between mt-6">
+                      <button 
+                        onClick={() => {
+                          setCurrentCardIndex(Math.max(0, currentCardIndex - 1));
+                          setShowAnswer(false);
+                        }}
+                        disabled={currentCardIndex === 0}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentCardIndex === 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-500 text-white hover:bg-gray-600'}`}
+                      >
+                        ← Previous
+                      </button>
+                      <button 
+                        onClick={() => {
+                          setCurrentCardIndex(Math.min(selectedLesson.vocabulary.length - 1, currentCardIndex + 1));
+                          setShowAnswer(false);
+                        }}
+                        disabled={currentCardIndex === selectedLesson.vocabulary.length - 1}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentCardIndex === selectedLesson.vocabulary.length - 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-500 text-white hover:bg-gray-600'}`}
+                      >
+                        Next →
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Lesson Grammar Screen
+      if (screen === 'lesson-grammar') {
+        if (!selectedLesson) {
+          return (
+            <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold text-white mb-4">Please select a lesson</h2>
+                <button onClick={() => setScreen('lesson-selection')} className="bg-white text-purple-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+                  Back to Lesson Selection
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-4xl">
+              <div className="text-center mb-6">
+                <button onClick={() => setScreen('lesson-selection')} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to Lessons</span>
+                </button>
+                <h2 className="text-2xl font-bold text-white mb-2">{selectedLesson.title}</h2>
+              </div>
+
+              <div className="space-y-6">
+                {selectedLesson.grammar.map((grammar, index) => (
+                  <div key={index} className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6">
+                    <h3 className="text-xl font-bold text-purple-800 mb-2">{grammar.pattern}</h3>
+                    <p className="text-gray-700 mb-4">{grammar.meaning}</p>
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-gray-800">Examples:</h4>
+                      {grammar.examples.map((example, i) => (
+                        <p key={i} className="text-gray-600 pl-4">• {example}</p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      return null;
+    };
+
+    // Render the app
+    ReactDOM.render(<ClassReviewApp />, document.getElementById('root'));
+  </script>
+</body>
+</html>
