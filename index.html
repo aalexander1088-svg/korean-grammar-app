@@ -1683,11 +1683,7 @@
 
       // Test System Functions
       const startTest = (tier) => {
-        console.log('startTest called with tier:', tier);
-        if (!grammarPatterns?.[tier]) {
-          console.log('No grammar patterns found for tier:', tier);
-          return;
-        }
+        if (!grammarPatterns?.[tier]) return;
         
         const patterns = grammarPatterns[tier];
         const testConfig = {
@@ -1697,10 +1693,7 @@
         };
         
         const config = testConfig[tier];
-        console.log('About to generate questions:', { patterns: patterns.length, config });
-        
         const questions = generateTestQuestions(patterns, config.questions, tier);
-        console.log('Generated questions:', questions.length, questions[0]);
         
         setTestMode(tier);
         setTestQuestions(questions);
@@ -1714,8 +1707,6 @@
         setTestResults(null);
         setTestInProgress(true);
         setScreen('test-mode');
-        
-        console.log('Test started, screen set to test-mode');
         
         // Start timer
         const timer = setInterval(() => {
@@ -1735,7 +1726,6 @@
         
         // Use improved question bank if available for this tier
         const tierBank = improvedTestQuestionBank[tier];
-        console.log('generateTestQuestions called:', { tier, questionCount, hasTierBank: !!tierBank });
         
         if (tierBank) {
           // Collect all available questions from the bank
@@ -1744,13 +1734,9 @@
             allBankQuestions.push(...patternQuestions);
           });
           
-          console.log('Bank questions found:', allBankQuestions.length);
-          
           // Shuffle and select the requested number
           const shuffledQuestions = shuffleArray(allBankQuestions);
-          const selectedQuestions = shuffledQuestions.slice(0, Math.min(questionCount, shuffledQuestions.length));
-          console.log('Selected questions:', selectedQuestions.length, selectedQuestions[0]);
-          return selectedQuestions;
+          return shuffledQuestions.slice(0, Math.min(questionCount, shuffledQuestions.length));
         }
         
         // Fallback to original system if no bank questions available
@@ -3661,14 +3647,14 @@
                 <div className="mb-4">
                   <div className="flex items-center space-x-2 mb-3">
                     <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      {currentQ.type.toUpperCase()}
+                      {(currentQ.type || 'QUESTION').toUpperCase()}
                     </span>
                     <span className={`px-3 py-1 rounded-full text-sm font-bold ${
-                      currentQ.difficulty === 'easy' ? 'bg-green-500 text-white' :
-                      currentQ.difficulty === 'medium' ? 'bg-yellow-500 text-white' :
+                      (currentQ.difficulty || 'medium') === 'easy' ? 'bg-green-500 text-white' :
+                      (currentQ.difficulty || 'medium') === 'medium' ? 'bg-yellow-500 text-white' :
                       'bg-red-500 text-white'
                     }`}>
-                      {currentQ.difficulty.toUpperCase()}
+                      {(currentQ.difficulty || 'MEDIUM').toUpperCase()}
                     </span>
                   </div>
                   <h2 className="text-xl font-bold text-white mb-4">
