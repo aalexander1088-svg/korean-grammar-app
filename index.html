@@ -2599,8 +2599,31 @@
           const isLastQuestion = currentQuestion === quizQuestions.length - 1;
           
           return (
-            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
-              <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full">
+            <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+              {/* Floating mesh blobs */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+                <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
+              </div>
+              
+              {/* Floating Korean characters */}
+              {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+                <div
+                  key={index}
+                  className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    animationDuration: `${3 + Math.random() * 4}s`
+                  }}
+                >
+                  {char}
+                </div>
+              ))}
+
+              <div className="relative z-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-2xl w-full border border-white/20">
                 {/* Quiz Header */}
                 <div className="flex justify-between items-center mb-6">
                   <button onClick={finishQuiz} className="flex items-center text-gray-600 hover:text-gray-800 transition-colors">
@@ -3946,17 +3969,40 @@
         const backScreen = challengeMode ? 'challenge-selection' : 'grammar-levels';
         
         return (
-          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto">
-              <button onClick={() => setScreen(backScreen)} className="flex items-center text-gray-600 hover:text-gray-800 mb-4 transition-colors">
+          <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+            {/* Floating mesh blobs */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+              <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+              <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
+            </div>
+            
+            {/* Floating Korean characters */}
+            {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+              <div
+                key={index}
+                className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              >
+                {char}
+              </div>
+            ))}
+
+            <div className="relative z-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto border border-white/20">
+              <button onClick={() => setScreen(backScreen)} className="flex items-center text-white/80 hover:text-white mb-4 transition-colors">
                 <ArrowLeft /><span className="ml-2">Back</span>
               </button>
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+              <h2 className="text-2xl font-bold text-white mb-6 text-center drop-shadow-lg">
                 {selectedTier === 'combo' ? 'Combo Patterns' : 'Select Pattern'}
               </h2>
               {challengeMode && (
-                <div className="mb-4 p-3 bg-blue-100 rounded-lg">
-                  <div className="text-blue-800 font-semibold">
+                <div className="mb-4 p-3 bg-white/20 backdrop-blur-sm rounded-lg border border-white/30">
+                  <div className="text-white font-semibold">
                     {challengeMode === 'speed' && '⚡ Speed Round Active'}
                     {challengeMode === 'memory' && '🧠 Memory Challenge Active'}
                     {challengeMode === 'combo-challenge' && '✨ Combo Challenge Active'}
@@ -3965,11 +4011,11 @@
               )}
               <div className="space-y-3">
                 {patterns.map((pattern) => (
-                  <button key={pattern.id} onClick={() => { setSelectedPattern(pattern); setScreen('difficulty-selection'); }} className="w-full bg-purple-100 hover:bg-purple-200 text-left p-4 rounded-xl transition-colors">
-                    <div className="font-bold text-purple-900 text-lg">{pattern.name}</div>
-                    <div className="text-purple-700 text-sm">{pattern.description}</div>
+                  <button key={pattern.id} onClick={() => { setSelectedPattern(pattern); setScreen('difficulty-selection'); }} className="w-full bg-white/20 hover:bg-white/30 backdrop-blur-sm text-left p-4 rounded-xl transition-all duration-300 hover:scale-[1.02] border border-white/30">
+                    <div className="font-bold text-white text-lg drop-shadow-lg">{pattern.name}</div>
+                    <div className="text-white/80 text-sm">{pattern.description}</div>
                     {selectedTier === 'combo' && (
-                      <div className="text-xs text-purple-600 mt-1">🌟 Multiple patterns combined</div>
+                      <div className="text-xs text-white/70 mt-1">🌟 Multiple patterns combined</div>
                     )}
                   </button>
                 ))}
@@ -3981,20 +4027,52 @@
 
       if (screen === 'difficulty-selection') {
         return (
-          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full">
-              <button onClick={() => setScreen('pattern-selection')} className="flex items-center text-gray-600 hover:text-gray-800 mb-4 transition-colors">
+          <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+            {/* Floating mesh blobs */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+              <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+              <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
+            </div>
+            
+            {/* Floating Korean characters */}
+            {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+              <div
+                key={index}
+                className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              >
+                {char}
+              </div>
+            ))}
+
+            <div className="relative z-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-md w-full border border-white/20">
+              <button onClick={() => setScreen('pattern-selection')} className="flex items-center text-white/80 hover:text-white mb-4 transition-colors">
                 <ArrowLeft /><span className="ml-2">Back</span>
               </button>
-              <div className="bg-purple-50 rounded-xl p-4 mb-6">
-                <div className="font-bold text-purple-900 text-xl">{selectedPattern.name}</div>
-                <div className="text-purple-700 text-sm">{selectedPattern.explanation}</div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-6 border border-white/30">
+                <div className="font-bold text-white text-xl drop-shadow-lg">{selectedPattern.name}</div>
+                <div className="text-white/80 text-sm">{selectedPattern.explanation}</div>
               </div>
-              <h2 className="text-xl font-bold text-gray-800 mb-6 text-center">Sentence length:</h2>
+              <h2 className="text-xl font-bold text-white mb-6 text-center drop-shadow-lg">Sentence length:</h2>
               <div className="space-y-3">
-                <button onClick={() => { setDifficulty('beginner'); setScreen('input-mode-selection'); }} className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl transition-colors">Short</button>
-                <button onClick={() => { setDifficulty('intermediate'); setScreen('input-mode-selection'); }} className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-4 rounded-xl transition-colors">Medium</button>
-                <button onClick={() => { setDifficulty('advanced'); setScreen('input-mode-selection'); }} className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-4 rounded-xl transition-colors">Long</button>
+                <button onClick={() => { setDifficulty('beginner'); setScreen('input-mode-selection'); }} className="w-full bg-gradient-to-r from-emerald-400 to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  <span className="relative">Short</span>
+                </button>
+                <button onClick={() => { setDifficulty('intermediate'); setScreen('input-mode-selection'); }} className="w-full bg-gradient-to-r from-amber-400 to-orange-600 hover:from-amber-500 hover:to-orange-700 text-white font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  <span className="relative">Medium</span>
+                </button>
+                <button onClick={() => { setDifficulty('advanced'); setScreen('input-mode-selection'); }} className="w-full bg-gradient-to-r from-red-400 to-pink-600 hover:from-red-500 hover:to-pink-700 text-white font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  <span className="relative">Long</span>
+                </button>
               </div>
             </div>
           </div>
@@ -4003,15 +4081,44 @@
 
       if (screen === 'input-mode-selection') {
         return (
-          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full">
-              <button onClick={() => setScreen('difficulty-selection')} className="flex items-center text-gray-600 hover:text-gray-800 mb-4 transition-colors">
+          <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+            {/* Floating mesh blobs */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+              <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+              <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
+            </div>
+            
+            {/* Floating Korean characters */}
+            {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+              <div
+                key={index}
+                className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              >
+                {char}
+              </div>
+            ))}
+
+            <div className="relative z-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-md w-full border border-white/20">
+              <button onClick={() => setScreen('difficulty-selection')} className="flex items-center text-white/80 hover:text-white mb-4 transition-colors">
                 <ArrowLeft /><span className="ml-2">Back</span>
               </button>
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Input mode:</h2>
+              <h2 className="text-2xl font-bold text-white mb-6 text-center drop-shadow-lg">Input mode:</h2>
               <div className="space-y-3">
-                <button onClick={() => { setInputMode('tap'); setScreen('practice'); startNewSentenceSet(); }} className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 rounded-xl transition-colors">Tap Words</button>
-                <button onClick={() => { setInputMode('type'); setScreen('practice'); startNewSentenceSet(); }} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl transition-colors">Type Answer</button>
+                <button onClick={() => { setInputMode('tap'); setScreen('practice'); startNewSentenceSet(); }} className="w-full bg-gradient-to-r from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-700 text-white font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  <span className="relative">Tap Words</span>
+                </button>
+                <button onClick={() => { setInputMode('type'); setScreen('practice'); startNewSentenceSet(); }} className="w-full bg-gradient-to-r from-indigo-400 to-indigo-600 hover:from-indigo-500 hover:to-indigo-700 text-white font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  <span className="relative">Type Answer</span>
+                </button>
               </div>
             </div>
           </div>
