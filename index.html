@@ -659,6 +659,20 @@
         maxCombo: 0,
         timeElapsed: 0
       });
+      
+      // Test System States
+      const [testMode, setTestMode] = useState(null); // 'beginner', 'intermediate', 'advanced'
+      const [testQuestions, setTestQuestions] = useState([]);
+      const [currentTestQuestion, setCurrentTestQuestion] = useState(0);
+      const [testAnswers, setTestAnswers] = useState([]);
+      const [testStartTime, setTestStartTime] = useState(null);
+      const [testTimeLimit, setTestTimeLimit] = useState(null);
+      const [testTimeRemaining, setTestTimeRemaining] = useState(null);
+      const [testScore, setTestScore] = useState(0);
+      const [testStreak, setTestStreak] = useState(0);
+      const [testResults, setTestResults] = useState(null);
+      const [testInProgress, setTestInProgress] = useState(false);
+      const [selectedTestParts, setSelectedTestParts] = useState([]);
 
       const distractorWords = {
         beginner: ['어제', '내일', '오늘', '지금', '학교에', '집에', '친구랑', '혼자', '공부하러', '가요', '저는', '이것은'],
@@ -1376,6 +1390,287 @@
         return taunts[situation][Math.floor(Math.random() * taunts[situation].length)];
       };
 
+      // Test System Functions
+      const startTest = (tier) => {
+        if (!grammarPatterns?.[tier]) return;
+        
+        const patterns = grammarPatterns[tier];
+        const testConfig = {
+          beginner: { questions: 20, timeLimit: 600 }, // 10 minutes
+          intermediate: { questions: 25, timeLimit: 720 }, // 12 minutes
+          advanced: { questions: 30, timeLimit: 900 } // 15 minutes
+        };
+        
+        const config = testConfig[tier];
+        const questions = generateTestQuestions(patterns, config.questions, tier);
+        
+        setTestMode(tier);
+        setTestQuestions(questions);
+        setCurrentTestQuestion(0);
+        setTestAnswers([]);
+        setTestStartTime(Date.now());
+        setTestTimeLimit(config.timeLimit);
+        setTestTimeRemaining(config.timeLimit);
+        setTestScore(0);
+        setTestStreak(0);
+        setTestResults(null);
+        setTestInProgress(true);
+        setScreen('test-mode');
+        
+        // Start timer
+        const timer = setInterval(() => {
+          setTestTimeRemaining(prev => {
+            if (prev <= 1) {
+              clearInterval(timer);
+              finishTest();
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+      };
+
+      const generateTestQuestions = (patterns, questionCount, tier) => {
+        const questions = [];
+        const questionTypes = ['recognition', 'construction', 'translation', 'context', 'correction'];
+        
+        // Ensure we cover all patterns
+        const patternsToUse = [...patterns];
+        const questionsPerPattern = Math.ceil(questionCount / patterns.length);
+        
+        patternsToUse.forEach((pattern, patternIndex) => {
+          for (let i = 0; i < questionsPerPattern && questions.length < questionCount; i++) {
+            const questionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+            const difficulty = i < questionsPerPattern * 0.3 ? 'easy' : 
+                              i < questionsPerPattern * 0.8 ? 'medium' : 'hard';
+            
+            questions.push(generateQuestion(pattern, questionType, difficulty, tier));
+          }
+        });
+        
+        // Shuffle and trim to exact count
+        return shuffleArray(questions).slice(0, questionCount);
+      };
+
+      const generateQuestion = (pattern, type, difficulty, tier) => {
+        const sentences = pattern.sentences?.normal || pattern.sentences?.past || [];
+        const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
+        
+        switch (type) {
+          case 'recognition':
+            return generateRecognitionQuestion(pattern, randomSentence, difficulty);
+          case 'construction':
+            return generateConstructionQuestion(pattern, randomSentence, difficulty);
+          case 'translation':
+            return generateTranslationQuestion(pattern, randomSentence, difficulty);
+          case 'context':
+            return generateContextQuestion(pattern, randomSentence, difficulty);
+          case 'correction':
+            return generateCorrectionQuestion(pattern, randomSentence, difficulty);
+          default:
+            return generateTranslationQuestion(pattern, randomSentence, difficulty);
+        }
+      };
+
+      const generateRecognitionQuestion = (pattern, sentence, difficulty) => {
+        const wrongPatterns = Object.values(grammarPatterns)
+          .flat()
+          .filter(p => p.id !== pattern.id)
+          .slice(0, 3);
+        
+        const options = shuffleArray([pattern, ...wrongPatterns]).slice(0, 4);
+        
+        return {
+          id: Date.now() + Math.random(),
+          type: 'recognition',
+          difficulty,
+          patternId: pattern.id,
+          question: `Which grammar pattern is used in: "${sentence.korean}"`,
+          options: options.map(p => ({ id: p.id, text: p.name })),
+          correct: pattern.id,
+          explanation: `This sentence uses the ${pattern.name} pattern.`,
+          points: difficulty === 'easy' ? 10 : difficulty === 'medium' ? 15 : 20
+        };
+      };
+
+      const generateConstructionQuestion = (pattern, sentence, difficulty) => {
+        const correctParts = [...sentence.parts];
+        const distractors = getDistractors(tier);
+        const shuffledParts = shuffleArray([...correctParts, ...distractors.slice(0, 3)]);
+        
+        return {
+          id: Date.now() + Math.random(),
+          type: 'construction',
+          difficulty,
+          patternId: pattern.id,
+          question: `Arrange these words to make a correct sentence: "${sentence.meaning}"`,
+          parts: shuffledParts,
+          correct: correctParts.join(' '),
+          explanation: `Correct order: ${correctParts.join(' ')}`,
+          points: difficulty === 'easy' ? 15 : difficulty === 'medium' ? 20 : 25
+        };
+      };
+
+      const generateTranslationQuestion = (pattern, sentence, difficulty) => {
+        return {
+          id: Date.now() + Math.random(),
+          type: 'translation',
+          difficulty,
+          patternId: pattern.id,
+          question: `Translate to Korean: "${sentence.meaning}"`,
+          correct: sentence.korean,
+          explanation: `Correct answer: ${sentence.korean}`,
+          points: difficulty === 'easy' ? 20 : difficulty === 'medium' ? 25 : 30
+        };
+      };
+
+      const generateContextQuestion = (pattern, sentence, difficulty) => {
+        const contexts = [
+          { situation: "At school", options: [sentence.korean, "안녕하세요", "감사합니다", "죄송합니다"] },
+          { situation: "With friends", options: [sentence.korean, "안녕", "고마워", "미안해"] },
+          { situation: "At work", options: [sentence.korean, "네, 알겠습니다", "안녕히 가세요", "수고하세요"] }
+        ];
+        
+        const context = contexts[Math.floor(Math.random() * contexts.length)];
+        
+        return {
+          id: Date.now() + Math.random(),
+          type: 'context',
+          difficulty,
+          patternId: pattern.id,
+          question: `What would you say in this situation: "${context.situation}"`,
+          options: shuffleArray(context.options).map(text => ({ id: text, text })),
+          correct: sentence.korean,
+          explanation: `In this context, you would say: ${sentence.korean}`,
+          points: difficulty === 'easy' ? 15 : difficulty === 'medium' ? 20 : 25
+        };
+      };
+
+      const generateCorrectionQuestion = (pattern, sentence, difficulty) => {
+        // Create a sentence with common mistakes
+        const parts = [...sentence.parts];
+        const mistakes = [
+          [0, 1], // Swap first two words
+          [parts.length - 1, parts.length - 2] // Swap last two words
+        ];
+        
+        const mistakeType = mistakes[Math.floor(Math.random() * mistakes.length)];
+        const incorrectParts = [...parts];
+        [incorrectParts[mistakeType[0]], incorrectParts[mistakeType[1]]] = 
+        [incorrectParts[mistakeType[1]], incorrectParts[mistakeType[0]]];
+        
+        return {
+          id: Date.now() + Math.random(),
+          type: 'correction',
+          difficulty,
+          patternId: pattern.id,
+          question: `What's wrong with this sentence: "${incorrectParts.join(' ')}"`,
+          incorrect: incorrectParts.join(' '),
+          correct: sentence.korean,
+          explanation: `The correct sentence is: ${sentence.korean}`,
+          points: difficulty === 'easy' ? 25 : difficulty === 'medium' ? 30 : 35
+        };
+      };
+
+      const getDistractors = (tier) => {
+        return distractorWords[tier] || distractorWords.beginner;
+      };
+
+      const submitTestAnswer = (answer) => {
+        const currentQ = testQuestions[currentTestQuestion];
+        const isCorrect = answer === currentQ.correct || 
+                         (Array.isArray(answer) && answer.join(' ') === currentQ.correct);
+        
+        const answerData = {
+          questionId: currentQ.id,
+          answer,
+          correct: currentQ.correct,
+          isCorrect,
+          timeSpent: testTimeLimit - testTimeRemaining,
+          points: isCorrect ? currentQ.points : 0
+        };
+        
+        setTestAnswers(prev => [...prev, answerData]);
+        
+        if (isCorrect) {
+          setTestScore(prev => prev + currentQ.points);
+          setTestStreak(prev => prev + 1);
+        } else {
+          setTestStreak(0);
+        }
+        
+        // Reset selected parts for construction questions
+        setSelectedTestParts([]);
+        
+        // Move to next question or finish test
+        if (currentTestQuestion < testQuestions.length - 1) {
+          setCurrentTestQuestion(prev => prev + 1);
+        } else {
+          finishTest();
+        }
+      };
+
+      const finishTest = () => {
+        const endTime = Date.now();
+        const totalTime = testStartTime ? Math.round((endTime - testStartTime) / 1000) : 0;
+        const accuracy = testQuestions.length > 0 ? (testAnswers.filter(a => a.isCorrect).length / testQuestions.length) * 100 : 0;
+        
+        const results = {
+          tier: testMode,
+          score: testScore,
+          accuracy: Math.round(accuracy),
+          timeUsed: totalTime,
+          timeLimit: testTimeLimit,
+          questionsAnswered: testAnswers.length,
+          correctAnswers: testAnswers.filter(a => a.isCorrect).length,
+          maxStreak: testStreak,
+          breakdown: getTestBreakdown(),
+          grade: getTestGrade(accuracy),
+          badge: getTestBadge(accuracy, testScore)
+        };
+        
+        setTestResults(results);
+        setTestInProgress(false);
+        setScreen('test-results');
+        
+        // Save to localStorage
+        const savedTests = JSON.parse(localStorage.getItem('korean-test-results') || '[]');
+        savedTests.push(results);
+        localStorage.setItem('korean-test-results', JSON.stringify(savedTests));
+      };
+
+      const getTestBreakdown = () => {
+        const breakdown = {};
+        testAnswers.forEach(answer => {
+          const patternId = testQuestions.find(q => q.id === answer.questionId)?.patternId;
+          if (!breakdown[patternId]) {
+            breakdown[patternId] = { correct: 0, total: 0 };
+          }
+          breakdown[patternId].total++;
+          if (answer.isCorrect) breakdown[patternId].correct++;
+        });
+        return breakdown;
+      };
+
+      const getTestGrade = (accuracy) => {
+        if (accuracy >= 95) return 'A+';
+        if (accuracy >= 90) return 'A';
+        if (accuracy >= 85) return 'B+';
+        if (accuracy >= 80) return 'B';
+        if (accuracy >= 75) return 'C+';
+        if (accuracy >= 70) return 'C';
+        return 'F';
+      };
+
+      const getTestBadge = (accuracy, score) => {
+        if (accuracy === 100) return { name: 'Perfectionist', icon: '🏆' };
+        if (accuracy >= 95) return { name: 'Grammar Master', icon: '🥇' };
+        if (accuracy >= 90) return { name: 'Excellent', icon: '🥈' };
+        if (accuracy >= 80) return { name: 'Good Job', icon: '🥉' };
+        if (accuracy >= 70) return { name: 'Keep Trying', icon: '📚' };
+        return { name: 'Needs Practice', icon: '💪' };
+      };
+
       const shuffleArray = (array) => {
         const shuffled = [...array];
         for (let i = shuffled.length - 1; i > 0; i--) {
@@ -1811,6 +2106,40 @@
                     </div>
                   </div>
                 </button>
+
+                {/* Test Section */}
+                <div className="mt-8 pt-6 border-t border-white/20">
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl font-bold text-white mb-2">📝 능력 테스트</h3>
+                    <p className="text-white/80 text-sm">Test your mastery of each tier</p>
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-3">
+                    <button onClick={() => startTest('beginner')} className="group bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:scale-105 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                      <div className="relative">
+                        <div className="text-lg font-black">초급 테스트</div>
+                        <div className="text-xs opacity-90">20 questions • 10 min</div>
+                      </div>
+                    </button>
+                    
+                    <button onClick={() => startTest('intermediate')} className="group bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:scale-105 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                      <div className="relative">
+                        <div className="text-lg font-black">중급 테스트</div>
+                        <div className="text-xs opacity-90">25 questions • 12 min</div>
+                      </div>
+                    </button>
+                    
+                    <button onClick={() => startTest('advanced')} className="group bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:scale-105 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                      <div className="relative">
+                        <div className="text-lg font-black">고급 테스트</div>
+                        <div className="text-xs opacity-90">30 questions • 15 min</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* Footer */}
@@ -2895,6 +3224,323 @@
                 >
                   홈으로 (Home)
                 </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (screen === 'test-mode') {
+        if (!testQuestions.length || currentTestQuestion >= testQuestions.length) {
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+              <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
+                <div className="text-6xl mb-4">📝</div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Test Loading...</h2>
+                <button onClick={() => setScreen('grammar-levels')} className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
+                  Back to Grammar Levels
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        const currentQ = testQuestions[currentTestQuestion];
+        const progress = ((currentTestQuestion + 1) / testQuestions.length) * 100;
+        const timeMinutes = Math.floor(testTimeRemaining / 60);
+        const timeSeconds = testTimeRemaining % 60;
+
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-700 relative overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+              <div className="absolute top-20 right-20 w-48 h-48 bg-yellow-400/20 rounded-full blur-xl animate-pulse" style={{animationDelay: '1s'}}></div>
+              <div className="absolute bottom-20 left-1/3 w-40 h-40 bg-blue-400/20 rounded-full blur-xl animate-pulse" style={{animationDelay: '2s'}}></div>
+            </div>
+
+            {/* Header */}
+            <div className="relative z-10 p-6">
+              <div className="bg-white/20 backdrop-blur-xl rounded-2xl p-4 border border-white/30">
+                <div className="flex justify-between items-center mb-4">
+                  <div>
+                    <h1 className="text-2xl font-bold text-white">
+                      {testMode === 'beginner' ? '초급 테스트' : 
+                       testMode === 'intermediate' ? '중급 테스트' : '고급 테스트'}
+                    </h1>
+                    <p className="text-white/80">Question {currentTestQuestion + 1} of {testQuestions.length}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold text-white">
+                      {timeMinutes}:{timeSeconds.toString().padStart(2, '0')}
+                    </div>
+                    <div className="text-white/80 text-sm">Time Remaining</div>
+                  </div>
+                </div>
+                
+                {/* Progress Bar */}
+                <div className="w-full bg-white/20 rounded-full h-3 mb-2">
+                  <div 
+                    className="bg-gradient-to-r from-green-400 to-blue-500 h-3 rounded-full transition-all duration-300"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
+                
+                {/* Score and Streak */}
+                <div className="flex justify-between text-white text-sm">
+                  <span>Score: {testScore}</span>
+                  {testStreak > 0 && <span>Streak: {testStreak} 🔥</span>}
+                </div>
+              </div>
+            </div>
+
+            {/* Question */}
+            <div className="relative z-10 px-6 pb-6">
+              <div className="bg-white/20 backdrop-blur-xl rounded-2xl p-6 border border-white/30 max-w-4xl mx-auto">
+                <div className="mb-4">
+                  <div className="flex items-center space-x-2 mb-3">
+                    <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      {currentQ.type.toUpperCase()}
+                    </span>
+                    <span className={`px-3 py-1 rounded-full text-sm font-bold ${
+                      currentQ.difficulty === 'easy' ? 'bg-green-500 text-white' :
+                      currentQ.difficulty === 'medium' ? 'bg-yellow-500 text-white' :
+                      'bg-red-500 text-white'
+                    }`}>
+                      {currentQ.difficulty.toUpperCase()}
+                    </span>
+                  </div>
+                  <h2 className="text-xl font-bold text-white mb-4">{currentQ.question}</h2>
+                </div>
+
+                {/* Question Content */}
+                {currentQ.type === 'recognition' && (
+                  <div className="space-y-3">
+                    {currentQ.options.map((option, index) => (
+                      <button
+                        key={option.id}
+                        onClick={() => submitTestAnswer(option.id)}
+                        className="w-full bg-white/20 hover:bg-white/30 text-white text-left p-4 rounded-xl border border-white/30 transition-colors"
+                      >
+                        {option.text}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {currentQ.type === 'construction' && (
+                  <div>
+                    {/* Selected words */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {selectedTestParts.map((part, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setSelectedTestParts(prev => prev.filter((_, i) => i !== index))}
+                          className="bg-blue-500 text-white px-4 py-2 rounded-lg border border-blue-300 transition-colors"
+                        >
+                          {part}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* Available words */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {currentQ.parts.filter(part => !selectedTestParts.includes(part)).map((part, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setSelectedTestParts(prev => [...prev, part])}
+                          className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg border border-white/30 transition-colors"
+                        >
+                          {part}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    <div className="flex justify-between items-center">
+                      <p className="text-white/80 text-sm">Click words to build your sentence</p>
+                      <button
+                        onClick={() => submitTestAnswer(selectedTestParts)}
+                        disabled={selectedTestParts.length === 0}
+                        className="bg-green-500 hover:bg-green-600 disabled:bg-gray-500 text-white px-4 py-2 rounded-lg transition-colors"
+                      >
+                        Submit Answer
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {currentQ.type === 'translation' && (
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Type your Korean answer here..."
+                      className="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl focus:border-white/50 focus:outline-none text-white placeholder-white/70 text-lg"
+                      onKeyPress={(e) => e.key === 'Enter' && submitTestAnswer(e.target.value)}
+                    />
+                  </div>
+                )}
+
+                {currentQ.type === 'context' && (
+                  <div className="space-y-3">
+                    {currentQ.options.map((option, index) => (
+                      <button
+                        key={option.id}
+                        onClick={() => submitTestAnswer(option.text)}
+                        className="w-full bg-white/20 hover:bg-white/30 text-white text-left p-4 rounded-xl border border-white/30 transition-colors"
+                      >
+                        {option.text}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {currentQ.type === 'correction' && (
+                  <div>
+                    <div className="bg-red-500/20 border border-red-300/30 rounded-xl p-4 mb-4">
+                      <p className="text-white font-mono">{currentQ.incorrect}</p>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Type the corrected sentence..."
+                      className="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl focus:border-white/50 focus:outline-none text-white placeholder-white/70 text-lg"
+                      onKeyPress={(e) => e.key === 'Enter' && submitTestAnswer(e.target.value)}
+                    />
+                  </div>
+                )}
+
+                {/* Skip Button */}
+                <div className="mt-6 text-center">
+                  <button 
+                    onClick={() => submitTestAnswer('')} 
+                    className="text-white/60 hover:text-white transition-colors"
+                  >
+                    Skip Question
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (screen === 'test-results') {
+        if (!testResults) {
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+              <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
+                <div className="text-6xl mb-4">📊</div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Loading Results...</h2>
+              </div>
+            </div>
+          );
+        }
+
+        const { tier, score, accuracy, timeUsed, timeLimit, grade, badge, breakdown } = testResults;
+        const tierName = tier === 'beginner' ? '초급' : tier === 'intermediate' ? '중급' : '고급';
+
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 flex items-center justify-center p-4 relative overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute inset-0 overflow-hidden">
+              {[...Array(30)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-4 h-4 bg-white/20 rounded-full animate-bounce"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 3}s`,
+                    animationDuration: `${2 + Math.random() * 2}s`
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-4xl w-full border border-white/30 text-center relative z-10">
+              {/* Header */}
+              <div className="mb-8">
+                <div className="text-6xl mb-4">{badge.icon}</div>
+                <h1 className="text-4xl font-black text-white mb-2">
+                  {tierName} 테스트 완료!
+                </h1>
+                <div className="text-6xl font-bold text-white mb-2">{grade}</div>
+                <p className="text-white font-bold text-xl">{badge.name}</p>
+              </div>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30">
+                  <div className="text-3xl mb-2">📊</div>
+                  <div className="text-2xl font-bold text-white">{accuracy}%</div>
+                  <div className="text-white/80 text-sm">Accuracy</div>
+                </div>
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30">
+                  <div className="text-3xl mb-2">⭐</div>
+                  <div className="text-2xl font-bold text-white">{score}</div>
+                  <div className="text-white/80 text-sm">Score</div>
+                </div>
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30">
+                  <div className="text-3xl mb-2">⏱️</div>
+                  <div className="text-2xl font-bold text-white">{Math.floor(timeUsed / 60)}:{(timeUsed % 60).toString().padStart(2, '0')}</div>
+                  <div className="text-white/80 text-sm">Time Used</div>
+                </div>
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30">
+                  <div className="text-3xl mb-2">✅</div>
+                  <div className="text-2xl font-bold text-white">{testResults.correctAnswers}/{testResults.questionsAnswered}</div>
+                  <div className="text-white/80 text-sm">Correct</div>
+                </div>
+              </div>
+
+              {/* Pattern Breakdown */}
+              <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6 mb-8 border border-white/30">
+                <h3 className="text-2xl font-bold text-white mb-4">Pattern Performance</h3>
+                <div className="space-y-3">
+                  {Object.entries(breakdown).map(([patternId, stats]) => {
+                    const pattern = grammarPatterns[tier]?.find(p => p.id === patternId);
+                    const percentage = Math.round((stats.correct / stats.total) * 100);
+                    return (
+                      <div key={patternId} className="flex items-center justify-between bg-white/10 rounded-lg p-3">
+                        <span className="text-white font-medium">{pattern?.name || 'Unknown Pattern'}</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-24 bg-white/20 rounded-full h-2">
+                            <div 
+                              className={`h-2 rounded-full ${
+                                percentage >= 80 ? 'bg-green-400' :
+                                percentage >= 60 ? 'bg-yellow-400' : 'bg-red-400'
+                              }`}
+                              style={{ width: `${percentage}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-white font-bold">{percentage}%</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="space-y-4">
+                <button 
+                  onClick={() => startTest(tier)} 
+                  className="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:scale-105"
+                >
+                  다시 테스트! (Retake Test)
+                </button>
+                <div className="grid grid-cols-2 gap-4">
+                  <button 
+                    onClick={() => { setSelectedTier(tier); setScreen('pattern-selection'); }} 
+                    className="bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-xl transition-colors border border-white/30"
+                  >
+                    연습하기 (Practice)
+                  </button>
+                  <button 
+                    onClick={() => setScreen('grammar-levels')} 
+                    className="bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-colors border border-white/20"
+                  >
+                    홈으로 (Home)
+                  </button>
+                </div>
               </div>
             </div>
           </div>
