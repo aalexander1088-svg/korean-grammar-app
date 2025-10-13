@@ -1390,295 +1390,292 @@
         return taunts[situation][Math.floor(Math.random() * taunts[situation].length)];
       };
 
-      // Improved Question Bank
+      // Simplified Question Bank - Multiple Choice & True/False Only
       const improvedTestQuestionBank = {
-        beginner: {
-          'N이/가 아니다': [
-            {
-              id: 'beg-1-1',
-              pattern: 'N이/가 아니다',
-              type: 'recognition',
-              question: {
-                korean: '이것은 책___.',
-                prompt: '빈칸에 들어갈 올바른 형태를 고르세요. (This is not a book.)'
-              },
-              options: [
-                { id: 'a', text: '이 아니에요', correct: true },
-                { id: 'b', text: '가 아니에요', correct: false },
-                { id: 'c', text: '을 아니에요', correct: false },
-                { id: 'd', text: '는 아니에요', correct: false }
-              ],
-              explanation: {
-                korean: '받침이 있는 명사(책) 뒤에는 "이 아니다"를 사용합니다. 받침 O → 이 아니다, 받침 X → 가 아니다',
-                english: 'After nouns with final consonant (책), use "이 아니다". With 받침 → 이, Without 받침 → 가',
-                commonMistake: 'Many learners confuse this with subject particles (이/가) but the rule is the same!'
-              },
-              points: 15
-            },
-            {
-              id: 'beg-1-2',
-              pattern: 'N이/가 아니다',
-              type: 'correction',
-              question: {
-                korean: '저는 학생을 아니에요.',
-                prompt: '이 문장의 틀린 부분을 고르세요.'
-              },
-              options: [
-                { id: 'a', text: '을 아니에요 → 이 아니에요', correct: true },
-                { id: 'b', text: '학생 → 학생들', correct: false },
-                { id: 'c', text: '저는 → 제가', correct: false },
-                { id: 'd', text: '틀린 부분이 없어요', correct: false }
-              ],
-              explanation: {
-                korean: '"N을/를 아니다"는 존재하지 않습니다! 항상 "N이/가 아니다"만 가능합니다.',
-                english: '"N을/를 아니다" does NOT exist! Only "N이/가 아니다" is grammatically correct.',
-                commonMistake: 'Learners often use 을/를 because they think of it as an object, but negating nouns requires 이/가.'
-              },
-              points: 20
-            }
-          ],
-          
-          'A/V-지 않다': [
-            {
-              id: 'beg-2-1',
-              pattern: 'A/V-지 않다',
-              type: 'translation',
-              question: {
-                korean: '안 먹어요 = ___',
-                prompt: '"안 먹어요"와 같은 의미의 문장을 고르세요.'
-              },
-              options: [
-                { id: 'a', text: '먹지 않아요', correct: true },
-                { id: 'b', text: '먹이 않아요', correct: false },
-                { id: 'c', text: '먹을 않아요', correct: false },
-                { id: 'd', text: '먹은 않아요', correct: false }
-              ],
-              explanation: {
-                korean: '"안 V" = "V-지 않다" (완전히 같은 의미). 어간 + 지 않다. 먹다 → 먹 + 지 않다',
-                english: '"안 V" = "V-지 않다" (exactly same meaning). Stem + 지 않다. 먹다 → 먹지 않다',
-                commonMistake: 'Do NOT use other connectors like -이, -을, -은 with 않다. Only -지 않다 works!'
-              },
-              points: 15
-            },
-            {
-              id: 'beg-2-2',
-              pattern: 'A/V-지 않다',
-              type: 'recognition',
-              question: {
-                korean: '이 음식은 맵___.',
-                prompt: '"This food is not spicy." - 맵다를 부정형으로 만드세요.'
-              },
-              options: [
-                { id: 'a', text: '지 않아요', correct: true },
-                { id: 'b', text: '지 말아요', correct: false },
-                { id: 'c', text: '지 마세요', correct: false },
-                { id: 'd', text: '지 않습니다', correct: false }
-              ],
-              explanation: {
-                korean: '맵다(ㅂ불규칙) → 맵지 않아요. "-지 말다/-지 마세요"는 금지(Don\'t ~)로 의미가 완전히 다릅니다!',
-                english: '맵다 → 맵지 않아요. "-지 말다/-지 마세요" means prohibition (Don\'t ~), NOT negation!',
-                commonMistake: '-지 않다 (negation: not ~) vs -지 말다 (prohibition: don\'t ~) are completely different!'
-              },
-              points: 20
-            }
-          ],
-          
-          'A/V-아/어서': [
-            {
-              id: 'beg-3-1',
-              pattern: 'A/V-아/어서',
-              type: 'construction',
-              question: {
-                korean: '좋다 → 좋___ / 먹다 → 먹___ / 만나다 → 만나___',
-                prompt: '각 동사의 올바른 -아/어서 형태를 고르세요.'
-              },
-              options: [
-                { id: 'a', text: '아서 / 어서 / 서', correct: true },
-                { id: 'b', text: '어서 / 아서 / 아서', correct: false },
-                { id: 'c', text: '아서 / 어서 / 어서', correct: false },
-                { id: 'd', text: '어서 / 어서 / 서', correct: false }
-              ],
-              explanation: {
-                korean: '모음조화: ㅏ/ㅗ → 아서, 다른모음 → 어서. 예외: 하다 → 해서. 만나다: 나+아→나(축약)',
-                english: 'Vowel harmony: ㅏ/ㅗ → 아서, other vowels → 어서. Exception: 하다 → 해서. 만나다: contraction',
-                commonMistake: 'Pay attention to the LAST vowel before 다: 좋(ㅗ)→아서, 먹(ㅓ)→어서'
-              },
-              points: 25
-            }
-          ],
-          
-          'A/V-(으)ㄴ/는데': [
-            {
-              id: 'beg-4-1',
-              pattern: 'A/V-(으)ㄴ/는데',
-              type: 'recognition',
-              question: {
-                korean: '춥다 → 춥___ / 공부하다 → 공부하___',
-                prompt: '형용사와 동사의 올바른 -는데 형태를 고르세요.'
-              },
-              options: [
-                { id: 'a', text: '은데 / 는데', correct: true },
-                { id: 'b', text: '는데 / 은데', correct: false },
-                { id: 'c', text: '는데 / 는데', correct: false },
-                { id: 'd', text: '은데 / 은데', correct: false }
-              ],
-              explanation: {
-                korean: '핵심 차이! 형용사: -(으)ㄴ데 / 동사 현재: -는데. 춥다(형용사)→춥은데, 공부하다(동사)→공부하는데',
-                english: 'KEY DIFFERENCE! Adjectives: -(으)ㄴ데 / Present verbs: -는데. 춥다(adj)→춥은데, 공부하다(verb)→공부하는데',
-                commonMistake: 'This is the #1 mistake! Adjectives and verbs use different forms with -(으)ㄴ/는데!'
-              },
-              points: 25
-            }
-          ],
-          
-          'V-고 있다': [
-            {
-              id: 'beg-5-1',
-              pattern: 'V-고 있다',
-              type: 'context',
-              question: {
-                korean: '안경을 쓰고 있어요.',
-                prompt: '이 문장의 의미는?'
-              },
-              options: [
-                { id: 'a', text: 'wearing glasses (상태 - state)', correct: true },
-                { id: 'b', text: 'putting on glasses (동작 진행 - action)', correct: false },
-                { id: 'c', text: 'will wear glasses (미래)', correct: false },
-                { id: 'd', text: 'wore glasses (과거)', correct: false }
-              ],
-              explanation: {
-                korean: 'V-고 있다는 두 의미: ①동작 진행(먹고 있어요) ②상태 지속(입고 있어요). 쓰다→상태!',
-                english: 'V-고 있다 has 2 meanings: ①action in progress(eating) ②state/result(wearing). 쓰다→state!',
-                commonMistake: '입다, 쓰다, 신다, 끼다 with -고 있다 = wearing (state), NOT the action of putting on!'
-              },
-              points: 20
-            }
-          ]
-        },
+        beginner: [
+          {
+            id: 'beg-1-1',
+            pattern: 'N이/가 아니다',
+            type: 'recognition',
+            question: '이것은 책___ (This is not a book). 빈칸에 들어갈 것은?',
+            options: [
+              { id: 'a', text: '이 아니에요', correct: true },
+              { id: 'b', text: '가 아니에요', correct: false },
+              { id: 'c', text: '을 아니에요', correct: false },
+              { id: 'd', text: '는 아니에요', correct: false }
+            ],
+            explanation: '받침이 있는 명사(책) 뒤에는 "이 아니다"를 사용합니다.',
+            points: 15
+          },
+          {
+            id: 'beg-1-2',
+            pattern: 'N이/가 아니다',
+            type: 'recognition',
+            question: '저는 학생___ 아니에요 (I am not a student). 빈칸에 들어갈 것은?',
+            options: [
+              { id: 'a', text: '이', correct: true },
+              { id: 'b', text: '가', correct: false },
+              { id: 'c', text: '을', correct: false },
+              { id: 'd', text: '를', correct: false }
+            ],
+            explanation: '학생(받침 있음) → 이 아니다',
+            points: 15
+          },
+          {
+            id: 'beg-1-3',
+            pattern: 'N이/가 아니다',
+            type: 'truefalse',
+            question: '"N을 아니다"는 올바른 문법입니다.',
+            options: [
+              { id: 'a', text: 'True', correct: false },
+              { id: 'b', text: 'False', correct: true }
+            ],
+            explanation: '"N을 아니다"는 존재하지 않습니다. 항상 "N이/가 아니다"만 가능합니다.',
+            points: 15
+          },
+          {
+            id: 'beg-2-1',
+            pattern: 'A/V-지 않다',
+            type: 'recognition',
+            question: '"안 먹어요"와 같은 의미는?',
+            options: [
+              { id: 'a', text: '먹지 않아요', correct: true },
+              { id: 'b', text: '먹이 않아요', correct: false },
+              { id: 'c', text: '먹을 않아요', correct: false },
+              { id: 'd', text: '먹은 않아요', correct: false }
+            ],
+            explanation: '"안 V" = "V-지 않다" (완전히 같은 의미)',
+            points: 15
+          },
+          {
+            id: 'beg-2-2',
+            pattern: 'A/V-지 않다',
+            type: 'recognition',
+            question: '이 음식은 맵___ (This food is not spicy). 빈칸에 들어갈 것은?',
+            options: [
+              { id: 'a', text: '지 않아요', correct: true },
+              { id: 'b', text: '지 말아요', correct: false },
+              { id: 'c', text: '지 마세요', correct: false },
+              { id: 'd', text: '지 않습니다', correct: false }
+            ],
+            explanation: '-지 않다 = 부정 (negation), -지 말다 = 금지 (prohibition)',
+            points: 15
+          },
+          {
+            id: 'beg-3-1',
+            pattern: 'A/V-아/어서',
+            type: 'recognition',
+            question: '"좋다"의 -아/어서 형태는?',
+            options: [
+              { id: 'a', text: '좋아서', correct: true },
+              { id: 'b', text: '좋어서', correct: false },
+              { id: 'c', text: '좋해서', correct: false },
+              { id: 'd', text: '좋은서', correct: false }
+            ],
+            explanation: 'ㅗ → 아서 (모음조화)',
+            points: 15
+          },
+          {
+            id: 'beg-3-2',
+            pattern: 'A/V-아/어서',
+            type: 'recognition',
+            question: '"먹다"의 -아/어서 형태는?',
+            options: [
+              { id: 'a', text: '먹아서', correct: false },
+              { id: 'b', text: '먹어서', correct: true },
+              { id: 'c', text: '먹해서', correct: false },
+              { id: 'd', text: '먹은서', correct: false }
+            ],
+            explanation: 'ㅓ → 어서 (모음조화)',
+            points: 15
+          },
+          {
+            id: 'beg-4-1',
+            pattern: 'A/V-(으)ㄴ/는데',
+            type: 'recognition',
+            question: '"춥다"의 -는데 형태는?',
+            options: [
+              { id: 'a', text: '춥는데', correct: false },
+              { id: 'b', text: '춥은데', correct: true },
+              { id: 'c', text: '추운데', correct: false },
+              { id: 'd', text: '추운데', correct: false }
+            ],
+            explanation: '형용사는 -(으)ㄴ데를 사용합니다',
+            points: 15
+          },
+          {
+            id: 'beg-4-2',
+            pattern: 'A/V-(으)ㄴ/는데',
+            type: 'recognition',
+            question: '"공부하다"의 -는데 형태는?',
+            options: [
+              { id: 'a', text: '공부하는데', correct: true },
+              { id: 'b', text: '공부한데', correct: false },
+              { id: 'c', text: '공부할데', correct: false },
+              { id: 'd', text: '공부하은데', correct: false }
+            ],
+            explanation: '동사 현재형은 -는데를 사용합니다',
+            points: 15
+          },
+          {
+            id: 'beg-5-1',
+            pattern: 'V-고 있다',
+            type: 'recognition',
+            question: '"안경을 쓰고 있어요"의 의미는?',
+            options: [
+              { id: 'a', text: 'wearing glasses', correct: true },
+              { id: 'b', text: 'putting on glasses', correct: false },
+              { id: 'c', text: 'will wear glasses', correct: false },
+              { id: 'd', text: 'wore glasses', correct: false }
+            ],
+            explanation: '입다, 쓰다, 신다 + -고 있다 = 상태 (wearing)',
+            points: 15
+          }
+        ],
         
-        intermediate: {
-          'V-(으)ㄹ 수 있다/없다': [
-            {
-              id: 'int-1-1',
-              pattern: 'V-(으)ㄹ 수 있다/없다',
-              type: 'context',
-              question: {
-                korean: 'A: 한국어를 말할 수 있어요? B: ___',
-                prompt: 'B가 "능력은 있지만 지금은 못한다"고 할 때?'
-              },
-              options: [
-                { id: 'a', text: '할 수 있는데 지금은 못해요', correct: true },
-                { id: 'b', text: '할 수 없어요', correct: false },
-                { id: 'c', text: '할 수 있어요', correct: false },
-                { id: 'd', text: '못 해요', correct: false }
-              ],
-              explanation: {
-                korean: '-(으)ㄹ 수 있다 = 능력/possibility. 못 = 능력 없음/상황. "-(으)ㄹ 수 있는데 못-" = 능력O, 상황X',
-                english: '-(으)ㄹ 수 있다 = ability/possibility. 못 = lack of ability/situation. "-(으)ㄹ 수 있는데 못-" = can but can\'t now',
-                commonMistake: '-(으)ㄹ 수 있다(general ability) ≠ 못(current inability). You need both to show the nuance!'
-              },
-              points: 25
-            }
-          ],
-          
-          'A/V-아/어지다': [
-            {
-              id: 'int-2-1',
-              pattern: 'A/V-아/어지다',
-              type: 'translation',
-              question: {
-                korean: '날씨가 추워졌어요 vs 음악을 크게 했어요',
-                prompt: '두 문장의 차이는?'
-              },
-              options: [
-                { id: 'a', text: '추워지다 = 자연스러운 변화 / 크게 하다 = 사람이 변화시킴', correct: true },
-                { id: 'b', text: '추워지다 = 사람이 변화 / 크게 하다 = 자연 변화', correct: false },
-                { id: 'c', text: '둘 다 자연스러운 변화', correct: false },
-                { id: 'd', text: '둘 다 사람이 변화시킴', correct: false }
-              ],
-              explanation: {
-                korean: 'A-아/어지다 = 자연스러운 변화(스스로). A-게 하다 = 사람이 변화시킴(타인의 동작).',
-                english: 'A-아/어지다 = natural change (itself). A-게 하다 = someone causes change (causative).',
-                commonMistake: 'Change ITSELF (become) = -아/어지다. MAKE something change = -게 하다. Big difference!'
-              },
-              points: 30
-            }
-          ],
-          
-          'A-(으)ㄴ N / V-는 N': [
-            {
-              id: 'int-4-1',
-              pattern: 'A-(으)ㄴ N / V-는 N',
-              type: 'recognition',
-              question: {
-                korean: '맛있___ 음식 / 먹___ 사람',
-                prompt: '형용사와 동사의 올바른 관형형을 고르세요.'
-              },
-              options: [
-                { id: 'a', text: '는 / 는', correct: true },
-                { id: 'b', text: '은 / 는', correct: false },
-                { id: 'c', text: '는 / 은', correct: false },
-                { id: 'd', text: '은 / 은', correct: false }
-              ],
-              explanation: {
-                korean: '중요! 맛있다/없다/재미있다는 예외! 형용사지만 "는"을 사용합니다. 동사도 "는"!',
-                english: 'IMPORTANT! 맛있다/없다/재미있다 are EXCEPTIONS! Though adjectives, they use "는". Verbs also use "는"!',
-                commonMistake: '맛있다 is adj but uses 는 (exception)! Most adjectives: -(으)ㄴ. These special ones: -는'
-              },
-              points: 30
-            }
-          ]
-        },
+        intermediate: [
+          {
+            id: 'int-1-1',
+            pattern: 'V-(으)ㄹ 수 있다/없다',
+            type: 'recognition',
+            question: '"한국어를 말할 수 있어요?"의 의미는?',
+            options: [
+              { id: 'a', text: 'Can you speak Korean?', correct: true },
+              { id: 'b', text: 'Do you want to speak Korean?', correct: false },
+              { id: 'c', text: 'Are you speaking Korean?', correct: false },
+              { id: 'd', text: 'Did you speak Korean?', correct: false }
+            ],
+            explanation: '-(으)ㄹ 수 있다 = ability/possibility',
+            points: 20
+          },
+          {
+            id: 'int-1-2',
+            pattern: 'V-(으)ㄹ 수 있다/없다',
+            type: 'truefalse',
+            question: '"-(으)ㄹ 수 있다"는 능력과 가능성을 나타냅니다.',
+            options: [
+              { id: 'a', text: 'True', correct: true },
+              { id: 'b', text: 'False', correct: false }
+            ],
+            explanation: '맞습니다. -(으)ㄹ 수 있다는 능력과 가능성 두 의미를 가집니다.',
+            points: 20
+          },
+          {
+            id: 'int-2-1',
+            pattern: 'A/V-아/어지다',
+            type: 'recognition',
+            question: '"날씨가 추워졌어요"의 의미는?',
+            options: [
+              { id: 'a', text: 'The weather got cold naturally', correct: true },
+              { id: 'b', text: 'Someone made the weather cold', correct: false },
+              { id: 'c', text: 'The weather is cold', correct: false },
+              { id: 'd', text: 'The weather will be cold', correct: false }
+            ],
+            explanation: '-아/어지다 = 자연스러운 변화 (natural change)',
+            points: 20
+          },
+          {
+            id: 'int-3-1',
+            pattern: 'A-(으)ㄴ N / V-는 N',
+            type: 'recognition',
+            question: '"맛있는 음식"에서 "맛있는"은?',
+            options: [
+              { id: 'a', text: '맛있 + 는 (exception)', correct: true },
+              { id: 'b', text: '맛있 + 은 (regular)', correct: false },
+              { id: 'c', text: '맛있 + ㄴ (regular)', correct: false },
+              { id: 'd', text: '맛있 + 할 (future)', correct: false }
+            ],
+            explanation: '맛있다/없다/재미있다는 예외로 "는"을 사용합니다',
+            points: 20
+          },
+          {
+            id: 'int-4-1',
+            pattern: 'A/V-기 때문에',
+            type: 'recognition',
+            question: '"비가 오기 때문에 우산을 가져갔어요"에서 "오기 때문에"는?',
+            options: [
+              { id: 'a', text: 'because it rains', correct: true },
+              { id: 'b', text: 'if it rains', correct: false },
+              { id: 'c', text: 'when it rains', correct: false },
+              { id: 'd', text: 'after it rains', correct: false }
+            ],
+            explanation: '-기 때문에 = because (이유)',
+            points: 20
+          }
+        ],
         
-        advanced: {
-          'A/V-(으)ㄴ/는/(으)ㄹ 것 같다': [
-            {
-              id: 'adv-1-1',
-              pattern: 'A/V-(으)ㄴ/는/(으)ㄹ 것 같다',
-              type: 'recognition',
-              question: {
-                korean: '비가 오는 것 같아요 / 온 것 같아요 / 올 것 같아요',
-                prompt: '각각의 의미는?'
-              },
-              options: [
-                { id: 'a', text: 'seems to be raining / seems rained / seems will rain', correct: true },
-                { id: 'b', text: 'will rain / is raining / rained', correct: false },
-                { id: 'c', text: 'rained / will rain / is raining', correct: false },
-                { id: 'd', text: '모두 같은 의미', correct: false }
-              ],
-              explanation: {
-                korean: '동사: -는(현재), -(으)ㄴ(과거), -(으)ㄹ(미래) + 것 같다. 시제가 명확히 구분됩니다!',
-                english: 'Verbs: -는(present), -(으)ㄴ(past), -(으)ㄹ(future) + 것 같다. Tenses are clearly distinguished!',
-                commonMistake: 'Verbs use different forms for each tense with 것 같다, unlike adjectives which use -(으)ㄴ for all!'
-              },
-              points: 35
-            }
-          ],
-          
-          'V-게 되다': [
-            {
-              id: 'adv-2-1',
-              pattern: 'V-게 되다',
-              type: 'context',
-              question: {
-                korean: '열심히 공부해서 한국어를 잘 하게 됐어요 vs 한국어를 잘 했어요',
-                prompt: '첫 번째 문장의 뉘앙스는?'
-              },
-              options: [
-                { id: 'a', text: '점진적 변화 강조 (gradually came to speak well)', correct: true },
-                { id: 'b', text: '갑자기 잘하게 됨 (suddenly became good)', correct: false },
-                { id: 'c', text: '항상 잘했음 (always was good)', correct: false },
-                { id: 'd', text: '첫 번째와 두 번째가 완전히 같음', correct: false }
-              ],
-              explanation: {
-                korean: 'V-게 되다 = 자연스러운/점진적 변화 강조. 단순 과거보다 과정을 강조합니다!',
-                english: 'V-게 되다 = emphasizes natural/gradual change. Highlights the process more than simple past!',
-                commonMistake: 'Use -게 되다 to show a change happened naturally over time, not suddenly.'
-              },
-              points: 35
-            }
-          ]
-        }
+        advanced: [
+          {
+            id: 'adv-1-1',
+            pattern: 'A/V-(으)ㄴ/는/(으)ㄹ 것 같다',
+            type: 'recognition',
+            question: '"비가 오는 것 같아요"의 의미는?',
+            options: [
+              { id: 'a', text: 'It seems to be raining', correct: true },
+              { id: 'b', text: 'It will rain', correct: false },
+              { id: 'c', text: 'It rained', correct: false },
+              { id: 'd', text: 'It might rain', correct: false }
+            ],
+            explanation: '-는 것 같다 = present tense (현재)',
+            points: 25
+          },
+          {
+            id: 'adv-1-2',
+            pattern: 'A/V-(으)ㄴ/는/(으)ㄹ 것 같다',
+            type: 'recognition',
+            question: '"비가 온 것 같아요"의 의미는?',
+            options: [
+              { id: 'a', text: 'It seems to be raining', correct: false },
+              { id: 'b', text: 'It seems to have rained', correct: true },
+              { id: 'c', text: 'It will rain', correct: false },
+              { id: 'd', text: 'It might rain', correct: false }
+            ],
+            explanation: '-온 것 같다 = past tense (과거)',
+            points: 25
+          },
+          {
+            id: 'adv-2-1',
+            pattern: 'V-게 되다',
+            type: 'recognition',
+            question: '"한국어를 잘 하게 됐어요"의 뉘앙스는?',
+            options: [
+              { id: 'a', text: 'gradual improvement', correct: true },
+              { id: 'b', text: 'sudden change', correct: false },
+              { id: 'c', text: 'always good', correct: false },
+              { id: 'd', text: 'will be good', correct: false }
+            ],
+            explanation: '-게 되다 = 점진적 변화 강조 (emphasizes gradual change)',
+            points: 25
+          },
+          {
+            id: 'adv-3-1',
+            pattern: 'A/V-다가',
+            type: 'recognition',
+            question: '"밥을 먹다가 전화를 받았어요"의 의미는?',
+            options: [
+              { id: 'a', text: 'I was eating when I got a call', correct: true },
+              { id: 'b', text: 'I ate and then got a call', correct: false },
+              { id: 'c', text: 'I will eat and get a call', correct: false },
+              { id: 'd', text: 'I eat to get a call', correct: false }
+            ],
+            explanation: '-다가 = 첫 동작 중단/방해 (first action interrupted)',
+            points: 25
+          },
+          {
+            id: 'adv-4-1',
+            pattern: 'A/V-도록',
+            type: 'recognition',
+            question: '"열심히 공부하도록 노력하세요"에서 "하도록"은?',
+            options: [
+              { id: 'a', text: 'in order to study hard', correct: true },
+              { id: 'b', text: 'because you study hard', correct: false },
+              { id: 'c', text: 'if you study hard', correct: false },
+              { id: 'd', text: 'when you study hard', correct: false }
+            ],
+            explanation: '-도록 = 목적 (purpose/goal)',
+            points: 25
+          }
+        ]
       };
 
       // Test System Functions
@@ -1725,17 +1722,11 @@
         const questions = [];
         
         // Use improved question bank if available for this tier
-        const tierBank = improvedTestQuestionBank[tier];
+        const tierQuestions = improvedTestQuestionBank[tier];
         
-        if (tierBank) {
-          // Collect all available questions from the bank
-          const allBankQuestions = [];
-          Object.values(tierBank).forEach(patternQuestions => {
-            allBankQuestions.push(...patternQuestions);
-          });
-          
+        if (tierQuestions && tierQuestions.length > 0) {
           // Shuffle and select the requested number
-          const shuffledQuestions = shuffleArray(allBankQuestions);
+          const shuffledQuestions = shuffleArray([...tierQuestions]);
           return shuffledQuestions.slice(0, Math.min(questionCount, shuffledQuestions.length));
         }
         
@@ -3658,17 +3649,12 @@
                     </span>
                   </div>
                   <h2 className="text-xl font-bold text-white mb-4">
-                    {currentQ.question?.prompt || currentQ.question}
+                    {currentQ.question}
                   </h2>
-                  {currentQ.question?.korean && (
-                    <div className="text-lg text-white/90 mb-4 font-korean">
-                      {currentQ.question.korean}
-                    </div>
-                  )}
                 </div>
 
                 {/* Question Content */}
-                {currentQ.type === 'recognition' && (
+                {(currentQ.type === 'recognition' || currentQ.type === 'truefalse') && (
                   <div className="space-y-3">
                     {currentQ.options.map((option, index) => (
                       <button
@@ -3891,11 +3877,8 @@
                         </div>
                         
                         <div className="mb-3">
-                          <div className="text-white/90 font-korean text-lg mb-1">
-                            {question?.question?.korean || 'Question text'}
-                          </div>
                           <div className="text-white/80 text-sm">
-                            {question?.question?.prompt || question?.question}
+                            {question?.question}
                           </div>
                         </div>
                         
@@ -3920,13 +3903,7 @@
                           <div className="mt-3 p-3 bg-yellow-500/20 rounded border-l-4 border-yellow-400">
                             <div className="text-yellow-200 font-bold mb-1">Explanation:</div>
                             <div className="text-white/90 text-sm">
-                              <div className="font-korean mb-1">{answer.explanation.korean}</div>
-                              <div className="mb-1">{answer.explanation.english}</div>
-                              {answer.explanation.commonMistake && (
-                                <div className="text-yellow-300 text-xs">
-                                  💡 {answer.explanation.commonMistake}
-                                </div>
-                              )}
+                              {answer.explanation}
                             </div>
                           </div>
                         )}
