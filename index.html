@@ -2842,22 +2842,45 @@
 
         // Browse Mode (Original)
         return (
-          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <button onClick={() => setScreen('tier-selection')} className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors">
+          <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+            {/* Floating mesh blobs */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+              <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+              <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
+            </div>
+            
+            {/* Floating Korean characters */}
+            {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+              <div
+                key={index}
+                className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              >
+                {char}
+              </div>
+            ))}
+
+            <div className="relative z-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/20">
+              <button onClick={() => setScreen('tier-selection')} className="flex items-center text-white/80 hover:text-white mb-6 transition-colors">
                 <ArrowLeft /><span className="ml-2">Back to Menu</span>
               </button>
                 
                 {/* Header */}
                 <div className="text-center mb-8">
                   <div className="flex justify-center mb-4">
-                    <Sparkles className="w-16 h-16 text-teal-600 drop-shadow-lg" />
+                    <Sparkles className="w-16 h-16 text-white drop-shadow-lg" />
                   </div>
-                  <h2 className="text-4xl font-bold bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent mb-2">
+                  <h2 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">
                     Must-Know Korean Phrases
                   </h2>
-                  <p className="text-gray-600 text-lg">필수 한국어 표현</p>
-                  <p className="text-sm text-gray-500 mt-2">Essential phrases for daily conversations</p>
+                  <p className="text-white/80 text-lg">필수 한국어 표현</p>
+                  <p className="text-sm text-white/60 mt-2">Essential phrases for daily conversations</p>
                 </div>
 
               {/* Learning Mode Buttons */}
@@ -2997,25 +3020,38 @@
         // Loading state
         if (vocabularyCards.length === 0) {
           return (
-            <div className="min-h-screen relative">
-              <div className="page-background"></div>
-              <div className="gradient-mesh">
-                <div className="blob-1"></div>
-                <div className="blob-2"></div>
-                <div className="blob-3"></div>
+            <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+              {/* Floating mesh blobs */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+                <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
               </div>
-              {renderFloatingCharacters()}
               
-              <div className="content-container">
-                <div className="glass-card max-w-md">
-                  <button onClick={() => setScreen('tier-selection')} className="btn-secondary mb-6">
-                    <ArrowLeft /><span className="ml-2">Back to Menu</span>
-                  </button>
-                  <div className="text-center">
-                    <div className="loading-spinner mx-auto mb-4"></div>
-                    <h2 className="text-2xl font-bold gradient-text mb-4">Loading Vocabulary...</h2>
-                    <p className="text-gray-600">Please wait while we load the vocabulary cards.</p>
-                  </div>
+              {/* Floating Korean characters */}
+              {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+                <div
+                  key={index}
+                  className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    animationDuration: `${3 + Math.random() * 4}s`
+                  }}
+                >
+                  {char}
+                </div>
+              ))}
+              
+              <div className="relative z-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-md w-full border border-white/20">
+                <button onClick={() => setScreen('tier-selection')} className="flex items-center text-white/80 hover:text-white mb-6 transition-colors">
+                  <ArrowLeft /><span className="ml-2">Back to Menu</span>
+                </button>
+                <div className="text-center">
+                  <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+                  <h2 className="text-2xl font-bold text-white mb-4 drop-shadow-lg">Loading Vocabulary...</h2>
+                  <p className="text-white/80">Please wait while we load the vocabulary cards.</p>
                 </div>
               </div>
             </div>
@@ -3027,21 +3063,44 @@
         const isLastCard = currentVocabularyCard === vocabularyCards.length - 1;
 
         return (
-          <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-4xl w-full">
+          <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+            {/* Floating mesh blobs */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+              <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+              <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
+            </div>
+            
+            {/* Floating Korean characters */}
+            {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+              <div
+                key={index}
+                className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              >
+                {char}
+              </div>
+            ))}
+
+            <div className="relative z-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-4xl w-full border border-white/20">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-8">
-                  <button onClick={() => setScreen('tier-selection')} className="flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+                  <button onClick={() => setScreen('tier-selection')} className="flex items-center text-white/80 hover:text-white transition-colors">
                     <ArrowLeft /><span className="ml-2">Back to Menu</span>
                   </button>
                   <div className="text-center">
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                    <h2 className="text-3xl font-bold text-white drop-shadow-lg">
                       Vocabulary Flashcards
                     </h2>
-                    <p className="text-gray-600">어휘 플래시카드</p>
+                    <p className="text-white/80">어휘 플래시카드</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-orange-600">
+                    <div className="text-lg font-bold text-white drop-shadow-lg">
                       Card {currentVocabularyCard + 1} of {vocabularyCards.length}
                     </div>
                   </div>
@@ -3594,11 +3653,34 @@
       if (screen === 'test-mode') {
         if (!testQuestions.length || currentTestQuestion >= testQuestions.length) {
           return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-              <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
+            <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+              {/* Floating mesh blobs */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+                <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
+              </div>
+              
+              {/* Floating Korean characters */}
+              {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+                <div
+                  key={index}
+                  className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    animationDuration: `${3 + Math.random() * 4}s`
+                  }}
+                >
+                  {char}
+                </div>
+              ))}
+              
+              <div className="relative z-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-md w-full text-center border border-white/20">
                 <div className="text-6xl mb-4">📝</div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Test Loading...</h2>
-                <button onClick={() => setScreen('grammar-levels')} className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
+                <h2 className="text-2xl font-bold text-white mb-4 drop-shadow-lg">Test Loading...</h2>
+                <button onClick={() => setScreen('grammar-levels')} className="bg-gradient-to-r from-gray-400 to-gray-600 hover:from-gray-500 hover:to-gray-700 text-white px-6 py-2 rounded-lg transition-all duration-300 hover:scale-105">
                   Back to Grammar Levels
                 </button>
               </div>
@@ -3612,13 +3694,29 @@
         const timeSeconds = testTimeRemaining % 60;
 
         return (
-          <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-700 relative overflow-hidden">
-            {/* Background Effects */}
+          <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden">
+            {/* Floating mesh blobs */}
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
-              <div className="absolute top-20 right-20 w-48 h-48 bg-yellow-400/20 rounded-full blur-xl animate-pulse" style={{animationDelay: '1s'}}></div>
-              <div className="absolute bottom-20 left-1/3 w-40 h-40 bg-blue-400/20 rounded-full blur-xl animate-pulse" style={{animationDelay: '2s'}}></div>
+              <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+              <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+              <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
             </div>
+            
+            {/* Floating Korean characters */}
+            {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+              <div
+                key={index}
+                className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              >
+                {char}
+              </div>
+            ))}
 
             {/* Header */}
             <div className="relative z-10 p-6">
@@ -3789,10 +3887,33 @@
       if (screen === 'test-results') {
         if (!testResults) {
           return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-              <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
+            <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+              {/* Floating mesh blobs */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+                <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
+              </div>
+              
+              {/* Floating Korean characters */}
+              {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+                <div
+                  key={index}
+                  className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    animationDuration: `${3 + Math.random() * 4}s`
+                  }}
+                >
+                  {char}
+                </div>
+              ))}
+              
+              <div className="relative z-10 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-md w-full text-center border border-white/20">
                 <div className="text-6xl mb-4">📊</div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Loading Results...</h2>
+                <h2 className="text-2xl font-bold text-white mb-4 drop-shadow-lg">Loading Results...</h2>
               </div>
             </div>
           );
@@ -3802,22 +3923,29 @@
         const tierName = tier === 'beginner' ? '초급' : tier === 'intermediate' ? '중급' : '고급';
 
         return (
-          <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Background Effects */}
+          <div className="min-h-screen bg-gradient-to-br from-violet-400 via-fuchsia-300 to-cyan-300 relative overflow-hidden flex items-center justify-center p-4">
+            {/* Floating mesh blobs */}
             <div className="absolute inset-0 overflow-hidden">
-              {[...Array(30)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-4 h-4 bg-white/20 rounded-full animate-bounce"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    animationDelay: `${Math.random() * 3}s`,
-                    animationDuration: `${2 + Math.random() * 2}s`
-                  }}
-                />
-              ))}
+              <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+              <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
+              <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
             </div>
+            
+            {/* Floating Korean characters */}
+            {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
+              <div
+                key={index}
+                className="absolute text-white/10 text-6xl font-bold pointer-events-none animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              >
+                {char}
+              </div>
+            ))}
 
             <div className="bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-4xl w-full border border-white/30 text-center relative z-10">
               {/* Header */}
