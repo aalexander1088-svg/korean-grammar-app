@@ -1683,7 +1683,11 @@
 
       // Test System Functions
       const startTest = (tier) => {
-        if (!grammarPatterns?.[tier]) return;
+        console.log('startTest called with tier:', tier);
+        if (!grammarPatterns?.[tier]) {
+          console.log('No grammar patterns found for tier:', tier);
+          return;
+        }
         
         const patterns = grammarPatterns[tier];
         const testConfig = {
@@ -1693,7 +1697,10 @@
         };
         
         const config = testConfig[tier];
+        console.log('About to generate questions:', { patterns: patterns.length, config });
+        
         const questions = generateTestQuestions(patterns, config.questions, tier);
+        console.log('Generated questions:', questions.length, questions[0]);
         
         setTestMode(tier);
         setTestQuestions(questions);
@@ -1707,6 +1714,8 @@
         setTestResults(null);
         setTestInProgress(true);
         setScreen('test-mode');
+        
+        console.log('Test started, screen set to test-mode');
         
         // Start timer
         const timer = setInterval(() => {
@@ -1726,6 +1735,8 @@
         
         // Use improved question bank if available for this tier
         const tierBank = improvedTestQuestionBank[tier];
+        console.log('generateTestQuestions called:', { tier, questionCount, hasTierBank: !!tierBank });
+        
         if (tierBank) {
           // Collect all available questions from the bank
           const allBankQuestions = [];
@@ -1733,9 +1744,13 @@
             allBankQuestions.push(...patternQuestions);
           });
           
+          console.log('Bank questions found:', allBankQuestions.length);
+          
           // Shuffle and select the requested number
           const shuffledQuestions = shuffleArray(allBankQuestions);
-          return shuffledQuestions.slice(0, Math.min(questionCount, shuffledQuestions.length));
+          const selectedQuestions = shuffledQuestions.slice(0, Math.min(questionCount, shuffledQuestions.length));
+          console.log('Selected questions:', selectedQuestions.length, selectedQuestions[0]);
+          return selectedQuestions;
         }
         
         // Fallback to original system if no bank questions available
