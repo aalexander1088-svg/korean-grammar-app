@@ -792,6 +792,10 @@
       const [classReviewSelectedLesson, setClassReviewSelectedLesson] = useState(null);
       const [classReviewCurrentCardIndex, setClassReviewCurrentCardIndex] = useState(0);
       const [classReviewShowAnswer, setClassReviewShowAnswer] = useState(false);
+      
+      // Boss Battle Multiple Choice states
+      const [bossMultipleChoiceOptions, setBossMultipleChoiceOptions] = useState([]);
+      const [bossSelectedAnswer, setBossSelectedAnswer] = useState(null);
       const [bossBattleMode, setBossBattleMode] = useState(false);
       const [bossHealth, setBossHealth] = useState(100);
       const [currentBoss, setCurrentBoss] = useState(null);
@@ -1328,32 +1332,145 @@
         setSelectedPattern(bossPattern);
         setDifficulty('advanced');
         
-        // Boss battles always use typing mode for maximum challenge
-        setInputMode('typing');
+        // Boss battles now use multiple choice for better accessibility
+        setInputMode('multiple-choice');
         
-        // Setup question with more distractors for boss battles
-        const correctParts = [...randomSentence.parts];
-        const distractors = [
-          ...distractorWords.advanced,
-          '그러니까', '그런데', '하지만', '그래서', '왜냐하면',
-          '아무리', '비록', '만약', '설령', '혹시',
-          '정말', '정말로', '진짜', '완전히', '정말로'
-        ];
+        // Create multiple choice options for boss battles - SMART TRICKY DISTRACTORS
+        const correctAnswer = randomSentence.parts.join(' ');
+        const wrongOptions = [];
         
-        const numDistractors = 8; // More distractors for boss battles
-        const selectedDistractors = [];
-        const shuffledDistractors = shuffleArray([...distractors]);
-
-        for (let i = 0; i < numDistractors && i < shuffledDistractors.length; i++) {
-          if (!correctParts.includes(shuffledDistractors[i])) {
-            selectedDistractors.push(shuffledDistractors[i]);
+        // Create 3 tricky distractors that are very similar to the correct answer
+        const createTrickyDistractor = (baseAnswer, errorType) => {
+          const parts = [...baseAnswer.split(' ')];
+          
+          switch (errorType) {
+            case 'particle_error':
+              // Change particles (이/가, 을/를, 에/에서, etc.)
+              return parts.map(part => {
+                if (part.includes('이') && !part.includes('이에요')) {
+                  return part.replace('이', '가');
+                } else if (part.includes('가')) {
+                  return part.replace('가', '이');
+                } else if (part.includes('을')) {
+                  return part.replace('을', '를');
+                } else if (part.includes('를')) {
+                  return part.replace('를', '을');
+                } else if (part.includes('에서')) {
+                  return part.replace('에서', '에');
+                } else if (part.includes('에') && !part.includes('에서')) {
+                  return part.replace('에', '에서');
+                }
+                return part;
+              }).join(' ');
+              
+            case 'ending_error':
+              // Change verb/adjective endings
+              return parts.map(part => {
+                if (part.endsWith('아요')) {
+                  return part.replace('아요', '어요');
+                } else if (part.endsWith('어요')) {
+                  return part.replace('어요', '아요');
+                } else if (part.endsWith('해요')) {
+                  return part.replace('해요', '하요');
+                } else if (part.endsWith('에요')) {
+                  return part.replace('에요', '예요');
+                } else if (part.endsWith('예요')) {
+                  return part.replace('예요', '에요');
+                } else if (part.endsWith('습니다')) {
+                  return part.replace('습니다', '어요');
+                } else if (part.endsWith('어요')) {
+                  return part.replace('어요', '습니다');
+                }
+                return part;
+              }).join(' ');
+              
+            case 'word_order_error':
+              // Change word order slightly
+              if (parts.length > 2) {
+                const newParts = [...parts];
+                // Swap adjacent words
+                const swapIndex = Math.floor(Math.random() * (newParts.length - 1));
+                [newParts[swapIndex], newParts[swapIndex + 1]] = [newParts[swapIndex + 1], newParts[swapIndex]];
+                return newParts.join(' ');
+              }
+              return baseAnswer;
+              
+            case 'missing_word':
+              // Remove a word (usually particles or connecting words)
+              if (parts.length > 2) {
+                const wordsToRemove = ['을', '를', '이', '가', '에', '에서', '와', '과', '도', '만', '은', '는'];
+                const removableIndex = parts.findIndex(part => wordsToRemove.includes(part));
+                if (removableIndex !== -1) {
+                  const newParts = [...parts];
+                  newParts.splice(removableIndex, 1);
+                  return newParts.join(' ');
+                }
+              }
+              return baseAnswer;
+              
+            case 'extra_word':
+              // Add an extra particle or word
+              const extraWords = ['을', '를', '이', '가', '에', '도', '만'];
+              const randomExtra = extraWords[Math.floor(Math.random() * extraWords.length)];
+              const insertIndex = Math.floor(Math.random() * (parts.length - 1)) + 1;
+              const newParts = [...parts];
+              newParts.splice(insertIndex, 0, randomExtra);
+              return newParts.join(' ');
+              
+            default:
+              return baseAnswer;
+          }
+        };
+        
+        // Generate 3 different types of tricky errors
+        const errorTypes = ['particle_error', 'ending_error', 'word_order_error', 'missing_word', 'extra_word'];
+        const selectedErrorTypes = shuffleArray(errorTypes).slice(0, 3);
+        
+        selectedErrorTypes.forEach(errorType => {
+          const distractor = createTrickyDistractor(correctAnswer, errorType);
+          if (distractor !== correctAnswer && !wrongOptions.includes(distractor)) {
+            wrongOptions.push(distractor);
+          }
+        });
+        
+        // If we still don't have 3 unique distractors, create more subtle variations
+        while (wrongOptions.length < 3) {
+          const subtleErrors = [
+            // Change tense
+            correctAnswer.replace(/았어요|했어요/g, '어요').replace(/어요/g, '았어요'),
+            // Change politeness level
+            correctAnswer.replace(/습니다/g, '어요').replace(/어요/g, '습니다'),
+            // Change negation
+            correctAnswer.replace(/안 /g, '').replace(/지 않/g, ''),
+            // Add/remove honorific
+            correctAnswer.replace(/드리/g, '주').replace(/주/g, '드리')
+          ];
+          
+          for (const subtle of subtleErrors) {
+            if (subtle !== correctAnswer && !wrongOptions.includes(subtle)) {
+              wrongOptions.push(subtle);
+              break;
+            }
+          }
+          
+          // If still no luck, break to avoid infinite loop
+          if (wrongOptions.length < 3) {
+            break;
           }
         }
-
-        const allParts = [...correctParts, ...selectedDistractors];
-        setShuffledParts(shuffleArray(allParts));
-        setSelectedParts([]);
-        setTypedAnswer('');
+        
+        // Create multiple choice options
+        const allOptions = [correctAnswer, ...wrongOptions.slice(0, 3)];
+        const shuffledOptions = shuffleArray(allOptions);
+        
+        const multipleChoiceOptions = shuffledOptions.map((option, index) => ({
+          id: String.fromCharCode(97 + index), // a, b, c, d
+          text: option,
+          correct: option === correctAnswer
+        }));
+        
+        setBossMultipleChoiceOptions(multipleChoiceOptions);
+        setBossSelectedAnswer(null);
         setShowFeedback(false);
         setIsCorrect(false);
       };
@@ -2239,7 +2356,16 @@
       const checkAnswer = () => {
         let userAnswer;
         let correctAnswer;
+        let correct;
 
+        // Handle boss battle multiple choice
+        if (bossBattleMode && inputMode === 'multiple-choice') {
+          const selectedOption = bossMultipleChoiceOptions.find(opt => opt.id === bossSelectedAnswer);
+          correct = selectedOption ? selectedOption.correct : false;
+          userAnswer = selectedOption ? selectedOption.text : '';
+          correctAnswer = currentSentenceSet.parts.join(' ');
+        } else {
+          // Regular practice logic
         if (selectedPattern.tenseVariations) {
           const currentSentence = currentSentenceSet[currentTense];
           userAnswer = inputMode === 'tap' ? selectedParts.join(' ') : typedAnswer.trim();
@@ -2247,9 +2373,10 @@
         } else {
           userAnswer = inputMode === 'tap' ? selectedParts.join(' ') : typedAnswer.trim();
           correctAnswer = currentSentenceSet.parts.join(' ');
+          }
+          correct = userAnswer === correctAnswer;
         }
 
-        const correct = userAnswer === correctAnswer;
         setIsCorrect(correct);
         setShowFeedback(true);
         setQuestionsAnswered(questionsAnswered + 1);
@@ -3810,27 +3937,48 @@
             {/* Question Section */}
             <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-6 max-w-2xl mx-auto border border-white/20 relative z-10">
               <div className="mb-4 p-3 bg-blue-500/20 rounded-lg border border-blue-300/30">
-                <p className="text-sm font-bold text-white mb-1">⚔️ Attack the boss by translating this:</p>
+                <p className="text-sm font-bold text-white mb-1">⚔️ Attack the boss by choosing the correct Korean:</p>
                 <p className="text-lg font-semibold text-white">{currentSentence.meaning}</p>
               </div>
               
-              <div className="mb-4">
-                <input
-                  type="text"
-                  value={typedAnswer}
-                  onChange={(e) => setTypedAnswer(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && checkAnswer()}
-                  placeholder="Type your Korean answer here..."
-                  className="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl focus:border-white/50 focus:outline-none text-white placeholder-white/70 text-lg"
-                />
+              <div className="mb-4 space-y-3">
+                {bossMultipleChoiceOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => !showFeedback && setBossSelectedAnswer(option.id)}
+                    disabled={showFeedback}
+                    className={`w-full p-4 rounded-xl font-semibold text-lg transition-all duration-300 ${
+                      showFeedback
+                        ? option.correct
+                          ? 'bg-green-500 text-white border-2 border-green-400'
+                          : option.id === bossSelectedAnswer
+                          ? 'bg-red-500 text-white border-2 border-red-400'
+                          : 'bg-gray-600 text-gray-300'
+                        : bossSelectedAnswer === option.id
+                        ? 'bg-yellow-500 text-black border-2 border-yellow-400 hover:bg-yellow-600'
+                        : 'bg-white/20 text-white border-2 border-white/30 hover:bg-white/30 hover:border-white/50'
+                    }`}
+                  >
+                    <span className="font-bold mr-3">{option.id.toUpperCase()}.</span>
+                    {option.text}
+                    {showFeedback && option.correct && (
+                      <span className="ml-3 text-2xl">✅</span>
+                    )}
+                    {showFeedback && option.id === bossSelectedAnswer && !option.correct && (
+                      <span className="ml-3 text-2xl">❌</span>
+                    )}
+                  </button>
+                ))}
               </div>
 
               <button
                 onClick={checkAnswer}
-                disabled={showFeedback}
+                disabled={showFeedback || !bossSelectedAnswer}
                 className={`w-full font-bold py-3 px-6 rounded-xl transition-all duration-300 ${
                   showFeedback 
                     ? (isCorrect ? 'bg-green-500 text-white' : 'bg-red-500 text-white')
+                    : !bossSelectedAnswer
+                    ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
                     : 'bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white hover:scale-105'
                 }`}
               >
@@ -4117,7 +4265,7 @@
                   {testStreak > 0 && <span>Streak: {testStreak} 🔥</span>}
                 </div>
               </div>
-            </div>
+              </div>
 
             {/* Question */}
             <div className="relative z-10 px-6 pb-6">
@@ -4152,9 +4300,9 @@
                         {option.text}
                       </button>
                     ))}
-                  </div>
+                </div>
                 )}
-
+                
                 {currentQ.type === 'construction' && (
                   <div>
                     {/* Selected words */}
@@ -4192,7 +4340,7 @@
                       >
                         Submit Answer
                       </button>
-                    </div>
+                  </div>
                   </div>
                 )}
 
@@ -4210,16 +4358,16 @@
                 {currentQ.type === 'context' && (
                   <div className="space-y-3">
                     {currentQ.options.map((option, index) => (
-                      <button
+                <button
                         key={option.id}
                         onClick={() => submitTestAnswer(option.text)}
                         className="w-full bg-white/20 hover:bg-white/30 text-white text-left p-4 rounded-xl border border-white/30 transition-colors"
                       >
                         {option.text}
-                      </button>
+                </button>
                     ))}
-                  </div>
-                )}
+                      </div>
+                    )}
 
                 {currentQ.type === 'correction' && (
                   <div>
@@ -4243,7 +4391,7 @@
                   >
                     Skip Question
                   </button>
-                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -4260,7 +4408,7 @@
                 <div className="absolute top-40 right-20 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '2s'}}></div>
                 <div className="absolute -bottom-8 left-1/2 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{animationDelay: '4s'}}></div>
               </div>
-              
+
               {/* Floating Korean characters */}
               {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅎ', '가', '나', '다', '라', '마'].map((char, index) => (
                 <div
@@ -4450,7 +4598,7 @@
                     className="bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-colors border border-white/20"
                   >
                     홈으로 (Home)
-                  </button>
+                </button>
                 </div>
               </div>
             </div>
