@@ -794,64 +794,106 @@
       }, [level, grammarPatterns]);
 
       const generateQuestion = (pattern) => {
-        if (!pattern) return "Tell me about something using this grammar pattern.";
+        if (!pattern) return "What's something interesting you want to share?";
         
         const questions = {
-          '는/은': "What did you do today?",
-          '를/을': "What did you eat for lunch?",
-          '에': "Where did you go yesterday?",
-          '에서': "Where do you study Korean?",
-          '하고': "Who do you hang out with?",
-          '도': "What else do you like to do?",
-          '만': "What do you only eat?",
-          '부터': "When do you start work?",
-          '까지': "When do you finish studying?",
-          '에게': "Who do you give gifts to?",
-          '한테': "Who do you talk to?",
-          '께': "Who do you show respect to?",
-          '보다': "What is better than this?",
-          '처럼': "What do you want to be like?",
-          '같이': "Who do you go together with?",
-          '위에': "What is on the table?",
-          '아래에': "What is under the bed?",
-          '앞에': "What is in front of you?",
-          '뒤에': "What is behind you?",
-          '옆에': "Who sits next to you?",
-          '사이에': "What is between two things?",
-          '안에': "What is inside the box?",
-          '밖에': "What is outside the house?",
-          '근처에': "What is near your house?",
-          '멀리에': "What is far from here?",
-          '가다': "Where do you want to go?",
-          '오다': "Who comes to visit you?",
-          '하다': "What do you like to do?",
-          '있다': "What do you have?",
-          '없다': "What don't you have?",
-          '좋다': "What do you think is good?",
-          '나쁘다': "What do you think is bad?",
-          '크다': "What is big?",
-          '작다': "What is small?",
-          '많다': "What do you have a lot of?",
-          '적다': "What do you have little of?",
-          '빠르다': "What is fast?",
-          '느리다': "What is slow?",
-          '비싸다': "What is expensive?",
-          '싸다': "What is cheap?",
-          '어렵다': "What is difficult?",
-          '쉽다': "What is easy?",
-          '재미있다': "What is fun?",
-          '지루하다': "What is boring?",
-          '피곤하다': "When do you feel tired?",
-          '배고프다': "When do you feel hungry?",
-          '목마르다': "When do you feel thirsty?",
-          '춥다': "When is it cold?",
-          '덥다': "When is it hot?",
-          '따뜻하다': "When is it warm?",
-          '시원하다': "When is it cool?"
+          // Time-related patterns
+          '-부터/-까지': "What's your work schedule like? When do you start and finish?",
+          '부터': "When do you start your day? What time do you wake up?",
+          '까지': "When do you finish studying? How long do you study?",
+          
+          // Location patterns
+          '에서': "Where do you study Korean? What's your favorite place to learn?",
+          '에': "Where did you go yesterday? What's your dream destination?",
+          '위에': "What's on your desk right now? What do you keep on your table?",
+          '아래에': "What's under your bed? What do you hide under there?",
+          '앞에': "What's in front of you right now? What do you see?",
+          '뒤에': "What's behind you? What's at the back of your room?",
+          '옆에': "Who sits next to you in class? Who's your neighbor?",
+          '사이에': "What's between two things in your room? What's in the middle?",
+          '안에': "What's inside your bag? What do you keep inside?",
+          '밖에': "What's outside your house? What do you see outside?",
+          '근처에': "What's near your house? What's close to where you live?",
+          '멀리에': "What's far from here? What's in a distant place?",
+          
+          // Object/subject patterns
+          '는/은': "What did you do today? What's your plan for tomorrow?",
+          '를/을': "What did you eat for lunch? What's your favorite food?",
+          '하고': "Who do you hang out with? Who are your best friends?",
+          '도': "What else do you like to do? What other hobbies do you have?",
+          '만': "What do you only eat? What's the one thing you always have?",
+          
+          // Person patterns
+          '에게': "Who do you give gifts to? Who do you care about most?",
+          '한테': "Who do you talk to when you're sad? Who's your confidant?",
+          '께': "Who do you show respect to? Who do you honor in your life?",
+          '같이': "Who do you go together with? Who's your travel buddy?",
+          
+          // Comparison patterns
+          '보다': "What's better than studying? What do you prefer over work?",
+          '처럼': "What do you want to be like? Who's your role model?",
+          
+          // Action patterns
+          '가다': "Where do you want to go? What's your dream destination?",
+          '오다': "Who comes to visit you? Who's coming to see you?",
+          '하다': "What do you like to do? What's your passion?",
+          '있다': "What do you have? What's special in your life?",
+          '없다': "What don't you have? What are you missing?",
+          
+          // Adjective patterns
+          '좋다': "What do you think is good? What makes you happy?",
+          '나쁘다': "What do you think is bad? What annoys you?",
+          '크다': "What is big? What's the biggest thing you've seen?",
+          '작다': "What is small? What's the smallest thing you have?",
+          '많다': "What do you have a lot of? What's abundant in your life?",
+          '적다': "What do you have little of? What's scarce for you?",
+          '빠르다': "What is fast? What moves quickly in your world?",
+          '느리다': "What is slow? What takes forever in your life?",
+          '비싸다': "What is expensive? What costs too much?",
+          '싸다': "What is cheap? What's a great bargain?",
+          '어렵다': "What is difficult? What challenges you?",
+          '쉽다': "What is easy? What comes naturally to you?",
+          '재미있다': "What is fun? What makes you laugh?",
+          '지루하다': "What is boring? What puts you to sleep?",
+          '피곤하다': "When do you feel tired? What exhausts you?",
+          '배고프다': "When do you feel hungry? What makes you crave food?",
+          '목마르다': "When do you feel thirsty? What makes you want water?",
+          '춥다': "When is it cold? What makes you shiver?",
+          '덥다': "When is it hot? What makes you sweat?",
+          '따뜻하다': "When is it warm? What makes you feel cozy?",
+          '시원하다': "When is it cool? What makes you feel refreshed?"
         };
 
-        const patternName = pattern.name || pattern.pattern || 'this pattern';
-        return questions[patternName] || `Tell me about something using ${patternName}.`;
+        // Try to match the pattern name, including partial matches
+        const patternName = pattern.name || pattern.pattern || '';
+        
+        // Check for exact matches first
+        if (questions[patternName]) {
+          return questions[patternName];
+        }
+        
+        // Check for partial matches (e.g., if pattern is "-부터/-까지" and we have "부터" and "까지")
+        for (const [key, question] of Object.entries(questions)) {
+          if (patternName.includes(key) || key.includes(patternName)) {
+            return question;
+          }
+        }
+        
+        // Fallback to exciting generic questions
+        const excitingQuestions = [
+          "What's something exciting that happened to you recently?",
+          "What's your biggest dream or goal?",
+          "What makes you feel most alive?",
+          "What's something you're passionate about?",
+          "What's the most interesting thing about you?",
+          "What would you do if you had unlimited time and money?",
+          "What's something that always makes you smile?",
+          "What's your secret talent or skill?",
+          "What's the best advice you've ever received?",
+          "What's something you want to learn or master?"
+        ];
+        
+        return excitingQuestions[Math.floor(Math.random() * excitingQuestions.length)];
       };
 
       const checkSentence = async () => {
@@ -985,7 +1027,7 @@ Format your response like this:
           {/* Navigation */}
           <div className="flex justify-between">
             <button
-              onClick={() => setScreen('main')}
+              onClick={() => setScreen('tier-selection')}
               className="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors"
             >
               Back to Main Menu
@@ -5987,7 +6029,7 @@ CRITICAL INSTRUCTIONS:
               {/* Header */}
               <div className="text-center mb-12">
                 <button
-                  onClick={() => setScreen('main')}
+                  onClick={() => setScreen('tier-selection')}
                   className="mb-6 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-colors border border-white/30"
                 >
                   ← Back to Main Menu
