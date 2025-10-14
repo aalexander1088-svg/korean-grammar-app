@@ -1,0 +1,19 @@
+{
+  "name": "korean-grammar-app",
+  "version": "1.0.0",
+  "description": "Korean Grammar Practice App",
+  "scripts": {
+    "start": "serve -s .",
+    "build": "echo 'No build needed - static site'",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0",
+    "vite": "^5.4.20"
+  }
+}
