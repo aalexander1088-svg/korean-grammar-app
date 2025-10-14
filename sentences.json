@@ -99,54 +99,54 @@
         "sentences": {
           "beginner": [
             {
-              "past": { "parts": ["친구를", "만나러", "갔어요"], "meaning": "I went to meet a friend" },
-              "present": { "parts": ["친구를", "만나러", "가고", "있어요"], "meaning": "I am going to meet a friend" },
-              "future": { "parts": ["친구를", "만나러", "갈", "거예요"], "meaning": "I will go to meet a friend" }
+              "past": { "parts": ["친구를", "만나러", "카페에", "갔어요"], "meaning": "I went to a cafe to meet a friend" },
+              "present": { "parts": ["친구를", "만나러", "카페에", "가고", "있어요"], "meaning": "I am going to a cafe to meet a friend" },
+              "future": { "parts": ["친구를", "만나러", "카페에", "갈", "거예요"], "meaning": "I will go to a cafe to meet a friend" }
                    },
                    {
-                     "past": { "parts": ["커피를", "마시러", "갔어요"], "meaning": "I went to drink coffee" },
-                     "present": { "parts": ["커피를", "마시러", "가고", "있어요"], "meaning": "I am going to drink coffee" },
-                     "future": { "parts": ["커피를", "마시러", "갈", "거예요"], "meaning": "I will go to drink coffee" }
+                     "past": { "parts": ["커피를", "마시러", "스타벅스에", "갔어요"], "meaning": "I went to Starbucks to drink coffee" },
+                     "present": { "parts": ["커피를", "마시러", "스타벅스에", "가고", "있어요"], "meaning": "I am going to Starbucks to drink coffee" },
+                     "future": { "parts": ["커피를", "마시러", "스타벅스에", "갈", "거예요"], "meaning": "I will go to Starbucks to drink coffee" }
                    },
                    {
-                     "past": { "parts": ["책을", "사러", "갔어요"], "meaning": "I went to buy books" },
-                     "present": { "parts": ["책을", "사러", "가고", "있어요"], "meaning": "I am going to buy books" },
-                     "future": { "parts": ["책을", "사러", "갈", "거예요"], "meaning": "I will go to buy books" }
+                     "past": { "parts": ["책을", "사러", "서점에", "갔어요"], "meaning": "I went to a bookstore to buy books" },
+                     "present": { "parts": ["책을", "사러", "서점에", "가고", "있어요"], "meaning": "I am going to a bookstore to buy books" },
+                     "future": { "parts": ["책을", "사러", "서점에", "갈", "거예요"], "meaning": "I will go to a bookstore to buy books" }
                    },
                    {
-                     "past": { "parts": ["음식을", "먹으러", "갔어요"], "meaning": "I went to eat food" },
-                     "present": { "parts": ["음식을", "먹으러", "가고", "있어요"], "meaning": "I am going to eat food" },
-                     "future": { "parts": ["음식을", "먹으러", "갈", "거예요"], "meaning": "I will go to eat food" }
+                     "past": { "parts": ["장을", "보러", "마트에", "갔어요"], "meaning": "I went to the grocery store to shop" },
+                     "present": { "parts": ["장을", "보러", "마트에", "가고", "있어요"], "meaning": "I am going to the grocery store to shop" },
+                     "future": { "parts": ["장을", "보러", "마트에", "갈", "거예요"], "meaning": "I will go to the grocery store to shop" }
                    },
                    {
-                     "past": { "parts": ["옷을", "사러", "갔어요"], "meaning": "I went to buy clothes" },
-                     "present": { "parts": ["옷을", "사러", "가고", "있어요"], "meaning": "I am going to buy clothes" },
-                     "future": { "parts": ["옷을", "사러", "갈", "거예요"], "meaning": "I will go to buy clothes" }
+                     "past": { "parts": ["옷을", "사러", "백화점에", "갔어요"], "meaning": "I went to the department store to buy clothes" },
+                     "present": { "parts": ["옷을", "사러", "백화점에", "가고", "있어요"], "meaning": "I am going to the department store to buy clothes" },
+                     "future": { "parts": ["옷을", "사러", "백화점에", "갈", "거예요"], "meaning": "I will go to the department store to buy clothes" }
                    },
                    {
-                     "past": { "parts": ["병원에", "가서", "검사받으러", "갔어요"], "meaning": "I went to the hospital to get tested" },
-                     "present": { "parts": ["병원에", "가서", "검사받으러", "가고", "있어요"], "meaning": "I am going to the hospital to get tested" },
-                     "future": { "parts": ["병원에", "가서", "검사받으러", "갈", "거예요"], "meaning": "I will go to the hospital to get tested" }
+                     "past": { "parts": ["검사받으러", "병원에", "갔어요"], "meaning": "I went to the hospital to get tested" },
+                     "present": { "parts": ["검사받으러", "병원에", "가고", "있어요"], "meaning": "I am going to the hospital to get tested" },
+                     "future": { "parts": ["검사받으러", "병원에", "갈", "거예요"], "meaning": "I will go to the hospital to get tested" }
                    },
                    {
-                     "past": { "parts": ["은행에", "가서", "돈을", "찾으러", "갔어요"], "meaning": "I went to the bank to withdraw money" },
-                     "present": { "parts": ["은행에", "가서", "돈을", "찾으러", "가고", "있어요"], "meaning": "I am going to the bank to withdraw money" },
-                     "future": { "parts": ["은행에", "가서", "돈을", "찾으러", "갈", "거예요"], "meaning": "I will go to the bank to withdraw money" }
+                     "past": { "parts": ["돈을", "찾으러", "은행에", "갔어요"], "meaning": "I went to the bank to withdraw money" },
+                     "present": { "parts": ["돈을", "찾으러", "은행에", "가고", "있어요"], "meaning": "I am going to the bank to withdraw money" },
+                     "future": { "parts": ["돈을", "찾으러", "은행에", "갈", "거예요"], "meaning": "I will go to the bank to withdraw money" }
                    },
                    {
-                     "past": { "parts": ["마트에", "가서", "장을", "보러", "갔어요"], "meaning": "I went to the mart to go grocery shopping" },
-                     "present": { "parts": ["마트에", "가서", "장을", "보러", "가고", "있어요"], "meaning": "I am going to the mart to go grocery shopping" },
-                     "future": { "parts": ["마트에", "가서", "장을", "보러", "갈", "거예요"], "meaning": "I will go to the mart to go grocery shopping" }
+                     "past": { "parts": ["장을", "보러", "마트에", "갔어요"], "meaning": "I went to the mart to go grocery shopping" },
+                     "present": { "parts": ["장을", "보러", "마트에", "가고", "있어요"], "meaning": "I am going to the mart to go grocery shopping" },
+                     "future": { "parts": ["장을", "보러", "마트에", "갈", "거예요"], "meaning": "I will go to the mart to go grocery shopping" }
                    },
                    {
-                     "past": { "parts": ["약국에", "가서", "약을", "사러", "갔어요"], "meaning": "I went to the pharmacy to buy medicine" },
-                     "present": { "parts": ["약국에", "가서", "약을", "사러", "가고", "있어요"], "meaning": "I am going to the pharmacy to buy medicine" },
-                     "future": { "parts": ["약국에", "가서", "약을", "사러", "갈", "거예요"], "meaning": "I will go to the pharmacy to buy medicine" }
+                     "past": { "parts": ["약을", "사러", "약국에", "갔어요"], "meaning": "I went to the pharmacy to buy medicine" },
+                     "present": { "parts": ["약을", "사러", "약국에", "가고", "있어요"], "meaning": "I am going to the pharmacy to buy medicine" },
+                     "future": { "parts": ["약을", "사러", "약국에", "갈", "거예요"], "meaning": "I will go to the pharmacy to buy medicine" }
                    },
                    {
-                     "past": { "parts": ["미용실에", "가서", "머리를", "자르러", "갔어요"], "meaning": "I went to the hair salon to get my hair cut" },
-                     "present": { "parts": ["미용실에", "가서", "머리를", "자르러", "가고", "있어요"], "meaning": "I am going to the hair salon to get my hair cut" },
-                     "future": { "parts": ["미용실에", "가서", "머리를", "자르러", "갈", "거예요"], "meaning": "I will go to the hair salon to get my hair cut" }
+                     "past": { "parts": ["머리를", "자르러", "미용실에", "갔어요"], "meaning": "I went to the hair salon to get my hair cut" },
+                     "present": { "parts": ["머리를", "자르러", "미용실에", "가고", "있어요"], "meaning": "I am going to the hair salon to get my hair cut" },
+                     "future": { "parts": ["머리를", "자르러", "미용실에", "갈", "거예요"], "meaning": "I will go to the hair salon to get my hair cut" }
             }
           ],
           "intermediate": [
@@ -176,29 +176,29 @@
             "future": { "parts": ["농구하러", "체육관에", "갈", "거예요"], "meaning": "I will go to the gym to play basketball" }
           },
           {
-            "past": { "parts": ["영화관에", "가서", "새로운", "영화를", "보러", "갔어요"], "meaning": "I went to the cinema to watch a new movie" },
-            "present": { "parts": ["영화관에", "가서", "새로운", "영화를", "보러", "가고", "있어요"], "meaning": "I am going to the cinema to watch a new movie" },
-            "future": { "parts": ["영화관에", "가서", "새로운", "영화를", "보러", "갈", "거예요"], "meaning": "I will go to the cinema to watch a new movie" }
+            "past": { "parts": ["새로운", "영화를", "보러", "영화관에", "갔어요"], "meaning": "I went to the cinema to watch a new movie" },
+            "present": { "parts": ["새로운", "영화를", "보러", "영화관에", "가고", "있어요"], "meaning": "I am going to the cinema to watch a new movie" },
+            "future": { "parts": ["새로운", "영화를", "보러", "영화관에", "갈", "거예요"], "meaning": "I will go to the cinema to watch a new movie" }
           },
           {
-            "past": { "parts": ["카페에", "가서", "일하러", "갔어요"], "meaning": "I went to the cafe to work" },
-            "present": { "parts": ["카페에", "가서", "일하러", "가고", "있어요"], "meaning": "I am going to the cafe to work" },
-            "future": { "parts": ["카페에", "가서", "일하러", "갈", "거예요"], "meaning": "I will go to the cafe to work" }
+            "past": { "parts": ["일하러", "카페에", "갔어요"], "meaning": "I went to the cafe to work" },
+            "present": { "parts": ["일하러", "카페에", "가고", "있어요"], "meaning": "I am going to the cafe to work" },
+            "future": { "parts": ["일하러", "카페에", "갈", "거예요"], "meaning": "I will go to the cafe to work" }
           },
           {
-            "past": { "parts": ["노래방에", "가서", "노래를", "부르러", "갔어요"], "meaning": "I went to the karaoke to sing" },
-            "present": { "parts": ["노래방에", "가서", "노래를", "부르러", "가고", "있어요"], "meaning": "I am going to the karaoke to sing" },
-            "future": { "parts": ["노래방에", "가서", "노래를", "부르러", "갈", "거예요"], "meaning": "I will go to the karaoke to sing" }
+            "past": { "parts": ["노래를", "부르러", "노래방에", "갔어요"], "meaning": "I went to the karaoke to sing" },
+            "present": { "parts": ["노래를", "부르러", "노래방에", "가고", "있어요"], "meaning": "I am going to the karaoke to sing" },
+            "future": { "parts": ["노래를", "부르러", "노래방에", "갈", "거예요"], "meaning": "I will go to the karaoke to sing" }
           },
           {
-            "past": { "parts": ["박물관에", "가서", "전시를", "보러", "갔어요"], "meaning": "I went to the museum to see the exhibition" },
-            "present": { "parts": ["박물관에", "가서", "전시를", "보러", "가고", "있어요"], "meaning": "I am going to the museum to see the exhibition" },
-            "future": { "parts": ["박물관에", "가서", "전시를", "보러", "갈", "거예요"], "meaning": "I will go to the museum to see the exhibition" }
+            "past": { "parts": ["전시를", "보러", "박물관에", "갔어요"], "meaning": "I went to the museum to see the exhibition" },
+            "present": { "parts": ["전시를", "보러", "박물관에", "가고", "있어요"], "meaning": "I am going to the museum to see the exhibition" },
+            "future": { "parts": ["전시를", "보러", "박물관에", "갈", "거예요"], "meaning": "I will go to the museum to see the exhibition" }
           },
           {
-            "past": { "parts": ["서점에", "가서", "새로운", "책을", "사러", "갔어요"], "meaning": "I went to the bookstore to buy a new book" },
-            "present": { "parts": ["서점에", "가서", "새로운", "책을", "사러", "가고", "있어요"], "meaning": "I am going to the bookstore to buy a new book" },
-            "future": { "parts": ["서점에", "가서", "새로운", "책을", "사러", "갈", "거예요"], "meaning": "I will go to the bookstore to buy a new book" }
+            "past": { "parts": ["새로운", "책을", "사러", "서점에", "갔어요"], "meaning": "I went to the bookstore to buy a new book" },
+            "present": { "parts": ["새로운", "책을", "사러", "서점에", "가고", "있어요"], "meaning": "I am going to the bookstore to buy a new book" },
+            "future": { "parts": ["새로운", "책을", "사러", "서점에", "갈", "거예요"], "meaning": "I will go to the bookstore to buy a new book" }
             }
           ],
           "advanced": [
