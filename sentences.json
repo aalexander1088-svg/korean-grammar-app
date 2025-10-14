@@ -1536,54 +1536,54 @@
         "sentences": {
           "beginner": [
             {
-              "past": { "parts": ["웃게", "했어요"], "meaning": "I made them laugh" },
+              "past": { "parts": ["웃었어요"], "meaning": "I laughed" },
               "present": { "parts": ["웃게", "해요"], "meaning": "I make them laugh" },
               "future": { "parts": ["웃게", "할", "거예요"], "meaning": "I will make them laugh" }
           },
           {
-            "past": { "parts": ["울게", "했어요"], "meaning": "I made them cry" },
+            "past": { "parts": ["울었어요"], "meaning": "I cried" },
             "present": { "parts": ["울게", "해요"], "meaning": "I make them cry" },
             "future": { "parts": ["울게", "할", "거예요"], "meaning": "I will make them cry" }
           },
           {
-            "past": { "parts": ["춤추게", "했어요"], "meaning": "I made them dance" },
+            "past": { "parts": ["춤췄어요"], "meaning": "I danced" },
             "present": { "parts": ["춤추게", "해요"], "meaning": "I make them dance" },
             "future": { "parts": ["춤추게", "할", "거예요"], "meaning": "I will make them dance" }
           },
           {
-            "past": { "parts": ["노래하게", "했어요"], "meaning": "I made them sing" },
+            "past": { "parts": ["노래했어요"], "meaning": "I sang" },
             "present": { "parts": ["노래하게", "해요"], "meaning": "I make them sing" },
             "future": { "parts": ["노래하게", "할", "거예요"], "meaning": "I will make them sing" }
           },
           {
-            "past": { "parts": ["걷게", "했어요"], "meaning": "I made them walk" },
+            "past": { "parts": ["걸었어요"], "meaning": "I walked" },
             "present": { "parts": ["걷게", "해요"], "meaning": "I make them walk" },
             "future": { "parts": ["걷게", "할", "거예요"], "meaning": "I will make them walk" }
             }
           ],
           "intermediate": [
             {
-              "past": { "parts": ["아이를", "자게", "했어요"], "meaning": "I made the child sleep" },
+              "past": { "parts": ["아이를", "잠재웠어요"], "meaning": "I put the child to sleep" },
               "present": { "parts": ["아이를", "자게", "해요"], "meaning": "I make the child sleep" },
               "future": { "parts": ["아이를", "자게", "할", "거예요"], "meaning": "I will make the child sleep" }
           },
           {
-            "past": { "parts": ["친구를", "기다리게", "했어요"], "meaning": "I made my friend wait" },
+            "past": { "parts": ["친구를", "기다렸어요"], "meaning": "I waited for my friend" },
             "present": { "parts": ["친구를", "기다리게", "해요"], "meaning": "I make my friend wait" },
             "future": { "parts": ["친구를", "기다리게", "할", "거예요"], "meaning": "I will make my friend wait" }
           },
           {
-            "past": { "parts": ["학생을", "읽게", "했어요"], "meaning": "I made the student read" },
+            "past": { "parts": ["학생과", "함께", "읽었어요"], "meaning": "I read with the student" },
             "present": { "parts": ["학생을", "읽게", "해요"], "meaning": "I make the student read" },
             "future": { "parts": ["학생을", "읽게", "할", "거예요"], "meaning": "I will make the student read" }
           },
           {
-            "past": { "parts": ["아이를", "먹게", "했어요"], "meaning": "I made the child eat" },
+            "past": { "parts": ["아이와", "함께", "먹었어요"], "meaning": "I ate with the child" },
             "present": { "parts": ["아이를", "먹게", "해요"], "meaning": "I make the child eat" },
             "future": { "parts": ["아이를", "먹게", "할", "거예요"], "meaning": "I will make the child eat" }
           },
           {
-            "past": { "parts": ["친구를", "웃게", "했어요"], "meaning": "I made my friend laugh" },
+            "past": { "parts": ["친구와", "함께", "웃었어요"], "meaning": "I laughed with my friend" },
             "present": { "parts": ["친구를", "웃게", "해요"], "meaning": "I make my friend laugh" },
             "future": { "parts": ["친구를", "웃게", "할", "거예요"], "meaning": "I will make my friend laugh" }
             }
@@ -1927,32 +1927,32 @@
       "tenseVariations": false,
       "sentences": {
         "beginner": [
-          { "parts": ["어제", "친구를", "웃게", "했어요"], "meaning": "I made my friend laugh yesterday" },
-          { "parts": ["지난주에", "아이를", "자게", "했어요"], "meaning": "I made the child sleep last week" },
-          { "parts": ["어제", "학생을", "읽게", "했어요"], "meaning": "I made the student read yesterday" },
-          { "parts": ["지난달에", "친구를", "기다리게", "했어요"], "meaning": "I made my friend wait last month" },
-          { "parts": ["어제", "아이를", "먹게", "했어요"], "meaning": "I made the child eat yesterday" }
+          { "parts": ["어제", "친구와", "함께", "웃었어요"], "meaning": "Yesterday, I laughed with my friend" },
+          { "parts": ["지난주에", "아이를", "잠재워줬어요"], "meaning": "Last week, I put the child to sleep" },
+          { "parts": ["어제", "학생과", "함께", "책을", "읽었어요"], "meaning": "Yesterday, I read a book with the student" },
+          { "parts": ["지난달에", "친구를", "만나러", "갔어요"], "meaning": "Last month, I went to meet my friend" },
+          { "parts": ["어제", "아이와", "함께", "식사를", "했어요"], "meaning": "Yesterday, I had a meal with the child" }
         ],
         "intermediate": [
-          { "parts": ["작년에", "팀을", "협력하게", "했어요"], "meaning": "I made the team cooperate last year" },
-          { "parts": ["지난주에", "직원들을", "일찍", "오게", "했어요"], "meaning": "I made the employees come early last week" },
-          { "parts": ["어제", "학생들을", "조용하게", "했어요"], "meaning": "I made the students quiet yesterday" },
-          { "parts": ["지난달에", "아이들을", "춤추게", "했어요"], "meaning": "I made the children dance last month" },
-          { "parts": ["작년에", "친구를", "노래하게", "했어요"], "meaning": "I made my friend sing last year" }
+          { "parts": ["작년에", "팀과", "함께", "협력했어요"], "meaning": "Last year, I cooperated with the team" },
+          { "parts": ["지난주에", "직원들과", "일찍", "출근했어요"], "meaning": "Last week, I came to work early with the employees" },
+          { "parts": ["어제", "학생들이", "조용해지도록", "도와줬어요"], "meaning": "Yesterday, I helped the students become quiet" },
+          { "parts": ["지난달에", "아이들과", "춤을", "춰봤어요"], "meaning": "Last month, I danced with the children" },
+          { "parts": ["작년에", "친구와", "함께", "노래했어요"], "meaning": "Last year, I sang with my friend" }
         ],
         "advanced": [
-          { "parts": ["지난", "프로젝트에서", "회사를", "성공하게", "했어요"], "meaning": "I made the company successful in the last project" },
-          { "parts": ["작년에", "그를", "행복하게", "했어요"], "meaning": "I made him happy last year" },
-          { "parts": ["지난주에", "시장을", "활성화하게", "했어요"], "meaning": "I made the market active last week" },
-          { "parts": ["어제", "문화를", "발전하게", "했어요"], "meaning": "I made culture develop yesterday" },
-          { "parts": ["지난달에", "사회를", "더", "좋게", "했어요"], "meaning": "I made society better last month" }
+          { "parts": ["지난", "프로젝트에서", "팀원들을", "도와서", "성공하게", "했어요"], "meaning": "I made the team successful in the last project by helping them" },
+          { "parts": ["작년에", "친구를", "위로해서", "행복하게", "했어요"], "meaning": "I made my friend happy last year by comforting them" },
+          { "parts": ["지난주에", "친구를", "도와서", "기분이", "좋게", "했어요"], "meaning": "Last week, I made my friend feel good by helping them" },
+          { "parts": ["어제", "동생에게", "선물을", "줘서", "기분이", "좋게", "했어요"], "meaning": "Yesterday, I made my sibling feel good by giving them a gift" },
+          { "parts": ["지난달에", "가족과", "시간을", "보내서", "기분이", "좋게", "했어요"], "meaning": "Last month, I made my family feel good by spending time with them" }
         ],
         "boss": [
-          { "parts": ["어제", "친구를", "기분이", "좋게", "했어요"], "meaning": "Yesterday, I made my friend feel good" },
-          { "parts": ["지난주에", "동생을", "공부하게", "했어요"], "meaning": "Last week, I made my younger sibling study" },
-          { "parts": ["어제", "아이를", "놀게", "했어요"], "meaning": "Yesterday, I made the child play" },
-          { "parts": ["지난달에", "친구를", "웃게", "했어요"], "meaning": "Last month, I made my friend laugh" },
-          { "parts": ["어제", "학생을", "읽게", "했어요"], "meaning": "Yesterday, I made the student read" }
+          { "parts": ["어제", "친구가", "도와달라고", "해서", "도와줬어요"], "meaning": "Yesterday, my friend asked for help so I helped" },
+          { "parts": ["지난주에", "동생이", "숙제를", "도와달라고", "해서", "도와줬어요"], "meaning": "Last week, my sibling asked for help with homework so I helped" },
+          { "parts": ["어제", "아이가", "놀고", "싶어해서", "놀게", "해줬어요"], "meaning": "Yesterday, the child wanted to play so I let them play" },
+          { "parts": ["지난달에", "친구가", "슬퍼해서", "위로해줬어요"], "meaning": "Last month, my friend was sad so I comforted them" },
+          { "parts": ["어제", "학생이", "책을", "읽고", "싶어해서", "읽게", "해줬어요"], "meaning": "Yesterday, the student wanted to read a book so I let them read" }
         ]
       }
     },
@@ -1985,11 +1985,11 @@
           { "parts": ["내년에", "더", "나은", "사람이", "되고", "싶을", "거예요"], "meaning": "I will want to become a better person next year" }
         ],
         "boss": [
-          { "parts": ["내년에", "친구를", "만나고", "싶을", "거예요"], "meaning": "Next year, I will want to meet my friend" },
-          { "parts": ["다음주에", "여행을", "가고", "싶을", "거예요"], "meaning": "Next week, I will want to travel" },
-          { "parts": ["내일", "영화를", "보고", "싶을", "거예요"], "meaning": "Tomorrow, I will want to watch a movie" },
-          { "parts": ["주말에", "쉬고", "싶을", "거예요"], "meaning": "On the weekend, I will want to rest" },
-          { "parts": ["내년에", "운동을", "하고", "싶을", "거예요"], "meaning": "Next year, I will want to exercise" }
+          { "parts": ["내년에", "친구들과", "만나고", "싶을", "거예요"], "meaning": "Next year, I will want to meet with friends" },
+          { "parts": ["다음주에", "제주도로", "여행", "가고", "싶을", "거예요"], "meaning": "Next week, I will want to travel to Jeju Island" },
+          { "parts": ["내일", "새로운", "영화를", "보고", "싶을", "거예요"], "meaning": "Tomorrow, I will want to watch a new movie" },
+          { "parts": ["주말에", "집에서", "쉬고", "싶을", "거예요"], "meaning": "On the weekend, I will want to rest at home" },
+          { "parts": ["내년에", "헬스장에서", "운동하고", "싶을", "거예요"], "meaning": "Next year, I will want to exercise at the gym" }
         ]
       }
     },
@@ -2022,11 +2022,11 @@
           { "parts": ["학습하면서", "이해가", "안", "되어서", "질문했어요"], "meaning": "I asked questions because I didn't understand while learning" }
         ],
         "boss": [
-          { "parts": ["운전하면서", "졸려서", "라디오를", "켰어요"], "meaning": "While driving, I turned on the radio because I was sleepy" },
-          { "parts": ["걸으면서", "더워서", "선풍기를", "들었어요"], "meaning": "While walking, I carried a fan because it was hot" },
-          { "parts": ["공부하면서", "피곤해서", "음악을", "들었어요"], "meaning": "While studying, I listened to music because I was tired" },
-          { "parts": ["요리하면서", "배고파서", "과자를", "먹었어요"], "meaning": "While cooking, I ate snacks because I was hungry" },
-          { "parts": ["청소하면서", "더워서", "창문을", "열었어요"], "meaning": "While cleaning, I opened the window because it was hot" }
+          { "parts": ["운전하면서", "졸려서", "커피를", "마셨어요"], "meaning": "While driving, I drank coffee because I was sleepy" },
+          { "parts": ["걸으면서", "더워서", "그늘에서", "쉬었어요"], "meaning": "While walking, I rested in the shade because it was hot" },
+          { "parts": ["공부하면서", "피곤해서", "잠깐", "쉬었어요"], "meaning": "While studying, I took a short break because I was tired" },
+          { "parts": ["요리하면서", "배고파서", "간식으로", "과일을", "먹었어요"], "meaning": "While cooking, I ate fruit as a snack because I was hungry" },
+          { "parts": ["청소하면서", "더워서", "에어컨을", "켰어요"], "meaning": "While cleaning, I turned on the air conditioner because it was hot" }
         ]
       }
     },
@@ -2059,11 +2059,11 @@
           { "parts": ["새로운", "아파트로", "이사하고", "나서", "이웃들과", "인사를", "해", "봤어요"], "meaning": "After moving to a new apartment, I tried greeting the neighbors" }
         ],
         "boss": [
-          { "parts": ["저녁을", "먹고", "나서", "한국", "드라마를", "봐", "봤어요"], "meaning": "After eating dinner, I tried watching Korean dramas" },
-          { "parts": ["숙제를", "끝내고", "나서", "친구와", "전화를", "해", "봤어요"], "meaning": "After finishing homework, I tried calling my friend" },
-          { "parts": ["운동을", "하고", "나서", "샤워를", "해", "봤어요"], "meaning": "After exercising, I tried taking a shower" },
-          { "parts": ["책을", "읽고", "나서", "일기를", "써", "봤어요"], "meaning": "After reading a book, I tried writing in my diary" },
-          { "parts": ["아침을", "먹고", "나서", "이를", "닦아", "봤어요"], "meaning": "After eating breakfast, I tried brushing my teeth" }
+          { "parts": ["저녁을", "먹고", "나서", "한국", "드라마를", "봤어요"], "meaning": "After eating dinner, I watched Korean dramas" },
+          { "parts": ["숙제를", "끝내고", "나서", "친구와", "전화를", "했어요"], "meaning": "After finishing homework, I called my friend" },
+          { "parts": ["운동을", "하고", "나서", "샤워를", "했어요"], "meaning": "After exercising, I took a shower" },
+          { "parts": ["책을", "읽고", "나서", "일기를", "썼어요"], "meaning": "After reading a book, I wrote in my diary" },
+          { "parts": ["아침을", "먹고", "나서", "이를", "닦았어요"], "meaning": "After eating breakfast, I brushed my teeth" }
         ]
       }
     },
@@ -2096,11 +2096,11 @@
           { "parts": ["날씨가", "계속", "좋으면", "여행을", "계획할", "것", "같아요"], "meaning": "If the weather continues to be good, it seems like I will plan a trip" }
         ],
         "boss": [
-          { "parts": ["내일", "날씨가", "좋으면", "산책할", "것", "같아요"], "meaning": "If the weather is nice tomorrow, it seems like I will take a walk" },
-          { "parts": ["친구가", "시간이", "있으면", "만날", "것", "같아요"], "meaning": "If my friend has time, it seems like I will meet them" },
-          { "parts": ["시험이", "쉬우면", "일찍", "끝날", "것", "같아요"], "meaning": "If the exam is easy, it seems like it will end early" },
-          { "parts": ["이", "음식이", "맛있으면", "다시", "올", "것", "같아요"], "meaning": "If this food is delicious, it seems like I will come again" },
-          { "parts": ["이", "영화가", "재미있으면", "친구에게", "말할", "것", "같아요"], "meaning": "If this movie is interesting, it seems like I will tell my friend" }
+          { "parts": ["내일", "날씨가", "좋으면", "공원에", "산책하러", "갈", "것", "같아요"], "meaning": "If the weather is nice tomorrow, it seems like I will go to the park for a walk" },
+          { "parts": ["친구가", "시간이", "있으면", "카페에서", "만날", "것", "같아요"], "meaning": "If my friend has time, it seems like we will meet at a cafe" },
+          { "parts": ["시험이", "쉬우면", "일찍", "집에", "갈", "것", "같아요"], "meaning": "If the exam is easy, it seems like I will go home early" },
+          { "parts": ["이", "음식이", "맛있으면", "다음에도", "먹을", "것", "같아요"], "meaning": "If this food is delicious, it seems like I will eat it again next time" },
+          { "parts": ["이", "영화가", "재미있으면", "친구들에게", "추천할", "것", "같아요"], "meaning": "If this movie is interesting, it seems like I will recommend it to my friends" }
         ]
         }
       }

@@ -796,6 +796,27 @@
       // Boss Battle Multiple Choice states
       const [bossMultipleChoiceOptions, setBossMultipleChoiceOptions] = useState([]);
       const [bossSelectedAnswer, setBossSelectedAnswer] = useState(null);
+      
+      // AI Practice states
+      const [aiPracticeMode, setAiPracticeMode] = useState(null); // 'grammar-level', 'random-grammar', 'random-vocab', 'class-review'
+      const [aiSelectedLevel, setAiSelectedLevel] = useState(null); // 'beginner', 'intermediate', 'advanced'
+      const [aiConversationHistory, setAiConversationHistory] = useState([]);
+      const [aiCurrentPrompt, setAiCurrentPrompt] = useState('');
+      const [aiUserInput, setAiUserInput] = useState('');
+      const [aiVocabularyList, setAiVocabularyList] = useState([]);
+      const [aiGrammarPattern, setAiGrammarPattern] = useState('');
+      
+      // Real AI Integration states
+      const [aiApiKey, setAiApiKey] = useState(() => {
+        return localStorage.getItem('korean-ai-api-key') || '';
+      });
+      const [aiApiProvider, setAiApiProvider] = useState(() => {
+        return localStorage.getItem('korean-ai-provider') || 'openai';
+      });
+      const [aiIsLoading, setAiIsLoading] = useState(false);
+      const [aiSettingsOpen, setAiSettingsOpen] = useState(false);
+      const [aiCurrentGrammarPattern, setAiCurrentGrammarPattern] = useState(null);
+      const [aiGrammarQueue, setAiGrammarQueue] = useState([]);
       const [bossBattleMode, setBossBattleMode] = useState(false);
       const [bossHealth, setBossHealth] = useState(100);
       const [currentBoss, setCurrentBoss] = useState(null);
@@ -1278,6 +1299,212 @@
             parts: randomSentence.parts,
             meaning: randomSentence.meaning
           }, null);
+        }
+      };
+
+      // Grammar Practice Functions
+      const generateGrammarQuestion = (level) => {
+        const levelPatterns = grammarPatterns?.[level];
+        if (!levelPatterns || levelPatterns.length === 0) return null;
+        
+        // Get random grammar pattern
+        const randomPattern = levelPatterns[Math.floor(Math.random() * levelPatterns.length)];
+        
+        // Generate question based on grammar pattern
+        const questions = {
+          'beginner': [
+            { pattern: '-려고 하다', question: '오늘 뭐하려고 해요? Use -려고 하다' },
+            { pattern: '-아/어서', question: '어제 왜 늦게 일어났어요? Use -아/어서' },
+            { pattern: '-고 싶어요', question: '어떤 음식을 먹고 싶어요? Use -고 싶어요' },
+            { pattern: '-지 않아요', question: '어떤 걸 싫어해요? Use -지 않아요' },
+            { pattern: '-었/았어요', question: '어제 뭐했어요? Use -었/았어요' },
+            { pattern: '-고 있어요', question: '지금 뭐하고 있어요? Use -고 있어요' },
+            { pattern: '-을/를 좋아해요', question: '어떤 음식을 좋아해요? Use -을/를 좋아해요' },
+            { pattern: '-에서', question: '어디서 일해요? Use -에서' }
+          ],
+          'intermediate': [
+            { pattern: '-면서', question: '어떤 걸 하면서 음악을 들어요? Use -면서' },
+            { pattern: '-기 때문에', question: '왜 한국어를 배우고 있어요? Use -기 때문에' },
+            { pattern: '-는 동안', question: '휴가 동안 뭐하고 싶어요? Use -는 동안' },
+            { pattern: '-기로 하다', question: '내일 뭐하기로 했어요? Use -기로 하다' },
+            { pattern: '-는 것 같아요', question: '내일 날씨가 어때요? Use -는 것 같아요' },
+            { pattern: '-아/어야 해요', question: '한국어를 잘하려면 뭘 해야 해요? Use -아/어야 해요' },
+            { pattern: '-을/를 수 있어요', question: '어떤 언어를 할 수 있어요? Use -을/를 수 있어요' },
+            { pattern: '-고 나서', question: '운동하고 나서 뭐해요? Use -고 나서' }
+          ],
+          'advanced': [
+            { pattern: '-더라도', question: '비가 와도 뭘 하고 싶어요? Use -더라도' },
+            { pattern: '-는 바람에', question: '최근에 뭔가 예상치 못한 일이 있었나요? Use -는 바람에' },
+            { pattern: '-기에', question: '왜 그 결정을 내렸나요? Use -기에' },
+            { pattern: '-는 한', question: '어떤 조건에서 그렇게 하시겠어요? Use -는 한' },
+            { pattern: '-는 대로', question: '계획대로 진행되고 있나요? Use -는 대로' },
+            { pattern: '-는 편이에요', question: '어떤 공부 방법이 좋아요? Use -는 편이에요' },
+            { pattern: '-다가는', question: '너무 많이 일하면 어떻게 될까요? Use -다가는' },
+            { pattern: '-는 김에', question: '서울에 가는 김에 뭐하고 싶어요? Use -는 김에' }
+          ]
+        };
+        
+        const levelQuestions = questions[level] || [];
+        const matchingQuestion = levelQuestions.find(q => q.pattern === randomPattern.pattern);
+        
+        console.log('Looking for pattern:', randomPattern.pattern);
+        console.log('Available questions:', levelQuestions.map(q => q.pattern));
+        console.log('Found matching question:', matchingQuestion);
+        
+        // If no specific question found, create a generic one based on the pattern
+        let fallbackQuestion = '';
+        const patternText = randomPattern.pattern || randomPattern.name || 'this grammar pattern';
+        
+        if (level === 'beginner') {
+          fallbackQuestion = `오늘 뭐했어요? Use ${patternText}`;
+        } else if (level === 'intermediate') {
+          fallbackQuestion = `요즘 어떻게 지내세요? Use ${patternText}`;
+        } else {
+          fallbackQuestion = `최근에 관심 있는 주제가 있나요? Use ${patternText}`;
+        }
+        
+        return {
+          pattern: randomPattern,
+          question: matchingQuestion ? matchingQuestion.question : fallbackQuestion
+        };
+      };
+
+      const generateNextGrammarQuestion = () => {
+        if (aiGrammarQueue.length === 0) {
+          // Refill queue with grammar patterns
+          const levelPatterns = grammarPatterns?.[aiSelectedLevel];
+          if (levelPatterns) {
+            const shuffledPatterns = [...levelPatterns].sort(() => Math.random() - 0.5);
+            setAiGrammarQueue(shuffledPatterns);
+          }
+        }
+        
+        if (aiGrammarQueue.length > 0) {
+          const nextPattern = aiGrammarQueue[0];
+          setAiGrammarQueue(prev => prev.slice(1));
+          setAiCurrentGrammarPattern(nextPattern);
+          return generateGrammarQuestion(aiSelectedLevel);
+        }
+        
+        return null;
+      };
+
+      // Real AI Integration Functions
+      const callRealAI = async (userMessage, context) => {
+        if (!aiApiKey) {
+          alert('Please set up your API key in settings first!');
+          return null;
+        }
+
+        setAiIsLoading(true);
+        
+        try {
+          // Get specific grammar patterns and vocabulary for the current practice mode
+          let specificGrammar = '';
+          let specificVocabulary = aiVocabularyList.join(', ');
+          let practiceContext = '';
+
+          // Get grammar patterns based on practice mode
+          if (aiPracticeMode === 'grammar-level' && aiSelectedLevel && grammarPatterns) {
+            const levelPatterns = grammarPatterns[aiSelectedLevel];
+            if (levelPatterns && levelPatterns.length > 0) {
+              const samplePatterns = levelPatterns.slice(0, 3).map(p => p.pattern).join(', ');
+              specificGrammar = `${aiSelectedLevel} level grammar patterns: ${samplePatterns}`;
+            }
+          } else if (aiPracticeMode === 'class-review' && classReviewLessons) {
+            // Get lesson-specific vocabulary and grammar
+            const lesson = classReviewLessons.find(l => aiGrammarPattern.includes(`Lesson ${l.id}`));
+            if (lesson) {
+              specificVocabulary = lesson.vocabulary.slice(0, 8).map(v => v.korean).join(', ');
+              specificGrammar = `Lesson ${lesson.id} grammar: ${lesson.grammar.map(g => g.pattern).join(', ')}`;
+              practiceContext = `Focus on lesson content: ${lesson.title}`;
+            }
+          }
+
+          // Create mode-specific instructions
+          let focusInstructions = '';
+          if (aiPracticeMode === 'grammar-level') {
+            const currentPattern = aiCurrentGrammarPattern;
+            const targetPattern = currentPattern ? currentPattern.pattern : 'specific grammar pattern';
+            
+            focusInstructions = `STRUCTURED GRAMMAR PRACTICE:
+- The student just answered using the grammar pattern: ${targetPattern}
+- CHECK their sentence for grammar mistakes and correct them
+- RESPOND to their content naturally
+- ASK a NEW question with a DIFFERENT grammar pattern to use
+- Format: "Good! [correction if needed] [response to content] [new question] Use [new grammar pattern]"
+- Example: "좋아요! 운동을 하려고 해요. (not 하려고 해요) 운동 좋아하시는군요! 내일 뭐하기로 했어요? Use -기로 하다"`;
+          } else if (aiPracticeMode === 'class-review') {
+            focusInstructions = `VOCABULARY & GRAMMAR FOCUS:
+- Use lesson vocabulary: ${specificVocabulary}
+- Use lesson grammar: ${specificGrammar}
+- Ask questions that require both vocabulary and grammar from the lesson
+- Reference the lesson context: ${practiceContext}`;
+          } else if (aiPracticeMode === 'random-vocab') {
+            focusInstructions = `VOCABULARY FOCUS:
+- Use and encourage the target vocabulary: ${specificVocabulary}
+- Ask questions that naturally require these vocabulary words
+- Don't focus on grammar - focus on vocabulary usage`;
+          } else if (aiPracticeMode === 'random-grammar') {
+            focusInstructions = `GRAMMAR FOCUS:
+- Use and encourage grammar patterns related to: ${specificVocabulary}
+- Ask questions that naturally require these grammar structures
+- Focus on grammar usage in context`;
+          }
+
+          const systemPrompt = `You are a Korean language tutor having a conversation with a student. 
+
+PRACTICE FOCUS:
+- Mode: ${aiPracticeMode}
+- Level: ${aiSelectedLevel || 'mixed'}
+- ${specificGrammar}
+- Target vocabulary: ${specificVocabulary}
+- ${practiceContext}
+
+${focusInstructions}
+
+CRITICAL INSTRUCTIONS:
+- IMMEDIATELY use the target content in your responses
+- Don't use generic greetings - start with content-specific questions
+- Ask questions that require the student to use the target grammar/vocabulary
+- Be conversational but educational
+- Respond in Korean appropriate to their level
+- Give natural examples using the target patterns/words`;
+
+          const messages = [
+            { role: 'system', content: systemPrompt },
+            ...aiConversationHistory.map(msg => ({
+              role: msg.type === 'user' ? 'user' : 'assistant',
+              content: msg.text
+            })),
+            { role: 'user', content: userMessage }
+          ];
+
+          const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${aiApiKey}`
+            },
+            body: JSON.stringify({
+              model: 'gpt-3.5-turbo',
+              messages: messages,
+              max_tokens: 200,
+              temperature: 0.8
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+          }
+
+          const data = await response.json();
+          return data.choices[0].message.content;
+        } catch (error) {
+          console.error('AI API Error:', error);
+          return `죄송해요, API 오류가 발생했어요. 다시 시도해주세요. (${error.message})`;
+        } finally {
+          setAiIsLoading(false);
         }
       };
 
@@ -2612,6 +2839,21 @@
                   </div>
                 </button>
 
+                <button onClick={() => setScreen('ai-practice')} className="group w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-6 px-6 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  
+                  <div className="relative flex items-center justify-center mb-2">
+                    <Brain className="w-8 h-8 mr-3 drop-shadow-lg animate-twinkle" style={{animationDelay: '3.0s'}} />
+                    <span className="text-3xl font-black drop-shadow-lg group-hover:scale-110 transition-transform duration-300">AI 연습</span>
+                  </div>
+                  <div className="relative">
+                    <div className="text-xs font-semibold uppercase tracking-wider opacity-90 mb-1">AI Practice</div>
+                    <div className="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/30 inline-block">
+                      <span className="font-bold drop-shadow">대화 연습</span>
+                    </div>
+                  </div>
+                </button>
+
                 <button onClick={() => setScreen('heat-map')} className="group w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-bold py-6 px-6 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                   
@@ -3780,6 +4022,448 @@
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // AI Practice Screen
+      if (screen === 'ai-practice' && !aiPracticeMode) {
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-4xl">
+              {/* Settings Button */}
+              <div className="absolute top-4 right-4">
+                <button
+                  onClick={() => setAiSettingsOpen(!aiSettingsOpen)}
+                  className="bg-white/10 backdrop-blur-sm text-white py-2 px-4 rounded-lg hover:bg-white/20 transition-all duration-300 border border-white/20"
+                >
+                  ⚙️ API 설정
+                </button>
+              </div>
+
+              {/* API Settings Modal */}
+              {aiSettingsOpen && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                  <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 max-w-md w-full mx-4 border border-white/20">
+                    <h3 className="text-2xl font-bold text-white mb-6">API 설정</h3>
+                    
+                    <div className="mb-4">
+                      <label className="block text-white mb-2">API Provider</label>
+                      <select
+                        value={aiApiProvider}
+                        onChange={(e) => {
+                          setAiApiProvider(e.target.value);
+                          localStorage.setItem('korean-ai-provider', e.target.value);
+                        }}
+                        className="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white"
+                      >
+                        <option value="openai">OpenAI (GPT-3.5)</option>
+                        <option value="anthropic">Anthropic (Claude)</option>
+                        <option value="google">Google (Gemini)</option>
+                      </select>
+                    </div>
+                    
+                    <div className="mb-6">
+                      <label className="block text-white mb-2">API Key</label>
+                      <input
+                        type="password"
+                        value={aiApiKey}
+                        onChange={(e) => {
+                          setAiApiKey(e.target.value);
+                          localStorage.setItem('korean-ai-api-key', e.target.value);
+                        }}
+                        placeholder="Enter your API key"
+                        className="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300"
+                      />
+                      <p className="text-gray-300 text-sm mt-2">
+                        Your API key is stored locally and never shared.
+                      </p>
+                    </div>
+                    
+                    <div className="flex gap-3">
+                      <button
+                        onClick={() => setAiSettingsOpen(false)}
+                        className="flex-1 bg-white/20 text-white py-2 px-4 rounded-lg hover:bg-white/30 transition-colors"
+                      >
+                        닫기
+                      </button>
+                      <button
+                        onClick={() => setAiSettingsOpen(false)}
+                        className="flex-1 bg-emerald-500 text-white py-2 px-4 rounded-lg hover:bg-emerald-600 transition-colors"
+                      >
+                        저장
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="text-center mb-8">
+                <button onClick={() => setScreen('tier-selection')} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to Main Menu</span>
+                </button>
+                <h1 className="text-4xl font-bold text-white mb-2">AI Practice</h1>
+                <p className="text-white/80">Practice Korean conversation with real AI</p>
+              </div>
+
+              {!aiApiKey && (
+                <div className="bg-yellow-500/20 border border-yellow-500/50 rounded-xl p-6 mb-8 max-w-2xl mx-auto">
+                  <div className="text-yellow-300 text-lg font-semibold mb-2">⚠️ API 설정 필요</div>
+                  <p className="text-yellow-200">
+                    AI 대화를 시작하려면 API 키를 설정해주세요. 우측 상단의 설정 버튼을 클릭하세요.
+                  </p>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Grammar Level Practice */}
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                  <h3 className="text-xl font-bold text-emerald-800 mb-4">Grammar Level Practice</h3>
+                  <p className="text-gray-600 mb-4">Practice conversations using specific grammar levels</p>
+                  <button 
+                    onClick={() => setAiPracticeMode('grammar-level')}
+                    className="w-full bg-emerald-500 text-white py-3 px-4 rounded-lg hover:bg-emerald-600 transition-colors font-medium"
+                  >
+                    📚 Choose Grammar Level
+                  </button>
+                </div>
+
+                {/* Random Grammar Practice */}
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                  <h3 className="text-xl font-bold text-blue-800 mb-4">Random Grammar</h3>
+                  <p className="text-gray-600 mb-4">Practice with random grammar patterns from all levels</p>
+                  <button 
+                    onClick={() => {
+                      // Random grammar patterns
+                      const grammarThemes = [
+                        { theme: '과거 경험', vocab: ['어제', '지난주', '작년', '기억', '경험'], prompt: '안녕하세요! 과거 경험에 대해 이야기해봅시다.' },
+                        { theme: '미래 계획', vocab: ['내일', '다음주', '계획', '예정', '목표'], prompt: '안녕하세요! 미래 계획에 대해 이야기해봅시다.' },
+                        { theme: '현재 상황', vocab: ['지금', '요즘', '현재', '상황', '생활'], prompt: '안녕하세요! 현재 상황에 대해 이야기해봅시다.' },
+                        { theme: '감정 표현', vocab: ['기쁘다', '슬프다', '화나다', '놀라다', '걱정'], prompt: '안녕하세요! 감정에 대해 이야기해봅시다.' }
+                      ];
+                      const randomTheme = grammarThemes[Math.floor(Math.random() * grammarThemes.length)];
+                      
+                      setAiPracticeMode('random-grammar');
+                      setAiCurrentPrompt(randomTheme.prompt);
+                      setAiVocabularyList(randomTheme.vocab);
+                      setAiGrammarPattern(`Random grammar - ${randomTheme.theme}`);
+                      setAiConversationHistory([
+                        { type: 'ai', text: randomTheme.prompt }
+                      ]);
+                    }}
+                    className="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+                  >
+                    🎲 Start Random Grammar
+                  </button>
+                </div>
+
+                {/* Random Vocabulary Practice */}
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                  <h3 className="text-xl font-bold text-purple-800 mb-4">Random Vocabulary</h3>
+                  <p className="text-gray-600 mb-4">Practice using random vocabulary words</p>
+                  <button 
+                    onClick={() => {
+                      // Random vocabulary selection
+                      const randomVocabSets = [
+                        ['음식', '요리', '맛', '레스토랑', '식사'],
+                        ['여행', '휴가', '관광', '비행기', '호텔'],
+                        ['취미', '운동', '음악', '독서', '영화'],
+                        ['일', '회사', '동료', '프로젝트', '회의'],
+                        ['가족', '부모', '형제', '자녀', '결혼']
+                      ];
+                      const randomSet = randomVocabSets[Math.floor(Math.random() * randomVocabSets.length)];
+                      
+                      setAiPracticeMode('random-vocab');
+                      const vocabPrompt = `안녕하세요! ${randomSet.slice(0, 3).join(', ')}에 대해 이야기해봅시다.`;
+                      setAiCurrentPrompt(vocabPrompt);
+                      setAiVocabularyList(randomSet);
+                      setAiGrammarPattern('Random vocabulary practice');
+                      setAiConversationHistory([
+                        { type: 'ai', text: vocabPrompt }
+                      ]);
+                    }}
+                    className="w-full bg-purple-500 text-white py-3 px-4 rounded-lg hover:bg-purple-600 transition-colors font-medium"
+                  >
+                    📝 Start Random Vocab
+                  </button>
+                </div>
+
+                {/* Class Review Practice */}
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                  <h3 className="text-xl font-bold text-orange-800 mb-4">Class Review Practice</h3>
+                  <p className="text-gray-600 mb-4">Practice using vocabulary from your lessons</p>
+                  <button 
+                    onClick={() => setAiPracticeMode('class-review')}
+                    className="w-full bg-orange-500 text-white py-3 px-4 rounded-lg hover:bg-orange-600 transition-colors font-medium"
+                  >
+                    📖 Choose Lesson
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // AI Grammar Level Selection Screen
+      if (screen === 'ai-practice' && aiPracticeMode === 'grammar-level' && !aiSelectedLevel) {
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-4xl">
+              <div className="text-center mb-8">
+                <button onClick={() => setAiPracticeMode(null)} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to AI Practice</span>
+                </button>
+                <h1 className="text-4xl font-bold text-white mb-2">Choose Grammar Level</h1>
+                <p className="text-white/80">Select your practice level</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {['beginner', 'intermediate', 'advanced'].map((level) => (
+                  <div key={level} className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <h3 className="text-xl font-bold text-emerald-800 mb-4 capitalize">{level} Level</h3>
+                    <p className="text-gray-600 mb-4">
+                      {level === 'beginner' && 'Practice basic Korean conversation patterns'}
+                      {level === 'intermediate' && 'Practice intermediate grammar and expressions'}
+                      {level === 'advanced' && 'Practice advanced grammar and complex sentences'}
+                    </p>
+                    <button 
+                      onClick={() => {
+                        setAiSelectedLevel(level);
+                        
+                        // Generate immediate grammar question
+                        const grammarQuestion = generateGrammarQuestion(level);
+                        
+                        if (grammarQuestion) {
+                          setAiCurrentPrompt(grammarQuestion.question);
+                          setAiCurrentGrammarPattern(grammarQuestion.pattern);
+                          setAiGrammarPattern(`${level} level grammar patterns`);
+                          setAiVocabularyList([]); // No vocabulary focus for grammar practice
+                          
+                          // Add the first AI question to conversation history immediately
+                          setAiConversationHistory([
+                            { type: 'ai', text: grammarQuestion.question }
+                          ]);
+                          
+                          // Initialize grammar queue
+                          const levelPatterns = grammarPatterns?.[level];
+                          if (levelPatterns) {
+                            const shuffledPatterns = [...levelPatterns].sort(() => Math.random() - 0.5);
+                            setAiGrammarQueue(shuffledPatterns);
+                          }
+                        } else {
+                          // Fallback if no patterns available
+                          setAiCurrentPrompt(`안녕하세요! ${level} 레벨 문법으로 대화해봅시다.`);
+                          setAiGrammarPattern(`${level} level grammar patterns`);
+                          setAiVocabularyList([]);
+                          setAiConversationHistory([]);
+                        }
+                      }}
+                      className="w-full bg-emerald-500 text-white py-3 px-4 rounded-lg hover:bg-emerald-600 transition-colors font-medium"
+                    >
+                      Start {level} Practice
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // AI Class Review Selection Screen
+      if (screen === 'ai-practice' && aiPracticeMode === 'class-review') {
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-4xl">
+              <div className="text-center mb-8">
+                <button onClick={() => setAiPracticeMode(null)} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to AI Practice</span>
+                </button>
+                <h1 className="text-4xl font-bold text-white mb-2">Choose Lesson</h1>
+                <p className="text-white/80">Select a lesson to practice with AI</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {classReviewLessons.map((lesson) => (
+                  <div key={lesson.id} className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <h3 className="text-xl font-bold text-orange-800 mb-4">{lesson.title}</h3>
+                    <p className="text-gray-600 mb-4">Practice using vocabulary from this lesson</p>
+                    <button 
+                      onClick={() => {
+                        // Get lesson vocabulary and grammar
+                        const lessonVocab = lesson.vocabulary.map(v => v.korean);
+                        const lessonGrammar = lesson.grammar.map(g => g.pattern);
+                        
+                        // Create specific prompt using lesson content
+                        const vocabSample = lessonVocab.slice(0, 4).join(', ');
+                        const grammarSample = lessonGrammar[0] || '';
+                        
+                        const lessonPrompt = `안녕하세요! ${lesson.title} 내용으로 대화해봅시다. ${vocabSample} 같은 단어들을 사용해서 이야기해주세요.`;
+                        setAiCurrentPrompt(lessonPrompt);
+                        setAiVocabularyList(lessonVocab);
+                        setAiGrammarPattern(`Lesson ${lesson.id} - ${lesson.title}`);
+                        setAiConversationHistory([
+                          { type: 'ai', text: lessonPrompt }
+                        ]);
+                        
+                        // The conversation screen will render because aiCurrentPrompt is now set
+                      }}
+                      className="w-full bg-orange-500 text-white py-3 px-4 rounded-lg hover:bg-orange-600 transition-colors font-medium"
+                    >
+                      Practice {lesson.title}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // AI Conversation Screen
+      if (screen === 'ai-practice' && (aiPracticeMode === 'random-grammar' || aiPracticeMode === 'random-vocab' || 
+          (aiPracticeMode === 'grammar-level' && aiSelectedLevel) || (aiPracticeMode === 'class-review'))) {
+        return (
+          <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div className="w-full max-w-2xl">
+              <div className="text-center mb-6">
+                <button onClick={() => {
+                  setAiPracticeMode(null);
+                  setAiSelectedLevel(null);
+                  setAiConversationHistory([]);
+                  setAiCurrentPrompt('');
+                  setAiUserInput('');
+                  setAiVocabularyList([]);
+                  setAiGrammarPattern('');
+                }} className="flex items-center text-white hover:text-white/80 transition-colors mb-4 mx-auto">
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span className="font-medium">Back to AI Practice</span>
+                </button>
+                <h2 className="text-2xl font-bold text-white mb-2">AI Conversation Practice</h2>
+                <p className="text-white/80">{aiGrammarPattern || 'Practice Korean conversation'}</p>
+              </div>
+
+              {/* Single Conversation Area */}
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 mb-6 max-h-96 overflow-y-auto">
+                {aiConversationHistory.length === 0 && !aiCurrentPrompt ? (
+                  <div className="text-center text-gray-500">
+                    <p>Starting conversation...</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {aiConversationHistory.map((message, index) => (
+                      <div key={index} className={`flex ${message.type === 'ai' ? 'justify-start' : 'justify-end'}`}>
+                        <div className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
+                          message.type === 'ai' 
+                            ? 'bg-blue-100 text-blue-900 rounded-bl-sm' 
+                            : 'bg-emerald-100 text-emerald-900 rounded-br-sm'
+                        }`}>
+                          {message.type === 'ai' && (
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-lg">🤖</span>
+                              <span className="text-sm font-semibold text-blue-700">AI</span>
+                            </div>
+                          )}
+                          <p className="font-medium leading-relaxed">{message.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                    
+                    {/* Current AI Question */}
+                    {aiCurrentPrompt && (
+                      <div className="flex justify-start">
+                        <div className="max-w-xs lg:max-w-md px-4 py-3 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 text-blue-900 rounded-bl-sm border-2 border-blue-200">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-lg">🤖</span>
+                            <span className="text-sm font-semibold text-blue-700">AI</span>
+                            {aiCurrentGrammarPattern && (
+                              <span className="bg-emerald-200 text-emerald-800 px-2 py-1 rounded-full text-xs font-bold">
+                                {aiCurrentGrammarPattern.pattern}
+                              </span>
+                            )}
+                          </div>
+                          <p className="font-medium leading-relaxed">{aiCurrentPrompt}</p>
+                          
+                          {aiVocabularyList.length > 0 && (
+                            <div className="mt-3 pt-3 border-t border-blue-200">
+                              <p className="text-xs text-blue-700 font-semibold mb-2">Use these words:</p>
+                              <div className="flex flex-wrap gap-1">
+                                {aiVocabularyList.map((word, index) => (
+                                  <span key={index} className="bg-blue-200 text-blue-800 px-2 py-1 rounded text-xs font-medium">
+                                    {word}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* User Input */}
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-4">
+                <textarea
+                  value={aiUserInput}
+                  onChange={(e) => setAiUserInput(e.target.value)}
+                  placeholder="Type your Korean response here..."
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:border-emerald-500 focus:outline-none resize-none"
+                  rows={3}
+                />
+                <button
+                  onClick={async () => {
+                    if (aiUserInput.trim()) {
+                      // Add user message to history
+                      const newHistory = [...aiConversationHistory, 
+                        { type: 'user', text: aiUserInput.trim() }
+                      ];
+                      setAiConversationHistory(newHistory);
+                      
+                      // Generate context for AI
+                      const context = `Practice mode: ${aiPracticeMode}, Grammar level: ${aiSelectedLevel || 'mixed'}, Focus: ${aiGrammarPattern}`;
+
+                      // Call real AI
+                      const aiResponse = await callRealAI(aiUserInput.trim(), context);
+                      
+                      if (aiResponse) {
+                        // Add AI response to history
+                        const updatedHistory = [...newHistory,
+                          { type: 'ai', text: aiResponse }
+                        ];
+                        setAiConversationHistory(updatedHistory);
+                        
+                        // For grammar practice, generate next question
+                        if (aiPracticeMode === 'grammar-level') {
+                          const nextQuestion = generateNextGrammarQuestion();
+                          if (nextQuestion) {
+                            setAiCurrentPrompt(nextQuestion.question);
+                            setAiCurrentGrammarPattern(nextQuestion.pattern);
+                          }
+                        }
+                      }
+
+                      setAiUserInput('');
+                    }
+                  }}
+                  disabled={!aiUserInput.trim() || aiIsLoading || !aiApiKey}
+                  className="mt-3 w-full bg-emerald-500 text-white py-2 px-4 rounded-lg hover:bg-emerald-600 transition-colors font-medium disabled:bg-gray-300 disabled:cursor-not-allowed"
+                >
+                  {aiIsLoading ? 'AI가 생각중...' : !aiApiKey ? 'API 키 필요' : 'Send Response'}
+                </button>
+                
+                {!aiApiKey && (
+                  <div className="text-center text-sm text-gray-600 mt-2">
+                    API 키를 설정하면 실제 AI와 대화할 수 있습니다.
+                  </div>
+                )}
               </div>
             </div>
           </div>
