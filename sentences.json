@@ -11,7 +11,7 @@
             {
               "past": { "parts": ["저는", "학생이었어요"], "meaning": "I was a student" },
               "present": { "parts": ["저는", "학생이에요"], "meaning": "I am a student" },
-              "future": { "parts": ["저는", "학생일", "거예요"], "meaning": "I will be a student" }
+              "future": { "parts": ["저는", "내년에", "대학생이", "될", "거예요"], "meaning": "I will become a college student next year" }
           },
           {
             "past": { "parts": ["저는", "교사였어요"], "meaning": "I was a teacher" },
