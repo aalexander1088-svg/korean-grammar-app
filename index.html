@@ -973,16 +973,26 @@ Format your response like this:
             </div>
 
             {/* Sample Sentences */}
-            {currentPattern.sentences && currentPattern.sentences.beginner && currentPattern.sentences.beginner.length > 0 && currentPattern.sentences.beginner[0] && currentPattern.sentences.beginner[0].present && currentPattern.sentences.beginner[0].present.parts && (
+            {currentPattern.sentences && currentPattern.sentences.beginner && currentPattern.sentences.beginner.length > 0 && (
               <div className="mb-4">
                 <h3 className="text-lg font-semibold text-gray-700 mb-2">Sample Sentences:</h3>
                 <div className="space-y-2">
-                  {currentPattern.sentences.beginner.slice(0, 2).map((sentence, index) => (
-                    <div key={index} className="bg-gray-50 p-3 rounded-lg">
-                      <div className="text-gray-800">{sentence.present.parts.join(' ')}</div>
-                      <div className="text-sm text-gray-600">{sentence.meaning}</div>
-                    </div>
-                  ))}
+                  {currentPattern.sentences.beginner.slice(0, 2).map((sentence, index) => {
+                    // Handle both sentence formats: with present.parts or just parts
+                    const sentenceText = sentence.present && sentence.present.parts 
+                      ? sentence.present.parts.join(' ') 
+                      : sentence.parts 
+                        ? sentence.parts.join(' ') 
+                        : '';
+                    const meaning = sentence.meaning || (sentence.present && sentence.present.meaning) || '';
+                    
+                    return sentenceText ? (
+                      <div key={index} className="bg-gray-50 p-3 rounded-lg">
+                        <div className="text-gray-800">{sentenceText}</div>
+                        <div className="text-sm text-gray-600">{meaning}</div>
+                      </div>
+                    ) : null;
+                  }).filter(Boolean)}
                 </div>
               </div>
             )}
